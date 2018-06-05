@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./components/header'); -%>
+
     <body>
         <!-- Site wrapper -->
         <div class="wrapper">
@@ -40,10 +41,91 @@
                                 <div class="card-body" style="background-color: #f4f6fa;border-color: #f4f6fa;padding: 0px;padding-top: 10px;">
                                     <div class="tab-content">
                                         <div class="tab-pane active show" id="details">
-                                            Detaylar
+                                            <!-- Detail Panel -->
+                                            <!-- /.card-header -->
+                                            <div class="card-body">
+                                                <form role="form" id="addForm">
 
+                                                    <!-- text input -->
+                                                    <div class="form-group">
+                                                        <address>
+                                                            <strong>Admin, Inc.</strong><br>
+                                                            795 Folsom Ave, Suite 600
+                                                            San Francisco, CA 94107
+                                                            Phone: (804) 123-5432
+                                                            Email: info@almasaeedstudio.com
+                                                          </address>
+                                                    </div>
+
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Select Sector</label>
+                                                        <select class="form-control">
+                                                            <option>Sector 1</option>
+                                                            <option>Sector 2</option>
+                                                            <option>Sector 3</option>
+                                                            <option>Sector 4</option>
+                                                            <option>Sector 5</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- textarea -->
+                                                    <div class="form-group">
+                                                        <label>Textarea</label>
+                                                        <textarea class="form-control" rows="4" placeholder="Enter Description..."></textarea>
+                                                    </div>
+
+                                                    <!-- select -->
+                                                    <div class="form-group">
+                                                        <label>Select Location</label>
+                                                        <select class="form-control">
+                                                            <option>Location 1</option>
+                                                            <option>Location 2</option>
+                                                            <option>Location 3</option>
+                                                            <option>Location 4</option>
+                                                            <option>Location 5</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- checkbox -->
+                                                    <div class="form-group">
+                                                        <label>Select DO</label>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="option1">
+                                                                    <label class="form-check-label">DO 1</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="option1">
+                                                                    <label class="form-check-label">DO 2</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="option1">
+                                                                    <label class="form-check-label">DO 3</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" value="option1">
+                                                                    <label class="form-check-label">DO 4</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </form>
+                                            </div>
+                                            <!-- /.card-body -->
+                                           
                                             <!-- /.post -->
                                         </div>
+                                        <!-- /Detail Panel -->
+
                                         <!-- /.tab-pane -->
                                         <div class="tab-pane" id="comments">
                                             <div class="card" style="padding: 10px;">
@@ -161,7 +243,7 @@
                     </div>
                     <!-- /.content-wrapper -->
                     <%- include('./components/footer'); -%>
-        <%- include('./components/right-sidebar'); -%>
+                        <%- include('./components/right-sidebar'); -%>
         </div>
         <!-- ./wrapper -->
         <%- include('./components/scripts'); -%>
