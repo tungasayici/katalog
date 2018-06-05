@@ -16,6 +16,11 @@ router.get('/home', function(req, res, next) {
   res.render('home', { title: 'Express' });
 });
 
+/* GET add page. */
+router.get('/add', function(req, res, next) {
+  res.render('add', { title: 'Express' });
+});
+
 /* GET detail page. */
 router.get('/detail', function(req, res, next) {
   res.render('detail', { title: 'Express' });
