@@ -28,7 +28,7 @@
   ]
 
   $container.append(
-    '<h5>Customize AdminLTE</h5><hr class="mb-2"/>'
+    '<h5>Customize caDOlog</h5><hr class="mb-2"/>'
     + '<h6>Navbar Variants</h6>'
   )
 
