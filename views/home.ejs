@@ -2,159 +2,163 @@
 <html lang="en">
 <%- include('./components/header'); -%>
 
-    <body>
-        <!-- Site wrapper -->
-        <div class="wrapper">
-            <%- include('./components/navbar'); -%>
-                <%- include('./components/sidebar'); -%>
-                    <!-- Content Wrapper. Contains page content -->
-                    <div class="content-wrapper" style="padding: 25px;">
-                        <!-- Content Header (Page header) -->
-                        <section class="content-header">
-                            <div class="container-fluid">
-                                <div class="row mb-2">
-                                    <div class="col-sm-8">
-                                        <h1>All Startups</h1>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <!-- select -->
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Sorting</option>
-                                                <option>Sector 1</option>
-                                                <option>Sector 2</option>
-                                                <option>Sector 3</option>
-                                                <option>Sector 4</option>
-                                                <option>Sector 5</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Filters</option>
-                                                <option>Sector 1</option>
-                                                <option>Sector 2</option>
-                                                <option>Sector 3</option>
-                                                <option>Sector 4</option>
-                                                <option>Sector 5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.container-fluid -->
-                        </section>
-
-                        <!-- Main content -->
-                        <section class="content">
-
-                            <div class="row">
-
-                                <% for(var i=0; i<data.length; i++) {%>
-                                    <div class="col-md-4">
-                                            <%if (data[i].status != null) { %>
-                                                <% if(data[i].status.id == 1){ %>
-                                                    <div class="card card-danger card-outline">
-                                                    <% } else if(data[i].status.id == 2){ %>
-                                                        <div class="card card-warning card-outline">
-                                                        <% } else if(data[i].status.id == 3){ %>
-                                                            <div class="card card-success card-outline">
-                                                            <% }else{ %>
-                                                                <div class="card card-info card-outline">
-                                                                <% } %>
-                                                    <%} else{%>
-                                                        <div class="card card-default card-outline">
-                                                    <%}%>
-                                           
-
-
-                                                            <!-- /.card-header -->
-                                                            <div class="card-body" style="display: block;">
-
-                                                                <h4>
-                                                                    <%= data[i].startup.title %>
-                                                                </h4>
-                                                                <!-- post text -->
-                                                                <p>
-                                                                    <%= data[i].startup.description %>
-                                                                        <a href="detail/<%= data[i].startup.id %>"> See More...</a>
-                                                                </p>
-
-
-                                                                <!-- Social sharing buttons -->
-                                                                <button type="button" class="btn btn-default btn-sm" onclick="$('.toggle-comment-<%= data[i].startup.id %>').toggle(500);">
-                                                                    <i class="fa fa-comments"></i> Comments (
-                                                                    <%= data[i].commentReviews.length %>)</button>
-                                                                <button type="button" class="btn btn-default btn-sm">
-                                                                    <% if(!data[i].liked){ %>
-                                                                        <i class="fa fa-heart" style="color: gray"></i> Like (
-                                                                        <%= data[i].likesList.length %>)</button>
-                                                                <% } else{ %>
-                                                                    <i class="fa fa-heart" style="color: red"></i> Like (
-                                                                    <%= data[i].likesList.length %>)</button>
-                                                                        <% } %>
-
-                                                            </div>
-                                                            <!-- /.card-body -->
-                                                            <div class="toggle-comment-<%= data[i].startup.id %>" style="display: none;">
-                                                                <div class="card-footer card-comments" style="display: block;">
-
-                                                                    <% for(var j=0; j<data[i].commentReviews.length; j++) {%>
-
-
-                                                                        <!-- /.card-comment -->
-                                                                        <div class="card-comment">
-                                                                            <!-- User image -->
-                                                                            <img class="img-circle img-sm" src="<%= data[i].commentReviews[j].consumer.profileImageUrl %>" alt="User Image">
-
-                                                                            <div class="comment-text">
-                                                                                <span class="username">
-                                                                                    <%= data[i].commentReviews[j].consumer.fullName %>
-                                                                                        <span class="text-muted float-right">
-                                                                                            <%= data[i].commentReviews[j].commentReview.createdAt %>
-                                                                                        </span>
-                                                                                </span>
-                                                                                <!-- /.username -->
-                                                                                <%= data[i].commentReviews[j].commentReview.content %>
-                                                                            </div>
-                                                                            <!-- /.comment-text -->
-                                                                        </div>
-                                                                        <!-- /.card-comment -->
-                                                                        <% } %>
-                                                                </div>
-
-                                                                <!-- /.card-footer -->
-                                                                <div class="card-footer" style="display: block;">
-                                                                    <form action="#" method="post">
-                                                                        <img class="img-fluid img-circle img-sm" src="https://s3.eu-west-3.amazonaws.com/invendocdn/img/user4-128x128.jpg" alt="Alt Text">
-                                                                        <!-- .img-push is used to add margin to elements next to floating images -->
-                                                                        <div class="img-push">
-                                                                            <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <!-- /.card-footer -->
-                                                            </div>
-                                    </div>
-                            </div>
-                            <% } %>
-
-
-
-                                <!-- /.row -->
+  <body>
+    <!-- Site wrapper -->
+    <div class="wrapper">
+      <%- include('./components/navbar'); -%>
+        <%- include('./components/sidebar'); -%>
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper" style="padding: 25px;">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-8">
+                    <h1>All Startups</h1>
+                  </div>
+                  <div class="col-sm-2">
+                    <!-- select -->
+                    <div class="form-group">
+                      <select class="form-control">
+                        <option>Sorting</option>
+                        <option>Sector 1</option>
+                        <option>Sector 2</option>
+                        <option>Sector 3</option>
+                        <option>Sector 4</option>
+                        <option>Sector 5</option>
+                      </select>
                     </div>
 
-                    </section>
-                    <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-        <%- include('./components/footer'); -%>
-            <%- include('./components/right-sidebar'); -%>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                      <select class="form-control">
+                        <option>Filters</option>
+                        <option>Sector 1</option>
+                        <option>Sector 2</option>
+                        <option>Sector 3</option>
+                        <option>Sector 4</option>
+                        <option>Sector 5</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+
+              <div class="row">
+
+                <% for(var i=0; i<data.length; i++) {%>
+                  <div class="col-md-4">
+                    <%if (data[i].status != null) { %>
+                      <% if(data[i].status.id == 1){ %>
+                        <div class="card card-danger card-outline">
+                          <% } else if(data[i].status.id == 2){ %>
+                            <div class="card card-warning card-outline">
+                              <% } else if(data[i].status.id == 3){ %>
+                                <div class="card card-success card-outline">
+                                  <% }else{ %>
+                                    <div class="card card-info card-outline">
+                                      <% } %>
+                                        <%} else{%>
+                                          <div class="card card-default card-outline">
+                                            <%}%>
+
+
+
+                                              <!-- /.card-header -->
+                                              <div class="card-body" style="display: block;">
+
+                                                <h4>
+                                                  <%= data[i].startup.title %>
+                                                </h4>
+                                                <!-- post text -->
+                                                <p>
+                                                  <%if (data[i].startup.description.length > 150) {%>
+                                                                      <%= data[i].startup.description.substring(0, 150) %>...
+                                                    <%} else{%>
+                                                      <%= data[i].startup.description %>
+                                                        <%}%>
+                                                          <a href="detail/<%= data[i].startup.id %>"> see more</a>
+                                                </p>
+
+
+                                                <!-- Social sharing buttons -->
+                                                <button type="button" class="btn btn-default btn-sm" onclick="$('.toggle-comment-<%= data[i].startup.id %>').toggle(500);">
+                                                  <i class="fa fa-comments"></i> Comments (
+                                                  <%= data[i].commentReviews.length %>)</button>
+                                                <button type="button" class="btn btn-default btn-sm">
+                                                  <% if(!data[i].liked){ %>
+                                                    <i class="fa fa-heart" style="color: gray"></i> Like (
+                                                    <%= data[i].likesList.length %>)</button>
+                                                <% } else{ %>
+                                                  <i class="fa fa-heart" style="color: red"></i> Like (
+                                                  <%= data[i].likesList.length %>)</button>
+                                                    <% } %>
+
+                                              </div>
+                                              <!-- /.card-body -->
+                                              <div class="toggle-comment-<%= data[i].startup.id %>" style="display: none;">
+                                                <div class="card-footer card-comments" style="display: block;">
+
+                                                  <% for(var j=0; j<data[i].commentReviews.length; j++) {%>
+
+
+                                                    <!-- /.card-comment -->
+                                                    <div class="card-comment">
+                                                      <!-- User image -->
+                                                      <img class="img-circle img-sm" src="<%= data[i].commentReviews[j].consumer.profileImageUrl %>" alt="User Image">
+
+                                                      <div class="comment-text">
+                                                        <span class="username">
+                                                          <%= data[i].commentReviews[j].consumer.fullName %>
+                                                            <span class="text-muted float-right">
+                                                              <%= data[i].commentReviews[j].commentReview.createdAt %>
+                                                            </span>
+                                                        </span>
+                                                        <!-- /.username -->
+                                                        <%= data[i].commentReviews[j].commentReview.content %>
+                                                      </div>
+                                                      <!-- /.comment-text -->
+                                                    </div>
+                                                    <!-- /.card-comment -->
+                                                    <% } %>
+                                                </div>
+
+                                                <!-- /.card-footer -->
+                                                <div class="card-footer" style="display: block;">
+                                                  <form action="#" method="post">
+                                                    <img class="img-fluid img-circle img-sm" src="https://s3.eu-west-3.amazonaws.com/invendocdn/img/user4-128x128.jpg" alt="Alt Text">
+                                                    <!-- .img-push is used to add margin to elements next to floating images -->
+                                                    <div class="img-push">
+                                                      <input type="text" class="form-control form-control-sm" placeholder="Press enter to post comment">
+                                                    </div>
+                                                  </form>
+                                                </div>
+                                                <!-- /.card-footer -->
+                                              </div>
+                                          </div>
+                                    </div>
+                                    <% } %>
+
+
+
+                                      <!-- /.row -->
+                                </div>
+
+            </section>
+            <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+            <%- include('./components/footer'); -%>
+              <%- include('./components/right-sidebar'); -%>
                 </div>
                 <!-- ./wrapper -->
                 <%- include('./components/scripts'); -%>
-    </body>
+  </body>
 
 </html>
