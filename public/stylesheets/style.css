@@ -1,0 +1,61 @@
+.detail-header{
+    text-align: center;
+}
+
+.detail-header-status{
+    display: block;
+    text-align: left !important;
+}
+
+.detail-header-title{
+    font-size: 50px;
+    font-weight: bold;
+    display: block;
+}
+
+.detail-header-sub-title{
+    color:#5c5c5c;
+}
+
+.detail-header-tag{
+    display: block;
+    margin-top: 15px;
+}
+
+.detail-header-tag > a{
+    padding: 0px 3px;
+}
+
+.dot {
+    height: 11px;
+    width: 11px;
+    background-color: #35cd2a;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 2px;
+}
+
+.firm-info > .row{
+    margin-bottom: 10px;
+}
+
+.mailbox-attachments{
+    margin-top: 5px !important;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.mailbox-attachments > div{
+    width: 200px;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.attachment-cover{
+    max-height: 137px;
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+}
