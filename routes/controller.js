@@ -111,7 +111,6 @@ module.exports = router;
 /* Add Startup */
 router.post('/addStartup', function (req, res, next) {
   helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (token) {
-    console.log(token)
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -124,6 +123,28 @@ router.post('/addStartup', function (req, res, next) {
       body: req.body
     }
     console.log(options);
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.send(body);
+      } else {
+        res.send(error);
+      }
+    })
+  });
+});
+
+router.get('/getTags', function (req, res, next) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (token) {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+    var options = {
+      url: 'https://katalog-backend.herokuapp.com/search/tag?like=',
+      method: 'GET',
+      headers: headers
+    }
+    
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);
