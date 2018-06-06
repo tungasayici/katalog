@@ -41,8 +41,7 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
-  console.log(global.AUTHEMAIL + ">>>>" + global.AUTHPASSWORD);
-  helper.tokenControl(global.AUTHEMAIL, global.AUTHPASSWORD, function (response) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
     console.log(response);
     // Set the headers
     var headers = {
@@ -79,7 +78,7 @@ router.get('/add', function (req, res, next) {
 
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
-  helper.tokenControl(global.AUTHEMAIL, global.AUTHPASSWORD, function (response) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
     var headers = {
       'Authorization': response
     }
