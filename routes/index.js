@@ -6,6 +6,7 @@ var constants = require('../utils/constants');
 
 /* GET login page. */
 router.get('/', function (req, res, next) {
+  global.token = undefined;
   res.render('login', {
     title: 'Login'
   });
@@ -13,6 +14,7 @@ router.get('/', function (req, res, next) {
 
 /* GET login page. */
 router.get('/login', function (req, res, next) {
+  global.token = undefined;
   res.render('login', {
     title: 'Login'
   });
