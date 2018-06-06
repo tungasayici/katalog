@@ -4,7 +4,7 @@ var request = require('request');
 var helper = require('../utils/helper');
 var constants = require('../utils/constants');
 
-
+/* Note page */
 router.get('/getStartupLogs/:id', function (req, res, next) {
   helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
 
@@ -26,6 +26,28 @@ router.get('/getStartupLogs/:id', function (req, res, next) {
   });
 });
 
+router.post('/createLog/:id', function (req, res, next) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+    var headers = {
+      'Authorization': response
+    }
+
+    var options = {
+      url: constants.URL + '/startup-log/create/' + req.params.id,
+      method: 'POST',
+      headers: headers,
+      json: true,
+      body: {
+        'content': req.body.content
+      }
+    }
+    request(options, function (error, result, body) {
+      if (!error && result.statusCode == 200) {
+        res.send(result);
+      }
+    })
+  });
+});
 
 /* Get signup page */
 router.post('/signup', function (req, res, next) {
