@@ -1,55 +1,84 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./components/header'); -%>
-<body class="hold-transition login-page">
-    <div class="login-box">
-      <div class="login-logo">
-        <a href="/login">ca<b>DO</b>log</a>
-      </div>
-      <!-- /.login-logo -->
-      <div class="card">
-        <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in to start your session</p>
-    
-          
-            <div class="form-group has-feedback">
-              <input type="email" class="form-control" placeholder="Email">
-              
+
+    <body class="hold-transition login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <a href="/login">ca
+                    <b>DO</b>log</a>
             </div>
-            <div class="form-group has-feedback">
-              <input type="password" class="form-control" placeholder="Password">
-              
+            <!-- /.login-logo -->
+            <div class="card">
+                <div class="card-body login-card-body">
+                    <p class="login-box-msg">Sign in to start your session</p>
+
+
+                    <div class="form-group has-feedback">
+                        <input type="email" class="form-control" id="email" placeholder="Email">
+
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+
+                    </div>
+                    <div class="row">
+
+                        <!-- /.col -->
+                        <div class="col-12">
+                            <a onclick="login()">
+                                <button type="submit" class="btn btn-danger btn-block btn-flat">Sign In</button>
+                            </a>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+
+
+                    <div class="social-auth-links text-center mb-3">
+                        <p>- OR -</p>
+                        <a href="#" class="btn btn-block btn-primary">
+                            <i class="fa fa-linkedin mr-2"></i> Sign in using Linkedin
+                        </a>
+                    </div>
+                    <!-- /.social-auth-links -->
+
+                    <p class="mb-1">
+                        <a href="/forgot-password">I forgot my password</a>
+                    </p>
+                    <p class="mb-0">
+                        <a href="/signup" class="text-center">Register a new membership</a>
+                    </p>
+                </div>
+                <!-- /.login-card-body -->
             </div>
-            <div class="row">
-              
-              <!-- /.col -->
-              <div class="col-12">
-                <a href="/home"><button type="submit" class="btn btn-danger btn-block btn-flat">Sign In</button></a>
-              </div>
-              <!-- /.col -->
-            </div>
-         
-    
-          <div class="social-auth-links text-center mb-3">
-            <p>- OR -</p>
-            <a href="#" class="btn btn-block btn-primary">
-              <i class="fa fa-linkedin mr-2"></i> Sign in using Linkedin
-            </a>
-          </div>
-          <!-- /.social-auth-links -->
-    
-          <p class="mb-1">
-            <a href="/forgot-password">I forgot my password</a>
-          </p>
-          <p class="mb-0">
-            <a href="/signup" class="text-center">Register a new membership</a>
-          </p>
         </div>
-        <!-- /.login-card-body -->
-      </div>
-    </div>
-    <!-- /.login-box -->
-    
-    <%- include('./components/scripts'); -%>
+        <!-- /.login-box -->
+
+        <%- include('./components/scripts'); -%>
+            <script>
+                function login() {
+                    var loginData = {
+                        "email": $("#email").val(),
+                        "password": $("#password").val()
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        dataType: "json",
+                        data: JSON.stringify(loginData),
+                        contentType: 'application/json; charset=utf-8',
+                        url: '/controller/auth',
+                        success: function (data) {
+                            console.log(data);
+                            window.location = "/home"
+                        },
+                        error: function (data){
+                            console.log(data);
+                            alert("Please check mail and password");
+                        }
+                    });
+                }
+            </script>
     </body>
-    </html>
+
+</html>

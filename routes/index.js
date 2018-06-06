@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request');
 var router = express.Router();
+var helper = require('../utils/helper');
 
 /* GET login page. */
 router.get('/', function (req, res, next) {
@@ -39,9 +40,10 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
-  // Set the headers
+  helper.tokenControl("ertugrulungor","1234", function(response){
+    // Set the headers
   var headers = {
-    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MjgyNDI5MzksInVzZXJfbmFtZSI6Inlha3VwYWQiLCJhdXRob3JpdGllcyI6WyJST0xFX1VTRVIiXSwianRpIjoiNjIwM2NjMTAtMjRjZC00MjM0LTlmZDYtNDNkODc2NDFlYWU4IiwiY2xpZW50X2lkIjoiZnVuZG9vcGF5Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl19.etDDdgNh9l6REw4DbStU60Dy4MpJKV0j1Vh5OPFL5Cc'
+    'Authorization': response
   }
   // Configure the request
   var options = {
@@ -62,6 +64,7 @@ router.get('/home', function (req, res, next) {
       });
     }
   })
+  });
 });
 
 /* GET add page. */
