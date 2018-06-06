@@ -42,7 +42,6 @@ router.get('/forgotpassword', function (req, res, next) {
 /* GET home page. */
 router.get('/home', function (req, res, next) {
   helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
-    console.log(response);
     // Set the headers
     var headers = {
       'Authorization': response
@@ -59,7 +58,6 @@ router.get('/home', function (req, res, next) {
     // Start the request
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(body);
         res.render('home', {
           data: JSON.parse(body),
           title: 'Home'
@@ -91,7 +89,6 @@ router.get('/detail/:id', function (req, res, next) {
 
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(body);
         res.render('detail', {
           data: JSON.parse(body),
           title: 'Detail'

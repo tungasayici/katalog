@@ -26,6 +26,7 @@ router.get('/getStartupLogs/:id', function (req, res, next) {
   });
 });
 
+/* Create Note */
 router.post('/createLog/:id', function (req, res, next) {
   helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
     var headers = {
@@ -46,6 +47,31 @@ router.post('/createLog/:id', function (req, res, next) {
         res.send(result);
       } else {
         res.send({ errorCode: 401 });
+      }
+    })
+  });
+});
+
+/* Create Comment */
+router.post('/createComment/:id', function (req, res, next) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+    var headers = {
+      'Authorization': response,
+      'Content-Type' : "application/json"
+    }
+
+    var options = {
+      url: constants.URL + '/commentReview/createComment/' + req.params.id,
+      method: 'POST',
+      headers: headers,
+      json: true,
+      body: {
+        'content': req.body.content
+      }
+    }
+    request(options, function (error, result, body) {
+      if (!error && result.statusCode == 200) {
+        res.send(body);
       }
     })
   });
@@ -106,7 +132,6 @@ router.post('/auth', function (req, res, next) {
     }
   });
 });
-module.exports = router;
 
 /* Add Startup */
 router.post('/addStartup', function (req, res, next) {
@@ -122,7 +147,6 @@ router.post('/addStartup', function (req, res, next) {
       json: true,
       body: req.body
     }
-    console.log(options);
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);
