@@ -2,32 +2,32 @@
 <html lang="en">
 <%- include('./components/header'); -%>
 
-    <body>
-        <!-- Site wrapper -->
-        <div class="wrapper">
-            <%- include('./components/navbar'); -%>
-                <%- include('./components/sidebar'); -%>
-                    <!-- Content Wrapper. Contains page content -->
-                    <div class="content-wrapper" style="padding: 25px;">
-                        <!-- Content Header (Page header) -->
-                        <section class="content-header">
-                            <div class="container-fluid">
-                                <div class="row mb-2">
-                                    <div class="col-sm-8">
-                                        <h1>All Startups</h1>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <!-- select -->
-                                        <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Sorting</option>
-                                                <option>Sector 1</option>
-                                                <option>Sector 2</option>
-                                                <option>Sector 3</option>
-                                                <option>Sector 4</option>
-                                                <option>Sector 5</option>
-                                            </select>
-                                        </div>
+  <body>
+    <!-- Site wrapper -->
+    <div class="wrapper">
+      <%- include('./components/navbar'); -%>
+        <%- include('./components/sidebar'); -%>
+          <!-- Content Wrapper. Contains page content -->
+          <div class="content-wrapper" style="padding: 25px;">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+              <div class="container-fluid">
+                <div class="row mb-2">
+                  <div class="col-sm-8">
+                    <h1>All Startups</h1>
+                  </div>
+                  <div class="col-sm-2">
+                    <!-- select -->
+                    <div class="form-group">
+                      <select class="form-control">
+                        <option>Sorting</option>
+                        <option>Sector 1</option>
+                        <option>Sector 2</option>
+                        <option>Sector 3</option>
+                        <option>Sector 4</option>
+                        <option>Sector 5</option>
+                      </select>
+                    </div>
 
                                     </div>
                                     <div class="col-sm-2">
@@ -56,31 +56,35 @@
                                     <div class="col-md-4">
                                         <%if (data[i].status != null) { %>
                                             <% if(data[i].status.id == 1){ %>
-                                                <div class="card card-danger card-outline">
+                                                <div class="card card-success card-outline">
                                                     <% } else if(data[i].status.id == 2){ %>
                                                         <div class="card card-warning card-outline">
                                                             <% } else if(data[i].status.id == 3){ %>
-                                                                <div class="card card-success card-outline">
+                                                                <div class="card card-danger card-outline">
                                                                     <% }else{ %>
                                                                         <div class="card card-info card-outline">
                                                                             <% } %>
                                                                                 <%} else{%>
-                                                                                    <div class="card card-default card-outline">
+                                                                                    <div class="card card-default card-outline" style="border-top: 3px solid gray;">
                                                                                         <%}%>
 
 
 
                                                                                             <!-- /.card-header -->
-                                                                                            <div class="card-body" style="display: block;">
+                                              <div class="card-body" style="display: block;">
 
-                                                                                                <h4>
-                                                                                                    <%= data[i].startup.title %>
-                                                                                                </h4>
-                                                                                                <!-- post text -->
-                                                                                                <p>
-                                                                                                    <%= data[i].startup.description %>
-                                                                                                        <a href="detail/<%= data[i].startup.id %>"> See More...</a>
-                                                                                                </p>
+                                                    <h4>
+                                                      <%= data[i].startup.title %>
+                                                    </h4>
+                                                    <!-- post text -->
+                                                    <p>
+                                                      <%if (data[i].startup.description.length > 150) {%>
+                                                                          <%= data[i].startup.description.substring(0, 150) %>...
+                                                        <%} else{%>
+                                                          <%= data[i].startup.description %>
+                                                            <%}%>
+                                                              <a href="detail/<%= data[i].startup.id %>"> see more</a>
+                                                    </p>
 
 
                                                                                                 <!-- Social sharing buttons -->

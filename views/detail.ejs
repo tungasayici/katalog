@@ -65,7 +65,8 @@
                                             <a class="nav-link active show" href="#details" data-toggle="tab">Details</a>
                                         </li>
                                         <li class="nav-item col-6 text-center">
-                                            <a class="nav-link" href="#comments" onclick="getNotes()" data-toggle="tab">Notes (<%= data.startup.startupLogCount %>)</a>
+                                            <a class="nav-link" href="#comments" onclick="getNotes()" data-toggle="tab">Notes (
+                                                <%= data.startup.startupLogCount %>)</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -256,9 +257,10 @@
                     <!-- /.content-wrapper -->
                     <%- include('./components/footer'); -%>
                         <%- include('./components/right-sidebar'); -%>
+                            <%- include('./components/scripts'); -%>
         </div>
         <!-- ./wrapper -->
-        
+
     </body>
 
     <script>
