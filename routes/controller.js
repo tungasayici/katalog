@@ -44,6 +44,8 @@ router.post('/createLog/:id', function (req, res, next) {
     request(options, function (error, result, body) {
       if (!error && result.statusCode == 200) {
         res.send(result);
+      } else {
+        res.send({ errorCode: 401 });
       }
     })
   });
@@ -121,11 +123,11 @@ router.post('/addStartup', function (req, res, next) {
       json: true,
       body: req.body
     }
-  console.log(options);
+    console.log(options);
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);
-      }else{
+      } else {
         res.send(error);
       }
     })

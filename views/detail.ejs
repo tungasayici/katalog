@@ -9,6 +9,11 @@
                 <%- include('./components/sidebar'); -%>
                     <!-- Content Wrapper. Contains page content -->
                     <div class="content-wrapper" style="padding: 25px;">
+                        <div class="message-box" style="display: none">
+                            <div class="alert alert-danger alert-dismissible" style="display:block; margin: 10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                You can not access here!</div>
+                        </div>
                         <!-- Content Header (Page header) -->
                         <section class="content-header">
                             <div class="container-fluid">
@@ -60,8 +65,7 @@
                                             <a class="nav-link active show" href="#details" data-toggle="tab">Details</a>
                                         </li>
                                         <li class="nav-item col-6 text-center">
-                                            <a class="nav-link" href="#comments" onclick="getNotes()" data-toggle="tab">Notes (
-                                                <%= data.startup.startupLogCount %>)</a>
+                                            <a class="nav-link" href="#comments" onclick="getNotes()" data-toggle="tab">Notes (<%= data.startup.startupLogCount %>)</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -262,20 +266,23 @@
             $('.main-footer').hide();
             $.get('/controller/getStartupLogs/<%= data.startup.id %>', function (res) {
                 $('#comment-box').html("");
-                var notes = JSON.parse(res.body);
-                for (var i = 0; i < notes.length; i++) {
-                    $('#comment-box').append('<div class="card" style="padding: 10px;">' +
-                        '<div class="post clearfix">' +
-                        '<div class="user-block">' +
-                        '<img class="img-circle img-bordered-sm" src="' + notes[i].consumer.profileImageUrl + '" alt="User Image">' +
-                        '<span class="username">' +
-                        '<a href="#">' + notes[i].consumer.fullName + '</a>' +
-                        '</span>' +
-                        '<span class="description">' + formatDate(notes[i].startupLog.createdAt) + '</span>' +
-                        '</div>' +
-                        '<p>' + notes[i].startupLog.content + '</p>' +
-                        '</div>' +
-                        '</div>');
+                console.log(res);
+                if (res.body != "") {
+                    var notes = JSON.parse(res.body);
+                    for (var i = 0; i < notes.length; i++) {
+                        $('#comment-box').append('<div class="card" style="padding: 10px;">' +
+                            '<div class="post clearfix">' +
+                            '<div class="user-block">' +
+                            '<img class="img-circle img-bordered-sm" src="' + notes[i].consumer.profileImageUrl + '" alt="User Image">' +
+                            '<span class="username">' +
+                            '<a href="#">' + notes[i].consumer.fullName + '</a>' +
+                            '</span>' +
+                            '<span class="description">' + formatDate(notes[i].startupLog.createdAt) + '</span>' +
+                            '</div>' +
+                            '<p>' + notes[i].startupLog.content + '</p>' +
+                            '</div>' +
+                            '</div>');
+                    }
                 }
             });
         }
@@ -284,7 +291,7 @@
             var body = {
                 "content": $("#noteInput").val()
             };
-            console.log(body);
+            $("#noteInput").val("");
             $.ajax({
                 type: 'POST',
                 dataType: "json",
@@ -292,19 +299,29 @@
                 contentType: 'application/json; charset=utf-8',
                 url: '/controller/createLog/<%= data.startup.id %>',
                 success: function (data) {
-                    var res = data.body.object;
-                    $('#comment-box').prepend('<div class="card" style="padding: 10px;">' +
-                        '<div class="post clearfix">' +
-                        '<div class="user-block">' +
-                        '<img class="img-circle img-bordered-sm" src="' + res.consumer.profileImageUrl + '" alt="User Image">' +
-                        '<span class="username">' +
-                        '<a href="#">' + res.consumer.fullName + '</a>' +
-                        '</span>' +
-                        '<span class="description">' + formatDate(res.startupLog.createdAt) + '</span>' +
-                        '</div>' +
-                        '<p>' + res.startupLog.content + '</p>' +
-                        '</div>' +
-                        '</div>');
+
+                    if (data.errorCode == 200) {
+                        var res = data.body.object;
+                        $('#comment-box').prepend('<div class="card" style="padding: 10px;">' +
+                            '<div class="post clearfix">' +
+                            '<div class="user-block">' +
+                            '<img class="img-circle img-bordered-sm" src="' + res.consumer.profileImageUrl + '" alt="User Image">' +
+                            '<span class="username">' +
+                            '<a href="#">' + res.consumer.fullName + '</a>' +
+                            '</span>' +
+                            '<span class="description">' + formatDate(res.startupLog.createdAt) + '</span>' +
+                            '</div>' +
+                            '<p>' + res.startupLog.content + '</p>' +
+                            '</div>' +
+                            '</div>');
+                    } else {
+                        $(".message-box").toggle(750, function () {
+                            setTimeout(function () {
+                                $(".message-box").toggle(750);
+                            }, 2000);
+                        });
+
+                    }
                 },
                 error: function (data) {
                     console.log(data);
