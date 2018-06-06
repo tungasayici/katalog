@@ -29,7 +29,6 @@ function getToken(username, password, callback) {
             'pass': password
         }
     }
-    console.log(options);
     
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {

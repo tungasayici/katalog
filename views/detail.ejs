@@ -13,8 +13,39 @@
                         <section class="content-header">
                             <div class="container-fluid">
                                 <div class="row mb-2">
-                                    <div class="col-sm-6">
-                                        <h1>Startup Detail</h1>
+                                    <div class="col-sm-12 detail-header">
+                                        <span class="detail-header-status">
+                                            <%if (data.status != null) { %>
+                                                <span class="dot"></span>
+                                                <%= data.status.name  %>
+                                                    <%} else{%>
+                                                        <span class="dot" style="background-color: #ccc;"></span>
+                                                        Unknown
+                                                    <%}%>
+                                        </span>
+                                        <span class="detail-header-title">
+                                            <%= data.startup.title %>
+                                        </span>
+                                        <%if (data.startup.phoneNumber != null) { %>
+                                        <span class="detail-header-sub-title">
+                                            <i class="fa fa-phone" aria-hidden="true"></i>
+                                            <%= data.startup.phoneNumber %>
+                                        </span>
+                                        <span style="margin-left: 7px; margin-right: 7px;">&bull;</span>
+                                        <%}%>
+                                        <span class="detail-header-sub-title">
+                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                            <%= data.country.nicename %>
+                                        </span>
+                                        <span class="detail-header-tag">
+                                            <% for(var i=0; i<data.tags.length; i++) {%>
+                                                <a href="#">
+                                                    #
+                                                    <%= data.tags[i].name %>
+                                                </a>
+                                                <% } %>
+
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +60,8 @@
                                             <a class="nav-link active show" href="#details" data-toggle="tab">Details</a>
                                         </li>
                                         <li class="nav-item col-6 text-center">
-                                            <a class="nav-link" href="#comments" onclick="$('.main-footer').hide()" data-toggle="tab">Notes (5)</a>
+                                            <a class="nav-link" href="#comments" onclick="getNotes(<%= data.startup.id %>)" data-toggle="tab">Notes (
+                                                <%= data.startup.startupLogCount %>)</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -37,101 +69,169 @@
                                 <div class="card-body" style="background-color: #f4f6fa;border-color: #f4f6fa;padding: 0px;padding-top: 10px;">
                                     <div class="tab-content">
                                         <div class="tab-pane active show" id="details">
-                                            Detaylar
+                                            <div class="card card-default color-palette-box">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                        Firma Yetkilisi
+                                                    </h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <b>Full Name: </b>
+                                                            <span>
+                                                                <%= data.startup.entrepreneurFullName %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Job Title: </b>
+                                                            <span>
+                                                                <%= data.startup.entrepreneurJobTitle %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                            <div class="card card-default color-palette-box">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        <i class="fa fa-building" aria-hidden="true"></i>
+                                                        Firma Bilgileri
+                                                    </h3>
+                                                </div>
+                                                <div class="card-body firm-info">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <b>Description: </b>
+                                                            <span>
+                                                                <%= data.startup.description %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <b>Sector: </b>
+                                                            <span>
+                                                                <%= data.sector.name %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Cooperations: </b>
+                                                            <span>
+                                                                <%= data.startup.cooperation %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <b>Doğuş Grubuna Uygunluk (0-10): </b>
+                                                            <span>
+                                                                <%= data.startup.availabilityForDogus %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Firma Kalitesi (0-10): </b>
+                                                            <span>
+                                                                <%= data.startup.quality %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <b>Assets: </b>
+                                                            <div class="col-sm-12 mailbox-attachments">
+                                                                <% for(var i=0; i<data.assetList.length; i++) {%>
+                                                                    <div>
+                                                                        <%if (data.assetList[i].assetType == "pdf") { %>
+                                                                            <span class="mailbox-attachment-icon">
+                                                                                <i class="fa fa-file-pdf-o"></i>
+                                                                            </span>
+                                                                            <%} else if (data.assetList[i].assetType == "docx"){ %>
+                                                                                <span class="mailbox-attachment-icon">
+                                                                                    <i class="fa fa-file-word-o"></i>
+                                                                                </span>
+                                                                                <%} else if (data.assetList[i].assetType == "png" || data.assetList[i].assetType == "jpg"){ %>
+                                                                                    <span class="mailbox-attachment-icon has-img">
+                                                                                        <img class="attachment-cover" src="<%= data.assetList[i].fileUrl %>" alt="Attachment">
+                                                                                    </span>
+                                                                                    <% } %>
+                                                                                        <div class="mailbox-attachment-info">
+                                                                                            <a href="<%= data.assetList[i].fileUrl %>" class="mailbox-attachment-name">
+                                                                                                <i class="fa fa-paperclip"></i>
+                                                                                                <%= data.assetList[i].fileUrl.split("/")[data.assetList[i].fileUrl.split("/").length-1] %>
+                                                                                            </a>
+                                                                                        </div>
+                                                                    </div>
+                                                                    <% } %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <b>Doğuş Groups - Horizon List: </b>
+                                                        </div>
+                                                        <% for(var i=0; i<data.groups.length; i++) {%>
+                                                            <div class="col-sm-12" style="margin-top:3px;">
+                                                                <%= data.groups[i].groupName %> &#8594; Horizon
+                                                                    <%= data.groups[i].horizon %>
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
+                                            <div class="card card-default color-palette-box">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        <i class="fa fa-diamond" aria-hidden="true"></i>
+                                                        Firmayı Keşfeden Kişi
+                                                    </h3>
+                                                </div>
+                                                <div class="card-body firm-info">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <b>Full Name: </b>
+                                                            <span>
+                                                                <%= data.consumer.fullName %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Email: </b>
+                                                            <span>
+                                                                <%= data.consumer.email %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <b>Company: </b>
+                                                            <span>
+                                                                <%= data.consumer.companyName %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Job Title: </b>
+                                                            <span>
+                                                                <%= data.consumer.jobTitle %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.card-body -->
+                                            </div>
                                             <!-- /.post -->
                                         </div>
                                         <!-- /Detail Panel -->
 
                                         <!-- /.tab-pane -->
                                         <div class="tab-pane" id="comments">
-                                            <div class="card" style="padding: 10px;">
-                                                <div class="post clearfix">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm" src="https://s3.eu-west-3.amazonaws.com/invendocdn/img/user7-128x128.jpg" alt="User Image">
-                                                        <span class="username">
-                                                            <a href="#">Sarah Ross</a>
-                                                            <a href="#" class="float-right btn-tool">
-                                                                <i class="fa fa-times"></i>
-                                                            </a>
-                                                        </span>
-                                                        <span class="description">Sent you a message - 3 days ago</span>
-                                                    </div>
-                                                    <!-- /.user-block -->
-                                                    <p>
-                                                        Lorem ipsum represents a long-held tradition for designers, typographers and the like. Some people hate it and argue for
-                                                        its demise, but others ignore the hate as they create awesome tools
-                                                        to help create filler text for everyone from bacon lovers to Charlie
-                                                        Sheen fans.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="card" style="padding: 10px;">
-                                                <div class="post clearfix">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm" src="https://s3.eu-west-3.amazonaws.com/invendocdn/img/user7-128x128.jpg" alt="User Image">
-                                                        <span class="username">
-                                                            <a href="#">Sarah Ross</a>
-                                                            <a href="#" class="float-right btn-tool">
-                                                                <i class="fa fa-times"></i>
-                                                            </a>
-                                                        </span>
-                                                        <span class="description">Sent you a message - 3 days ago</span>
-                                                    </div>
-                                                    <!-- /.user-block -->
-                                                    <p>
-                                                        Lorem ipsum represents a long-held tradition for designers, typographers and the like. Some people hate it and argue for
-                                                        its demise, but others ignore the hate as they create awesome tools
-                                                        to help create filler text for everyone from bacon lovers to Charlie
-                                                        Sheen fans.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="card" style="padding: 10px;">
-                                                <div class="post clearfix">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm" src="https://s3.eu-west-3.amazonaws.com/invendocdn/img/user7-128x128.jpg" alt="User Image">
-                                                        <span class="username">
-                                                            <a href="#">Sarah Ross</a>
-                                                            <a href="#" class="float-right btn-tool">
-                                                                <i class="fa fa-times"></i>
-                                                            </a>
-                                                        </span>
-                                                        <span class="description">Sent you a message - 3 days ago</span>
-                                                    </div>
-                                                    <!-- /.user-block -->
-                                                    <p>
-                                                        Lorem ipsum represents a long-held tradition for designers, typographers and the like. Some people hate it and argue for
-                                                        its demise, but others ignore the hate as they create awesome tools
-                                                        to help create filler text for everyone from bacon lovers to Charlie
-                                                        Sheen fans.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="card" style="padding: 10px;">
-                                                <div class="post clearfix">
-                                                    <div class="user-block">
-                                                        <img class="img-circle img-bordered-sm" src="https://s3.eu-west-3.amazonaws.com/invendocdn/img/user7-128x128.jpg" alt="User Image">
-                                                        <span class="username">
-                                                            <a href="#">Sarah Ross</a>
-                                                            <a href="#" class="float-right btn-tool">
-                                                                <i class="fa fa-times"></i>
-                                                            </a>
-                                                        </span>
-                                                        <span class="description">Sent you a message - 3 days ago</span>
-                                                    </div>
-                                                    <!-- /.user-block -->
-                                                    <p>
-                                                        Lorem ipsum represents a long-held tradition for designers, typographers and the like. Some people hate it and argue for
-                                                        its demise, but others ignore the hate as they create awesome tools
-                                                        to help create filler text for everyone from bacon lovers to Charlie
-                                                        Sheen fans.
-                                                    </p>
-                                                </div>
-                                            </div>
+                                            <span id="comment-box"></span>
                                             <div class="custom-fixed-bottom" style="position: fixed;right: 0;bottom: 0;z-index: 1030;width: 75%">
                                                 <div class="card-footer">
                                                     <div class="input-group">
-                                                        <input type="text" name="message" placeholder="Type Comment ..." class="form-control">
+                                                        <input type="text" name="message" placeholder="Type Note ..." class="form-control">
                                                         <span class="input-group-append">
                                                             <button type="submit" class="btn btn-success">Send</button>
                                                         </span>
@@ -151,10 +251,46 @@
                     </div>
                     <!-- /.content-wrapper -->
                     <%- include('./components/footer'); -%>
-                    <%- include('./components/right-sidebar'); -%>
+                        <%- include('./components/right-sidebar'); -%>
         </div>
         <!-- ./wrapper -->
         <%- include('./components/scripts'); -%>
     </body>
+
+    <script>
+        function getNotes(id) {
+            $('.main-footer').hide();
+            $.get('/controller/getStartupLogs/' + id, function (res) {
+                $('#comment-box').html("");
+                var notes = JSON.parse(res.body);
+                for (var i = 0; i < notes.length; i++) {
+                    $('#comment-box').append('<div class="card" style="padding: 10px;">' +
+                        '<div class="post clearfix">' +
+                        '<div class="user-block">' +
+                        '<img class="img-circle img-bordered-sm" src="' + notes[i].consumer.profileImageUrl + '" alt="User Image">' +
+                        '<span class="username">' +
+                        '<a href="#">' + notes[i].consumer.fullName + '</a>' +
+                        '</span>' +
+                        '<span class="description">' + formatDate(notes[i].startupLog.createdAt) + '</span>' +
+                        '</div>' +
+                        '<p>' + notes[i].startupLog.content + '</p>' +
+                        '</div>' +
+                        '</div>');
+                }
+            });
+        }
+
+        function formatDate(date) {
+            var d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
+
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+
+            return [day, month, year].join('-');
+        }
+    </script>
 
 </html>

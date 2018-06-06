@@ -5,54 +5,57 @@
     <body class="hold-transition login-page">
         <div class="login-box">
             <div class="login-logo">
-                <a href="../../index2.html">ca
-                    <b>DO</b>log</a>
+                <a href="../../index2.html">ca<b>DO</b>log</a>
             </div>
             <!-- /.login-logo -->
             <div class="card">
                 <div class="card-body register-card-body">
                     <p class="login-box-msg">Register a new membership</p>
 
-                    <form action="../../index.html" method="post">
+                   
                         <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Full name">
+                            <input type="text" class="form-control" placeholder="Full name" id="fullName">
                             <span class="form-control-feedback"></span>
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="User name">
+                            <input type="text" class="form-control" placeholder="User name" id="username">
                             <span class="form-control-feedback"></span>
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="email" class="form-control" placeholder="Email" id="email">
                             <span class="form-control-feedback"></span>
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" id="password">
                             <span class="form-control-feedback"></span>
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Company name">
+                            <input type="text" class="form-control" placeholder="Profile image url" id="profileImageUrl">
                             <span class="form-control-feedback"></span>
                         </div>
                         <div class="form-group has-feedback">
-                            <input type="text" class="form-control" placeholder="Job ntitleme">
+                            <input type="text" class="form-control" placeholder="Company name" id="companyName">
                             <span class="form-control-feedback"></span>
                         </div>
-                        
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="Job title" id="jobTitle">
+                            <span class="form-control-feedback"></span>
+                        </div>
+
                         <div class="row">
-                           
-                            
+
+
                             <!-- /.col -->
                             <div class="col-12">
-                                <button type="submit" class="btn btn-danger btn-block btn-flat">Register</button>
+                                <button type="submit" onclick="signup()" class="btn btn-danger btn-block btn-flat">Register</button>
                             </div>
                             <!-- /.col -->
                         </div>
-                    </form>
+                    
 
                     <div class="social-auth-links text-center">
                         <p>- OR -</p>
-                        
+
                         <a href="#" class="btn btn-block btn-primary">
                             <i class="fa fa-linkedin mr-2"></i>
                             Sign up using Linkedin
@@ -68,7 +71,37 @@
         </div>
         <!-- /.login-box -->
 
+
         <%- include('./components/scripts'); -%>
+            <script>
+
+                function signup() {
+                    var signupdata = {
+                        "username" : $("#username").val(),
+                        "password" : $("#password").val(),
+                        "email" : $("#email").val(),
+                        "jobtitle" : $("#jobTitle").val(),
+                        "profileImageUrl" : $("#profileImageUrl").val(),
+                        "companyName" : $("#companyName").val(),
+                        "fullName" : $("#fullName").val()
+                    }
+
+                    $.ajax({
+                        type: 'POST',
+                        dataType: "json",
+                        data: JSON.stringify(signupdata),
+                        contentType: 'application/json; charset=utf-8',
+                        url: '/controller/signup',
+                        success: function (data) {
+                            console.log(data);
+                            window.location = "/login"
+                        },
+                        error: function (data){
+                            console.log(data);
+                        }
+                    });
+                }
+            </script>
     </body>
 
 </html>
