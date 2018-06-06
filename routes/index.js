@@ -7,6 +7,9 @@ var constants = require('../utils/constants');
 /* GET login page. */
 router.get('/', function (req, res, next) {
   global.token = undefined;
+  global.authProfile = undefined;
+  global.AUTHEMAIL = undefined;
+  global.AUTHPASSWORD = undefined;
   res.render('login', {
     title: 'Login'
   });
@@ -15,6 +18,9 @@ router.get('/', function (req, res, next) {
 /* GET login page. */
 router.get('/login', function (req, res, next) {
   global.token = undefined;
+  global.authProfile = undefined;
+  global.AUTHEMAIL = undefined;
+  global.AUTHPASSWORD = undefined;
   res.render('login', {
     title: 'Login'
   });
@@ -29,8 +35,10 @@ router.get('/signup', function (req, res, next) {
 
 /* GET lockscreen page. */
 router.get('/lockscreen', function (req, res, next) {
-  res.render('lockscreen', {
-    title: 'Lockscreen'
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+    res.render('lockscreen', {
+      title: 'Lockscreen'
+    });
   });
 });
 
@@ -57,6 +65,7 @@ router.get('/home', function (req, res, next) {
 
       }
     }
+    console.log(response);
     // Start the request
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -71,8 +80,10 @@ router.get('/home', function (req, res, next) {
 
 /* GET add page. */
 router.get('/add', function (req, res, next) {
-  res.render('add', {
-    title: 'Add'
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+    res.render('add', {
+      title: 'Add'
+    });
   });
 });
 
@@ -102,8 +113,10 @@ router.get('/detail/:id', function (req, res, next) {
 
 /* GET profile page. */
 router.get('/profile', function (req, res, next) {
-  res.render('profile', {
-    title: 'Profile'
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+    res.render('profile', {
+      title: 'Profile'
+    });
   });
 });
 

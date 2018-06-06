@@ -27,6 +27,50 @@
 
 <!-- Right navbar links -->
 <ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false" style="padding-right: .75rem !important;padding-left: .75rem !important;">
+          <i class="fa fa-bell-o" style="background-image: url(<%= authProfile.profileUrl %>); background-size: 25px;font-size: 25px;border-radius: 25px;color: transparent;"></i>
+          <span class="badge badge-warning navbar-badge">15</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="card card-widget widget-user-2" style="margin-bottom: 0px !important;">
+                <!-- Add the bg color to the header using any of the bg-* classes -->
+                <div class="widget-user-header bg-warning">
+                  <div class="widget-user-image">
+                    <img class="img-circle elevation-2" src="<%= authProfile.profileUrl %>" alt="User Avatar">
+                  </div>
+                  <!-- /.widget-user-image -->
+                  <h3 class="widget-user-username"><%= authProfile.fullName %></h3>
+                  <h5 class="widget-user-desc"><%= authProfile.jobTitle %></h5>
+                </div>
+                <div class="card-footer p-0">
+                  <ul class="nav flex-column">
+                    <li class="nav-item">
+                      <a href="#" class="nav-link">
+                        <b>Username</b> <span class="float-right"><%= authProfile.userName %></span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link" style="padding-right: .75rem !important;padding-left: .75rem !important;">
+                        <b>Email</b> <span class="float-right"><%= authProfile.email %></span>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="#" class="nav-link" style="padding-right: .75rem !important;padding-left: .75rem !important;">
+                        <b>Company Name</b> <span class="float-right"><%= authProfile.companyName%></span>
+                      </a>
+                    </li>
+                    <div class="btn-group">
+                        <a href="/profile" style="width:100%"><button type="button" class="btn btn-default" style="width:100%"><i class="fas fa-user-circle"></i></button></a>
+                        <a href="/lockscreen" style="width:100%"><button type="button" class="btn btn-default" style="width:100%"><i class="fas fa-user-lock"></i></button></a>
+                        <a href="/login" style="width:100%"><button type="button" class="btn btn-default" style="width:100%"><i class="fas fa-sign-out-alt"></i></button></a>
+                      </div>
+                  </ul>
+                </div>
+              </div>
+        </div>
+      </li>
+      
     <li class="nav-item">
             <a class="nav-link" href="/add">
               <i class="fa fa-plus-circle"></i>

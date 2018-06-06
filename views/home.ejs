@@ -89,15 +89,12 @@
 
                                                                                                 <!-- Social sharing buttons -->
                                                                                                 <button type="button" class="btn btn-default btn-sm" onclick="$('.toggle-comment-<%= data[i].startup.id %>').toggle(500);">
-                                                                                                    <i class="fa fa-comments"></i> Comments (
-                                                                                                    <%= data[i].commentReviews.length %>)</button>
+                                                                                                    <i class="fa fa-comments"></i> Comments (<%= data[i].commentReviews.length %>)</button>
                                                                                                 <button type="button" class="btn btn-default btn-sm">
                                                                                                     <% if(!data[i].liked){ %>
-                                                                                                        <i class="fa fa-heart" style="color: gray"></i> Like (
-                                                                                                        <%= data[i].likesList.length %>)</button>
+                                                                                                        <i class="fa fa-heart" style="color: gray"></i> Like (<%= data[i].likesList.length %>)</button>
                                                                                                 <% } else{ %>
-                                                                                                    <i class="fa fa-heart" style="color: red"></i> Like (
-                                                                                                    <%= data[i].likesList.length %>)</button>
+                                                                                                    <i class="fa fa-heart" style="color: red"></i> Like (<%= data[i].likesList.length %>)</button>
                                                                                                         <% } %>
 
                                                                                             </div>
@@ -117,7 +114,7 @@
                                                                                                                 <span class="username">
                                                                                                                     <%= data[i].commentReviews[j].consumer.fullName %>
                                                                                                                         <span class="text-muted float-right">
-                                                                                                                            <%= data[i].commentReviews[j].commentReview.createdAt %>
+                                                                                                                            <%= new Date(data[i].commentReviews[j].commentReview.createdAt).toDateString() %>
                                                                                                                         </span>
                                                                                                                 </span>
                                                                                                                 <!-- /.username -->
