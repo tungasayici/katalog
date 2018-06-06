@@ -59,7 +59,7 @@ router.get('/home', function (req, res, next) {
     // Start the request
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        // Print out the response body
+        console.log(body);
         res.render('home', {
           data: JSON.parse(body),
           title: 'Home'
