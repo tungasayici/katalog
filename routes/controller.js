@@ -3,12 +3,9 @@ var router = express.Router();
 var request = require('request');
 var helper = require('../utils/helper');
 
-var email = "";
-var password = "";
-
 /* GET users listing. */
 router.get('/getToken', function (req, res, next) {
-  helper.tokenControl(email, password, function (response) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
     res.send(response);
   });
 });
@@ -32,14 +29,13 @@ router.post('/auth', function (req, res, next) {
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       global.authProfile = body;
-      email = req.body.email;
-      password = req.body.password;
+      global.AUTHEMAIL = req.body.email;
+      global.AUTHPASSWORD = req.body.password;
       res.send(body);
     }else{
       res.send(error);
     }
   })
 });
-
 
 module.exports = router;
