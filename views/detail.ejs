@@ -15,17 +15,24 @@
                                 <div class="row mb-2">
                                     <div class="col-sm-12 detail-header">
                                         <span class="detail-header-status">
-                                            <span class="dot"></span>
-                                            <%= data.status.name %>
+                                            <%if (data.status != null) { %>
+                                                <span class="dot"></span>
+                                                <%= data.status.name  %>
+                                                    <%} else{%>
+                                                        <span class="dot" style="background-color: #ccc;"></span>
+                                                        Unknown
+                                                    <%}%>
                                         </span>
                                         <span class="detail-header-title">
                                             <%= data.startup.title %>
                                         </span>
+                                        <%if (data.startup.phoneNumber != null) { %>
                                         <span class="detail-header-sub-title">
                                             <i class="fa fa-phone" aria-hidden="true"></i>
                                             <%= data.startup.phoneNumber %>
                                         </span>
                                         <span style="margin-left: 7px; margin-right: 7px;">&bull;</span>
+                                        <%}%>
                                         <span class="detail-header-sub-title">
                                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                                             <%= data.country.nicename %>
@@ -53,7 +60,8 @@
                                             <a class="nav-link active show" href="#details" data-toggle="tab">Details</a>
                                         </li>
                                         <li class="nav-item col-6 text-center">
-                                            <a class="nav-link" href="#comments" onclick="getNotes(<%= data.startup.id %>)" data-toggle="tab">Notes (<%= data.startup.startupLogCount %>)</a>
+                                            <a class="nav-link" href="#comments" onclick="getNotes(<%= data.startup.id %>)" data-toggle="tab">Notes (
+                                                <%= data.startup.startupLogCount %>)</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -219,7 +227,7 @@
 
                                         <!-- /.tab-pane -->
                                         <div class="tab-pane" id="comments">
-
+                                            <span id="comment-box"></span>
                                             <div class="custom-fixed-bottom" style="position: fixed;right: 0;bottom: 0;z-index: 1030;width: 75%">
                                                 <div class="card-footer">
                                                     <div class="input-group">
@@ -253,9 +261,10 @@
         function getNotes(id) {
             $('.main-footer').hide();
             $.get('/controller/getStartupLogs/' + id, function (res) {
+                $('#comment-box').html("");
                 var notes = JSON.parse(res.body);
                 for (var i = 0; i < notes.length; i++) {
-                    $('#comments').append('<div class="card" style="padding: 10px;">' +
+                    $('#comment-box').append('<div class="card" style="padding: 10px;">' +
                         '<div class="post clearfix">' +
                         '<div class="user-block">' +
                         '<img class="img-circle img-bordered-sm" src="' + notes[i].consumer.profileImageUrl + '" alt="User Image">' +
@@ -279,7 +288,7 @@
 
             if (month.length < 2) month = '0' + month;
             if (day.length < 2) day = '0' + day;
-            
+
             return [day, month, year].join('-');
         }
     </script>
