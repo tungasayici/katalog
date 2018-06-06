@@ -41,8 +41,7 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
-
-  helper.tokenControl("ertugrulungor", "1234", function (response) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
     // Set the headers
     var headers = {
       'Authorization': response
@@ -78,7 +77,7 @@ router.get('/add', function (req, res, next) {
 
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
-  helper.tokenControl("ertugrulungor", "1234", function (response) {
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
     var headers = {
       'Authorization': response
     }
