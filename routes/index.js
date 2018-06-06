@@ -40,7 +40,11 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
+<<<<<<< HEAD
   helper.tokenControl("ertugrulungor","1234", function(response){
+=======
+  helper.tokenControl(AUTHEMAIL,AUTHPASSWORD, function(response){
+>>>>>>> 5281d9b78cbd294fa04caa8ab6ee5fe3cd037a0f
     // Set the headers
   var headers = {
     'Authorization': response
