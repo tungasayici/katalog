@@ -3,9 +3,12 @@
 <%- include('./components/header'); -%>
 
     <body class="hold-transition login-page">
+            <div class="login-message-box">
+
+                </div>
         <div class="login-box">
             <div class="login-logo">
-                <a href="../../index2.html">ca<b>DO</b>log</a>
+                <a href="/login">ca<b>DO</b>log</a>
             </div>
             <!-- /.login-logo -->
             <div class="card">
@@ -94,10 +97,24 @@
                         url: '/controller/signup',
                         success: function (data) {
                             console.log(data);
-                            window.location = "/login"
+                            $(".login-message-box").toggle();
+                            $(".login-message-box").html(
+                                '<div class="alert alert-success alert-dismissible" style="display:block; margin: 10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h5><i class="icon fa fa-ban"></i> Success!</h5>Sign up successful. You are redirecting to the login page</div>'
+                            );
+                            $(".login-message-box").toggle(1500);
+
+                            setTimeout(function () {
+                                window.location = "/login"; //will redirect to your blog page (an ex: blog.html)
+                            }, 1500);
+                            
                         },
                         error: function (data){
                             console.log(data);
+                            $(".login-message-box").toggle();
+                            $(".login-message-box").html(
+                                '<div class="alert alert-danger alert-dismissible" style="display:block; margin: 10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><h5><i class="icon fa fa-ban"></i> Alert!</h5>Ops! Something went wrong. Please try again.</div>'
+                            );
+                            $(".login-message-box").toggle(750);
                         }
                     });
                 }
