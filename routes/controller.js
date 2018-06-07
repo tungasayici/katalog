@@ -170,28 +170,27 @@ router.post('/lockscreen', function (req, res, next) {
 
 /* GET forgotpassword page. */
 router.post('/forgotpassword', function (req, res, next) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
   var headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Authorization' : token,
   }
   console.log('3333');
   var options = {
-    url: 'https://katalog-backend.herokuapp.com/account/forgetPassword?email=',
+    url: 'https://katalog-backend.herokuapp.com/account/forgetPassword?email=' + req.body.email,
     method: 'POST',
     headers: headers,
-    json: true,
-    'email': req.body.email
+    json: true
   }
   
   request(options, function (error, response, body) {
-    console.log('email2= ',req.body.email);
     if (!error && response.statusCode == 200) {
-      console.log('email3= ',req.body.email);
-      res.send(req.body.email);
+      res.send(body);
     } else {
-      console.log('email3= ',req.body.email);
       res.send(error);
     }
   });
+});
 });
 
 /* Add Startup */
