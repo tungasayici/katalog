@@ -34,7 +34,7 @@ router.get('/lockscreen', function (req, res, next) {
   helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     res.render('lockscreen', {
       title: 'Lockscreen',
-      authProfile : AUTH.AUTHPROFILE,
+      authProfile: AUTH.AUTHPROFILE,
     });
   });
 });
@@ -70,7 +70,7 @@ router.get('/home', function (req, res, next) {
       if (!error && response.statusCode == 200) {
         res.render('home', {
           data: JSON.parse(body),
-          authProfile : AUTH.AUTHPROFILE,
+          authProfile: AUTH.AUTHPROFILE,
           title: 'Home'
         });
       }
@@ -82,10 +82,52 @@ router.get('/home', function (req, res, next) {
 router.get('/add', function (req, res, next) {
   var AUTH = JSON.parse(localStorage.getItem('AUTH'));
   helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
-    res.render('add', {
-      title: 'Add',
-      authProfile : AUTH.AUTHPROFILE,
-    });
+    var options = {
+      url: constants.URL + '/sector/all',
+      method: 'GET',
+      headers: {
+        'Authorization': response
+      }
+    }
+    request(options, function (error, result, body) {
+      if (!error && result.statusCode == 200) {
+        var optionss = {
+          url: constants.URL + '/groups/all',
+          method: 'GET',
+          headers: {
+            'Authorization': response
+          }
+        }
+        request(optionss, function (errorr, resultt, bodyy) {
+          if (!errorr && resultt.statusCode == 200) {
+            var optionsss = {
+              url: constants.URL + '/country/all',
+              method: 'GET',
+              headers: {
+                'Authorization': response
+              }
+            }
+            request(optionsss, function (errorrr, resulttt, bodyyy) {
+              if (!errorrr && resulttt.statusCode == 200) {
+                res.render('add', {
+                  title: 'Add',
+                  authProfile: AUTH.AUTHPROFILE,
+                  allSectors: JSON.parse(body),
+                  allGroups: JSON.parse(bodyy),
+                  allCountries: JSON.parse(bodyyy)
+                });
+              } else {
+                res.send(errorrr);
+              }
+            })
+          } else {
+            res.send(errorr);
+          }
+        })
+      } else {
+        res.send(error);
+      }
+    })
   });
 });
 
@@ -108,7 +150,7 @@ router.get('/detail/:id', function (req, res, next) {
         res.render('detail', {
           data: JSON.parse(body),
           title: 'Detail',
-          authProfile : AUTH.AUTHPROFILE,
+          authProfile: AUTH.AUTHPROFILE,
         });
       }
     })
@@ -140,7 +182,7 @@ router.get('/update/:id', function (req, res, next) {
           data: data,
           values: values.join(),
           title: 'Update',
-          authProfile : AUTH.AUTHPROFILE,
+          authProfile: AUTH.AUTHPROFILE,
         });
       }
     })
@@ -153,7 +195,7 @@ router.get('/profile', function (req, res, next) {
   helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     res.render('profile', {
       title: 'Profile',
-      authProfile : AUTH.AUTHPROFILE,
+      authProfile: AUTH.AUTHPROFILE,
     });
   });
 });

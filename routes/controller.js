@@ -1,5 +1,5 @@
 var express = require('express');
-var localStorage = require('localStorage')
+var localStorage = require('localStorage');
 var router = express.Router();
 var request = require('request');
 var helper = require('../utils/helper');
@@ -47,9 +47,9 @@ router.post('/createLog/:id', function (req, res, next) {
     }
     request(options, function (error, result, body) {
       if (!error && result.statusCode == 200) {
-        res.send(result);
+        res.send(result.body.object);
       } else {
-        res.send({ errorCode: 401 });
+        res.send(error);
       }
     })
   });
