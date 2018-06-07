@@ -3,11 +3,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require("express-session")
 
 var indexRouter = require('./routes/index');
 var controllerRouter = require('./routes/controller');
 
 var app = express();
+
+app.use(session({
+  secret: "dfhjoasweskjksi",
+  resave: false,
+  saveUninitialized: true,
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,5 +46,6 @@ app.use(function(err, req, res, next) {
 });
 
 app.use(express.static('public'));
+
 
 module.exports = app;

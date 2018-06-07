@@ -7,7 +7,7 @@ var constants = require('../utils/constants');
 
 /* GET login page. */
 router.get('/', function (req, res, next) {
-  localStorage.setItem('AUTH', undefined);
+  
   res.render('login', {
     title: 'Login'
   });
@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 
 /* GET login page. */
 router.get('/login', function (req, res, next) {
-  localStorage.setItem('AUTH', undefined);
+  
   res.render('login', {
     title: 'Login'
   });
@@ -30,11 +30,10 @@ router.get('/signup', function (req, res, next) {
 
 /* GET lockscreen page. */
 router.get('/lockscreen', function (req, res, next) {
-  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
     res.render('lockscreen', {
       title: 'Lockscreen',
-      authProfile: AUTH.AUTHPROFILE,
+      authProfile: req.session.AUTHPROFILE,
     });
   });
 });
@@ -48,9 +47,9 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
-  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
   
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  
+  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
     // Set the headers
     var headers = {
       'Authorization': response
@@ -70,7 +69,7 @@ router.get('/home', function (req, res, next) {
       if (!error && response.statusCode == 200) {
         res.render('home', {
           data: JSON.parse(body),
-          authProfile: AUTH.AUTHPROFILE,
+          authProfile: req.session.AUTHPROFILE,
           title: 'Home'
         });
       }
@@ -80,8 +79,8 @@ router.get('/home', function (req, res, next) {
 
 /* GET add page. */
 router.get('/add', function (req, res, next) {
-  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  
+  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
     var options = {
       url: constants.URL + '/sector/all',
       method: 'GET',
@@ -111,7 +110,7 @@ router.get('/add', function (req, res, next) {
               if (!errorrr && resulttt.statusCode == 200) {
                 res.render('add', {
                   title: 'Add',
-                  authProfile: AUTH.AUTHPROFILE,
+                  authProfile: req.session.AUTHPROFILE,
                   allSectors: JSON.parse(body),
                   allGroups: JSON.parse(bodyy),
                   allCountries: JSON.parse(bodyyy)
@@ -133,8 +132,8 @@ router.get('/add', function (req, res, next) {
 
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
-  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  
+  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -150,7 +149,7 @@ router.get('/detail/:id', function (req, res, next) {
         res.render('detail', {
           data: JSON.parse(body),
           title: 'Detail',
-          authProfile: AUTH.AUTHPROFILE,
+          authProfile: req.session.AUTHPROFILE,
         });
       }
     })
@@ -159,8 +158,8 @@ router.get('/detail/:id', function (req, res, next) {
 
 /* GET update page. */
 router.get('/update/:id', function (req, res, next) {
-  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  
+  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -182,7 +181,7 @@ router.get('/update/:id', function (req, res, next) {
           data: data,
           values: values.join(),
           title: 'Update',
-          authProfile: AUTH.AUTHPROFILE,
+          authProfile: req.session.AUTHPROFILE,
         });
       }
     })
@@ -191,11 +190,11 @@ router.get('/update/:id', function (req, res, next) {
 
 /* GET profile page. */
 router.get('/profile', function (req, res, next) {
-  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  
+  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
     res.render('profile', {
       title: 'Profile',
-      authProfile: AUTH.AUTHPROFILE,
+      authProfile: req.session.AUTHPROFILE,
     });
   });
 });
