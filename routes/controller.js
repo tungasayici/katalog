@@ -162,27 +162,30 @@ router.post('/lockscreen', function (req, res, next) {
 
 /* GET forgotpassword page. */
 router.post('/forgotpassword', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+  
   var headers = {
-    'Content-Type': 'application/json',
-    'Authorization' : token,
+    'Content-Type': 'application/json'
   }
-  console.log('3333');
+  console.log(options);
+  console.log(token);
   var options = {
     url: 'https://katalog-backend.herokuapp.com/account/forgetPassword?email=' + req.body.email,
     method: 'POST',
     headers: headers,
     json: true
   }
+  console.log(options);
   
   request(options, function (error, response, body) {
+    console.log(response);
     if (!error && response.statusCode == 200) {
+      console.log("burda");
+      console.log(body);
       res.send(body);
     } else {
       res.send(error);
     }
   });
-});
 });
 
 /* Add Startup */
