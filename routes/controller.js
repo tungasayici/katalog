@@ -224,4 +224,32 @@ router.get('/sortAndFilter', function (req, res, next) {
   });
 });
 
+router.get('/like', function (req, res, next) {
+  console.log("like girdi");
+  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (token) {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+    var options = {
+      url: constants.URL + '/likes/like',
+      method: 'POST',
+      headers: headers,
+      json: true,
+      body: {
+        "consumerId": authProfile.id,
+        "startupId": req.query.startupId
+      }
+    }
+    console.log(options);
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.send(body);
+      } else {
+        res.send(error);
+      }
+    })
+  });
+});
+
 module.exports = router;
