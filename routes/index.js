@@ -1,15 +1,13 @@
 var express = require('express');
 var request = require('request');
+var localStorage = require('localStorage')
 var router = express.Router();
 var helper = require('../utils/helper');
 var constants = require('../utils/constants');
 
 /* GET login page. */
 router.get('/', function (req, res, next) {
-  global.token = undefined;
-  global.authProfile = undefined;
-  global.AUTHEMAIL = undefined;
-  global.AUTHPASSWORD = undefined;
+  localStorage.setItem('AUTH', undefined);
   res.render('login', {
     title: 'Login'
   });
@@ -17,10 +15,7 @@ router.get('/', function (req, res, next) {
 
 /* GET login page. */
 router.get('/login', function (req, res, next) {
-  global.token = undefined;
-  global.authProfile = undefined;
-  global.AUTHEMAIL = undefined;
-  global.AUTHPASSWORD = undefined;
+  localStorage.setItem('AUTH', undefined);
   res.render('login', {
     title: 'Login'
   });
@@ -35,9 +30,11 @@ router.get('/signup', function (req, res, next) {
 
 /* GET lockscreen page. */
 router.get('/lockscreen', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     res.render('lockscreen', {
-      title: 'Lockscreen'
+      title: 'Lockscreen',
+      authProfile : AUTH.AUTHPROFILE,
     });
   });
 });
@@ -51,7 +48,8 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     // Set the headers
     var headers = {
       'Authorization': response
@@ -71,6 +69,7 @@ router.get('/home', function (req, res, next) {
       if (!error && response.statusCode == 200) {
         res.render('home', {
           data: JSON.parse(body),
+          authProfile : AUTH.AUTHPROFILE,
           title: 'Home'
         });
       }
@@ -80,16 +79,19 @@ router.get('/home', function (req, res, next) {
 
 /* GET add page. */
 router.get('/add', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     res.render('add', {
-      title: 'Add'
+      title: 'Add',
+      authProfile : AUTH.AUTHPROFILE,
     });
   });
 });
 
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -104,7 +106,34 @@ router.get('/detail/:id', function (req, res, next) {
       if (!error && response.statusCode == 200) {
         res.render('detail', {
           data: JSON.parse(body),
-          title: 'Detail'
+          title: 'Detail',
+          authProfile : AUTH.AUTHPROFILE,
+        });
+      }
+    })
+  })
+});
+
+/* GET update page. */
+router.get('/update/:id', function (req, res, next) {
+  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+    var headers = {
+      'Authorization': response
+    }
+
+    var options = {
+      url: constants.URL + '/startup/' + req.params.id,
+      method: 'GET',
+      headers: headers
+    }
+
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.render('update', {
+          data: JSON.parse(body),
+          title: 'Update',
+          authProfile : AUTH.AUTHPROFILE,
         });
       }
     })
@@ -113,9 +142,11 @@ router.get('/detail/:id', function (req, res, next) {
 
 /* GET profile page. */
 router.get('/profile', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  var AUTH = JSON.parse(localStorage.getItem('AUTH'));
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     res.render('profile', {
-      title: 'Profile'
+      title: 'Profile',
+      authProfile : AUTH.AUTHPROFILE,
     });
   });
 });

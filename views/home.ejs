@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+        <script>
+                localStorage.setItem("authProfile", '<%- authProfile %>');
+                    
+                    </script>
 <%- include('./components/header'); -%>
 
-  <body>
-    <!-- Site wrapper -->
-    <div class="wrapper">
-      <%- include('./components/navbar'); -%>
-        <%- include('./components/sidebar'); -%>
-          <!-- Content Wrapper. Contains page content -->
-          <div class="content-wrapper" style="padding: 25px;">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-              <div class="container-fluid">
-                <div class="row mb-2">
-                  <div class="col-sm-8">
-                    <h1>All Startups</h1>
-                  </div>
-                  <div class="col-sm-2">
-                    <!-- select -->
-                    <div class="form-group">
-                      <select class="form-control">
-                        <option>Sorting</option>
-                        <option>Sector 1</option>
-                        <option>Sector 2</option>
-                        <option>Sector 3</option>
-                        <option>Sector 4</option>
-                        <option>Sector 5</option>
-                      </select>
-                    </div>
+    <body>
+        <!-- Site wrapper -->
+        <div class="wrapper">
+            <%- include('./components/navbar'); -%>
+                <%- include('./components/sidebar'); -%>
+                    <!-- Content Wrapper. Contains page content -->
+                    <div class="content-wrapper" style="padding: 25px;">
+                        <!-- Content Header (Page header) -->
+                        <section class="content-header">
+                            <div class="container-fluid">
+                                <div class="row mb-2">
+                                    <div class="col-sm-8">
+                                        <h1>All Startups</h1>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <!-- select -->
+                                        <div class="form-group">
+                                            <select class="form-control" id="sort">
+                                                <option value="0">Sorting</option>
+                                                <option value="1">Date (A-Z)</option>
+                                                <option value="2">Date (Z-A)</option>
+                                                <option value="3">Comment Count (A-Z)</option>
+                                                <option value="4">Comment Count (Z-A)</option>
+                                                <option value="5">Like Count (A-Z)</option>
+                                                <option value="6">Like Count (Z-A)</option>
+                                            </select>
+                                        </div>
 
                                     </div>
                                     <div class="col-sm-2">
                                         <div class="form-group">
-                                            <select class="form-control">
-                                                <option>Filters</option>
-                                                <option>Sector 1</option>
-                                                <option>Sector 2</option>
-                                                <option>Sector 3</option>
-                                                <option>Sector 4</option>
-                                                <option>Sector 5</option>
+                                            <select class="form-control" id="filter">
+                                                <option value="0">Status</option>
                                             </select>
                                         </div>
                                     </div>
@@ -50,7 +50,7 @@
                         <!-- Main content -->
                         <section class="content">
 
-                            <div class="row">
+                            <div class="row" id="content">
 
                                 <% for(var i=0; i<data.length; i++) {%>
                                     <div class="col-md-4">
@@ -71,30 +71,35 @@
 
 
                                                                                             <!-- /.card-header -->
-                                              <div class="card-body" style="display: block;">
+                                                                                            <div class="card-body" style="display: block;">
 
-                                                    <h4>
-                                                      <%= data[i].startup.title %>
-                                                    </h4>
-                                                    <!-- post text -->
-                                                    <p>
-                                                      <%if (data[i].startup.description.length > 150) {%>
-                                                                          <%= data[i].startup.description.substring(0, 150) %>...
-                                                        <%} else{%>
-                                                          <%= data[i].startup.description %>
-                                                            <%}%>
-                                                              <a href="detail/<%= data[i].startup.id %>"> see more</a>
-                                                    </p>
+                                                                                                <h4>
+                                                                                                    <%= data[i].startup.title %>
+                                                                                                </h4>
+                                                                                                <!-- post text -->
+                                                                                                <p>
+                                                                                                    <%if (data[i].startup.description.length > 150) {%>
+                                                                                                        <%= data[i].startup.description.substring(0, 150) %>...
+                                                                                                            <%} else{%>
+                                                                                                                <%= data[i].startup.description %>
+                                                                                                                    <%}%>
+                                                                                                                        <a href="detail/<%= data[i].startup.id %>"> see
+                                                                                                                            more
+                                                                                                                        </a>
+                                                                                                </p>
 
 
                                                                                                 <!-- Social sharing buttons -->
                                                                                                 <button type="button" class="btn btn-default btn-sm" onclick="$('.toggle-comment-<%= data[i].startup.id %>').toggle(500);">
-                                                                                                    <i class="fa fa-comments"></i> Comments (<%= data[i].commentReviews.length %>)</button>
-                                                                                                <button type="button" class="btn btn-default btn-sm">
+                                                                                                    <i class="fa fa-comments"></i> Comments (
+                                                                                                    <%= data[i].commentReviews.length %>)</button>
+                                                                                                <button type="button" id="likeButton<%= data[i].startup.id %>" onclick="like(<%= data[i].startup.id %>)" class="btn btn-default btn-sm">
                                                                                                     <% if(!data[i].liked){ %>
-                                                                                                        <i class="fa fa-heart" style="color: gray"></i> Like (<%= data[i].likesList.length %>)</button>
+                                                                                                        <i class="fa fa-heart" style="color: gray"></i> Like (
+                                                                                                        <%= data[i].likesList.length %>)</button>
                                                                                                 <% } else{ %>
-                                                                                                    <i class="fa fa-heart" style="color: red"></i> Like (<%= data[i].likesList.length %>)</button>
+                                                                                                    <i class="fa fa-heart" style="color: red"></i> Like (
+                                                                                                    <%= data[i].likesList.length %>)</button>
                                                                                                         <% } %>
 
                                                                                             </div>
@@ -163,11 +168,108 @@
                                 <%- include('./components/scripts'); -%>
 
                                     <script>
+                                        $(function () {
+                                            $.get('/controller/getStatus', function (res) {
+                                                var status = JSON.parse(res);
+                                                for (var i = 0; i < status.length; i++) {
+                                                    $('#filter').append('<option value="' + status[i].id + '">' + status[i].name + '</option>');
+                                                }
+                                            })
+
+                                            $("#sort").change(function () {
+                                                sortAndFilter($("#filter").val(), $("#sort").val());
+                                            })
+
+                                            $("#filter").change(function () {
+                                                sortAndFilter($("#filter").val(), $("#sort").val());
+                                            })
+
+                                        })
+
+                                        function sortAndFilter(statusId, sort) {
+                                            $.ajax({
+                                                type: 'GET',
+                                                dataType: "json",
+                                                contentType: 'application/json; charset=utf-8',
+                                                url: '/controller/sortAndFilter?statusId=' + statusId + '&sort=' + sort,
+                                                success: function (data) {
+                                                    console.log(data);
+                                                    $("#content").html('');
+                                                    for (var i = 0; i < data.length; i++) {
+                                                        var status = '';
+                                                        if (data[i].status != null) {
+                                                            if (data[i].status.id == 1) {
+                                                                status = '<div class="card card-success card-outline">';
+                                                            } else if (data[i].status.id == 2) {
+                                                                status = '<div class="card card-warning card-outline">';
+                                                            } else if (data[i].status.id == 2) {
+                                                                status = '<div class="card card-danger card-outline';
+                                                            } else if (data[i].status.id == 3) {
+                                                                status = '<div class="card card-success card-outline">';
+                                                            } else {
+                                                                status = '<div class="card card-info card-outline">';
+                                                            }
+                                                        } else {
+                                                            status = '<div class="card card-default card-outline" style="border-top: 3px solid gray;">';
+                                                        }
+
+                                                        var description = '';
+                                                        if (data[i].startup.description.length > 150) {
+                                                            description = data[i].startup.description.substring(0, 150);
+                                                        } else {
+                                                            description = data[i].startup.description;
+                                                        }
+
+                                                        var like = '';
+                                                        if (!data[i].liked) {
+                                                            like = '<button type="button" id="likeButton' + data[i].startup.id + '" onclick="like(' + data[i].startup.id + ')" class="btn btn-default btn-sm"><i class="fa fa-heart" style="color: gray"></i> Like (' + data[i].likesList.length + ')</button>';
+                                                        } else {
+                                                            like = '<button type="button" id="likeButton' + data[i].startup.id + '" onclick="like(' + data[i].startup.id + ')" class="btn btn-default btn-sm"><i class="fa fa-heart" style="color: red"></i> Like (' + data[i].likesList.length + ')</button>';
+                                                        }
+
+                                                        var comment = '';
+                                                        for (var j = 0; j < data[i].commentReviews.length; j++) {
+                                                            comment += '<div class="card-comment">' +
+                                                                '<img class="img-circle img-sm" src="' + data[i].commentReviews[j].consumer.profileImageUrl + '" alt="User Image">' +
+                                                                '<div class="comment-text"><span class="username">' +
+                                                                data[i].commentReviews[j].consumer.fullName +
+                                                                '<span class="text-muted float-right">' + new Date(data[i].commentReviews[j].commentReview.createdAt).toDateString() + '</span></span>' +
+                                                                data[i].commentReviews[j].commentReview.content + '</div></div>';
+                                                        }
+
+
+                                                        $("#content").append('<div class="col-md-4">' +
+                                                            status +
+                                                            '<div class="card-body" style="display: block;"><h4>' +
+                                                            data[i].startup.title +
+                                                            '</h4><p>' +
+                                                            description +
+                                                            '<a href="detail/' + data[i].startup.id + '"> see more</a></p>' +
+                                                            '<button type="button" class="btn btn-default btn-sm" onclick="$(\'.toggle-comment-' + data[i].startup.id + '\').toggle(500);">' +
+                                                            '<i class="fa fa-comments"></i> Comments (' + data[i].commentReviews.length + ')</button>' +
+                                                            like + '</div>' +
+                                                            '<div class="toggle-comment-' + data[i].startup.id + '" style="display: none;">' +
+                                                            '<div class="card-footer card-comments card-comment' + data[i].startup.id + '" style="display: block;">' +
+                                                            comment + '</div><div class="card-footer" style="display: block;padding-top: 0px;">' +
+                                                            '<img class="img-fluid img-circle img-sm" src="' + data[i].consumer.profileImageUrl + '" alt="Alt Text">' +
+                                                            '<div class="img-push"><div class="input-group">' +
+                                                            '<input type="text" id="commentInput<' + data[i].startup.id + '" class="form-control form-control-sm" placeholder="Type comment...">' +
+                                                            '<span class="input-group-append"><button type="submit" class="btn btn-primary" onclick="createComent(' + data[i].startup.id + ')">Send</button>' +
+                                                            '</span></div></div></div></div></div></div>'
+                                                        );
+                                                    }
+                                                },
+                                                error: function (data) {
+                                                    console.log(data);
+                                                }
+                                            });
+                                        }
+
                                         function createComent(commentID) {
                                             var comment = {
-                                                    "pros": "pros",
-                                                    "cons": "cons",
-                                                    "content": $("#commentInput"+commentID).val()
+                                                "pros": "pros",
+                                                "cons": "cons",
+                                                "content": $("#commentInput" + commentID).val()
                                             }
                                             var currentDate = new Date().toDateString()
                                             $.ajax({
@@ -178,29 +280,45 @@
                                                 url: '/controller/createComment/' + commentID,
                                                 success: function (data) {
 
-                                                    $('.card-comment'+commentID).append(
+                                                    $('.card-comment' + commentID).append(
                                                         '<div class="card-comment">' +
                                                         '<img class="img-circle img-sm" src="<%= authProfile.profileUrl %>" alt="User Image">' +
                                                         '<div class="comment-text">' +
-                                                            '<span class="username">' +
-                                                            "<%= authProfile.fullName %>" +
-                                                            '<span class="text-muted float-right">' +
-                                                                    currentDate +
-                                                            '</span></span>'+
-                                                        $("#commentInput"+commentID).val() +
-                                                        
-                                                         
-                                                        
-                                                        
+                                                        '<span class="username">' +
+                                                        "<%= authProfile.fullName %>" +
+                                                        '<span class="text-muted float-right">' +
+                                                        currentDate +
+                                                        '</span></span>' +
+                                                        $("#commentInput" + commentID).val() +
+
+
+
+
                                                         '</div></div>');
-                                                        $("#commentInput"+commentID).val("")
+                                                    $("#commentInput" + commentID).val("")
 
                                                 },
                                                 error: function (data) {
                                                     console.log(data);
                                                 }
                                             });
-                                            
+
+                                        }
+
+                                        function like(startupId) {
+                                            console.log("girdi");
+                                            $.get('/controller/like?startupId=' + startupId, function (res) {
+                                                var matches = $("#likeButton" + startupId).text().replace("Like (", "");
+                                                var matches = matches.replace(")", "");
+                                                $("#likeButton" + startupId).html('');
+                                                if (res.object) {
+                                                    var newValue = parseInt(matches) + 1;
+                                                    $("#likeButton" + startupId).html('<i class="fa fa-heart" style="color: red"></i> Like (' + newValue + ')');
+                                                } else {
+                                                    var newValue = parseInt(matches) - 1;
+                                                    $("#likeButton" + startupId).html('<i class="fa fa-heart" style="color: gray"></i> Like (' + newValue + ')');
+                                                }
+                                            });
                                         }
                                     </script>
     </body>
