@@ -42,11 +42,9 @@
                                         <div class="form-group">
                                             <label>Select Sector</label>
                                             <select class="form-control" id="sector">
-                                                <option value="1">Sector 1</option>
-                                                <option value="2">Sector 2</option>
-                                                <option value="3">Sector 3</option>
-                                                <option value="4">Sector 4</option>
-                                                <option value="5">Sector 5</option>
+                                                    <% for(var j=0; j<allSectors.length; j++) {%>
+                                                <option value="<%= allSectors[j].id %>"><%= allSectors[j].name %></option>
+                                                <% } %>
                                             </select>
                                         </div>
 
@@ -60,11 +58,9 @@
                                         <div class="form-group">
                                             <label>Select Location</label>
                                             <select class="form-control" id="location">
-                                                <option value="218">Location 1</option>
-                                                <option value="220">Location 2</option>
-                                                <option value="123">Location 3</option>
-                                                <option value="422">Location 4</option>
-                                                <option value="522">Location 5</option>
+                                                    <% for(var j=0; j<allCountries.length; j++) {%>
+                                                            <option value="<%= allCountries[j].id %>"><%= allCountries[j].name %></option>
+                                                            <% } %>
                                             </select>
                                         </div>
 
@@ -72,30 +68,15 @@
                                         <div class="form-group">
                                             <label>Select DO</label>
                                             <div class="row">
+                                                <% for(var j=0; j<allGroups.length; j++) {%>
+                                                            
                                                 <div class="col-md-3">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" id="group1" type="checkbox" value="1">
-                                                        <label class="form-check-label">DO 1</label>
+                                                        <input class="form-check-input" id="group<%= allGroups[j].id %>" type="checkbox" value="<%= allGroups[j].id %>">
+                                                        <label class="form-check-label"><%= allGroups[j].name %></label>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" id="group2" type="checkbox" value="2">
-                                                        <label class="form-check-label">DO 2</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" id="group3" type="checkbox" value="3">
-                                                        <label class="form-check-label">DO 3</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" id="group4" type="checkbox" value="4">
-                                                        <label class="form-check-label">DO 4</label>
-                                                    </div>
-                                                </div>
+                                                <% } %>
                                             </div>
                                         </div>
 
