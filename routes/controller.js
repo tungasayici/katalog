@@ -1,12 +1,15 @@
 var express = require('express');
+var localStorage = require('localStorage')
 var router = express.Router();
 var request = require('request');
 var helper = require('../utils/helper');
 var constants = require('../utils/constants');
 
+var AUTH = {}
+
 /* Note page */
 router.get('/getStartupLogs/:id', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
 
     var headers = {
       'Authorization': response
@@ -28,7 +31,7 @@ router.get('/getStartupLogs/:id', function (req, res, next) {
 
 /* Create Note */
 router.post('/createLog/:id', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -54,7 +57,7 @@ router.post('/createLog/:id', function (req, res, next) {
 
 /* Create Comment */
 router.post('/createComment/:id', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (response) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     var headers = {
       'Authorization': response,
       'Content-Type' : "application/json"
@@ -109,6 +112,7 @@ router.post('/signup', function (req, res, next) {
 
 /* GET login page. */
 router.post('/auth', function (req, res, next) {
+  
   var headers = {
     'Content-Type': 'application/json'
   }
@@ -123,9 +127,15 @@ router.post('/auth', function (req, res, next) {
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
-      global.authProfile = body;
-      global.AUTHEMAIL = req.body.email;
-      global.AUTHPASSWORD = req.body.password;
+      var AUTHDATA = {
+        "AUTHPROFILE" : body,
+        "AUTHEMAIL" : req.body.email,
+        "AUTHPASSWORD" : req.body.password
+      }
+      localStorage.setItem('AUTH', JSON.stringify(AUTHDATA));
+      
+      AUTH = JSON.parse(localStorage.getItem('AUTH'));
+      console.log(AUTH);
       res.send(body);
     } else {
       res.send(error);
@@ -135,7 +145,7 @@ router.post('/auth', function (req, res, next) {
 
 /* Add Startup */
 router.post('/addStartup', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (token) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -158,7 +168,7 @@ router.post('/addStartup', function (req, res, next) {
 });
 
 router.get('/getTags', function (req, res, next) {
-  helper.tokenControl(AUTHEMAIL, AUTHPASSWORD, function (token) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
