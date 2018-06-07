@@ -143,6 +143,57 @@ router.post('/auth', function (req, res, next) {
   });
 });
 
+/* GET lockscreen page. */
+router.post('/lockscreen', function (req, res, next) {
+  var headers = {
+    'Content-Type': 'application/json'
+  }
+  var options = {
+    url: 'https://katalog-backend.herokuapp.com/login',
+    method: 'POST',
+    headers: headers,
+    json: true,
+    body: {
+      'email': AUTH.AUTHEMAIL,
+      'password': req.body.password
+    }
+  }
+
+  request(options, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      res.send(body);
+    } else {
+      res.send(error);
+    }
+  });
+});
+
+/* GET forgotpassword page. */
+router.post('/forgotpassword', function (req, res, next) {
+  var headers = {
+    'Content-Type': 'application/json'
+  }
+  console.log('3333');
+  var options = {
+    url: 'https://katalog-backend.herokuapp.com/account/forgetPassword?email=',
+    method: 'POST',
+    headers: headers,
+    json: true,
+    'email': req.body.email
+  }
+  
+  request(options, function (error, response, body) {
+    console.log('email2= ',req.body.email);
+    if (!error && response.statusCode == 200) {
+      console.log('email3= ',req.body.email);
+      res.send(req.body.email);
+    } else {
+      console.log('email3= ',req.body.email);
+      res.send(error);
+    }
+  });
+});
+
 /* Add Startup */
 router.post('/addStartup', function (req, res, next) {
   helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
