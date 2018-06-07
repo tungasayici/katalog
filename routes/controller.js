@@ -86,7 +86,7 @@ router.post('/signup', function (req, res, next) {
     'Content-Type': 'application/json'
   }
   var options = {
-    url: 'https://katalog-backend.herokuapp.com/consumer/register',
+    url: constants.URL + '/consumer/register',
     method: 'POST',
     headers: headers,
     json: true,
@@ -117,7 +117,7 @@ router.post('/auth', function (req, res, next) {
     'Content-Type': 'application/json'
   }
   var options = {
-    url: 'https://katalog-backend.herokuapp.com/login',
+    url: constants.URL + '/login',
     method: 'POST',
     headers: headers,
     json: true,
@@ -151,7 +151,7 @@ router.post('/addStartup', function (req, res, next) {
       'Authorization': token
     }
     var options = {
-      url: 'https://katalog-backend.herokuapp.com/startup/create',
+      url: constants.URL + '/startup/create',
       method: 'POST',
       headers: headers,
       json: true,
@@ -174,11 +174,84 @@ router.get('/getTags', function (req, res, next) {
       'Authorization': token
     }
     var options = {
-      url: 'https://katalog-backend.herokuapp.com/search/tag?like=',
+      url: constants.URL + '/search/tag?like=',
       method: 'GET',
       headers: headers
     }
     
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.send(body);
+      } else {
+        res.send(error);
+      }
+    })
+  });
+});
+
+
+router.get('/getStatus', function (req, res, next) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+    var options = {
+      url: constants.URL + '/status/all',
+      method: 'GET',
+      headers: headers
+    }
+    
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.send(body);
+      } else {
+        res.send(error);
+      }
+    })
+  });
+});
+
+router.get('/sortAndFilter', function (req, res, next) {
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+    var options = {
+      url: constants.URL + '/startup/all?statusId=' + req.query.statusId + '&sort=' + req.query.sort,
+      method: 'GET',
+      headers: headers
+    }
+    
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.send(body);
+      } else {
+        res.send(error);
+      }
+    })
+  });
+});
+
+router.get('/like', function (req, res, next) {
+  console.log("like girdi");
+  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+    var headers = {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    }
+    var options = {
+      url: constants.URL + '/likes/like',
+      method: 'POST',
+      headers: headers,
+      json: true,
+      body: {
+        "consumerId": AUTH.AUTHPROFILE.id,
+        "startupId": req.query.startupId
+      }
+    }
+    console.log(options);
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);
