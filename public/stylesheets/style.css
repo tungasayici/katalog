@@ -4,6 +4,7 @@
 
 .detail-header-status{
     position: absolute;
+    z-index: 1;
     display: block;
     left: 0;
 }
@@ -18,6 +19,7 @@
     font-size: 50px;
     font-weight: bold;
     display: block;
+    margin-top: 30px;
 }
 
 .detail-header-sub-title{

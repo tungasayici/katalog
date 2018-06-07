@@ -1,6 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./components/header'); -%>
+<style>
+        .update-input {
+            border: 1px solid #f4f6f9;
+            text-align: center;
+            border-bottom-color: #ced4da;
+            background-color: #f4f6f9;
+        }
+
+        .update-input-bottom {
+            border: 1px solid #fff;
+            text-align: left;
+            border-bottom-color: #ced4da;
+            background-color: #fff;
+            margin-top: 10px;
+        }
+    </style>
 
     <body>
         <!-- Site wrapper -->
@@ -26,66 +42,51 @@
                                         </span>
                                         <span class="detail-header-status">
                                             <%if (data.status != null) { %>
-                                                <span class="dot"></span>
-                                                <%= data.status.name  %>
+                                                
+                                                <select style="z-index: 999" class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="status">
+                                                        <option value="1"><%= data.status.name  %></option>
+                                                        <option value="2">Görüşme aşamasında</option>
+                                                        <option value="3">Bilinmeyen</option>
+                                                      
+                                        </select>
                                                     <%} else{%>
+                                                        
                                                         <span class="dot" style="background-color: #ccc;"></span>
                                                         Unknown
                                                         <%}%>
                                         </span>
 
-                                        <style>
-                                            .update-input {
-                                                border: 1px solid #f4f6f9;
-                                                text-align: center;
-                                                border-bottom-color: #ced4da;
-                                                background-color: #f4f6f9;
-                                                margin-top: 10px;
-                                            }
-
-                                            .update-input-bottom {
-                                                border: 1px solid #fff;
-                                                text-align: left;
-                                                border-bottom-color: #ced4da;
-                                                background-color: #fff;
-                                                margin-top: 10px;
-                                            }
-
-                                            .bootstrap-tagsinput {
-                                                margin-top: 10px !important;
-                                            }
-                                        </style>
+                                        
                                         <div class="row">
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-6">
                                                 <input class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="<%= data.startup.title %>"
                                                     value="<%= data.startup.title %>">
                                             </div>
-                                            <div class="col-md-4"></div>
+                                            <div class="col-md-3"></div>
                                         </div>
 
 
                                         <div class="row">
-                                            <div class="col-md-4"></div>
-                                            <div class="col-md-2 col-6 col-sm-6">
+                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3 col-6 col-sm-6">
                                                 <%if (data.startup.phoneNumber != null) { %>
                                                     <input class="form-control form-control form-control-sm detail-header-sub-title update-input" type="text" placeholder="<%= data.startup.phoneNumber %>"
                                                         value="<%= data.startup.phoneNumber %>">
                                                     </i>
                                                     <%}%>
                                             </div>
-                                            <div class="col-md-2 col-6 col-sm-6">
+                                            <div class="col-md-3 col-6 col-sm-6">
                                                 <select class="form-control form-control-sm detail-header-sub-title update-input">
-                                                    <option selected>
+                                                    <option selected value="<%= data.country.id %>">
                                                         <%= data.country.nicename %>
                                                     </option>
-                                                    <option>option 2</option>
-                                                    <option>option 3</option>
-                                                    <option>option 4</option>
-                                                    <option>option 5</option>
+                                                    <% for(var j=0; j<allCountries.length; j++) {%>
+                                                            <option value="<%= allCountries[j].id %>"><%= allCountries[j].name %></option>
+                                                    <% } %>
                                                 </select>
                                             </div>
-                                            <div class="col-md-4"></div>
+                                            <div class="col-md-3"></div>
                                         </div>
                                         <!-- /.tags -->
                                         <input name='tags' placeholder='write here' value="<%= values %>">
@@ -99,15 +100,13 @@
                         <!-- Main content -->
                         <section class="content">
                             <div class="card" style="box-shadow: 0 0 0px rgba(0,0,0,0);">
-
                                 <!-- /.card-header -->
-
-                                <div class="tab-pane active show" id="details">
+                                <div class="tab-pane active show" id="details" style="background-color: #f4f6fa;">
                                     <div class="card card-default color-palette-box">
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
-                                                Firma Yetkilisi
+                                                Company Authority
                                             </h3>
                                         </div>
                                         <div class="card-body">
@@ -138,7 +137,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="fa fa-building" aria-hidden="true"></i>
-                                                Firma Bilgileri
+                                                Company Informations
                                             </h3>
                                         </div>
                                         <div class="card-body firm-info">
@@ -147,7 +146,7 @@
                                                     <b>Description: </b>
                                                     <span>
                                                         <textarea rows="2" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                            placeholder=" <%= data.startup.description %>" value="<%= data.startup.description %>"></textarea>
+                                                            placeholder=" <%= data.startup.description %>"><%= data.startup.description %></textarea>
 
 
                                                     </span>
@@ -157,9 +156,12 @@
                                                 <div class="col-sm-6">
                                                     <b>Sector: </b>
                                                     <span>
-                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder=" <%= data.sector.name %>"
-                                                            value=" <%= data.sector.name %>">
-
+                                                            <select class="form-controlform-control form-control form-control-sm detail-header-sub-title update-input-bottom" id="sector">
+                                                                <option selected value="<%= data.sector.id %>"><%= data.sector.name %></option>
+                                                                    <% for(var j=0; j<allSectors.length; j++) {%>
+                                                                <option value="<%= allSectors[j].id %>"><%= allSectors[j].name %></option>
+                                                                <% } %>
+                                                            </select>
 
                                                     </span>
                                                 </div>
@@ -175,31 +177,43 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
-                                                    <b>Doğuş Grubuna Uygunluk (0-10): </b>
+                                                    <b>Compliance to Doğuş Group (0-10): </b>
                                                     <span>
                                                         <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
-                                                            <option selected>
+                                                            <option selected value="<%= data.startup.availabilityForDogus %>">
                                                                 <%= data.startup.availabilityForDogus %>
                                                             </option>
-                                                            <option>option 2</option>
-                                                            <option>option 3</option>
-                                                            <option>option 4</option>
-                                                            <option>option 5</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
                                                         </select>
 
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <b>Firma Kalitesi (0-10): </b>
+                                                    <b>Company Quality (0-10): </b>
                                                     <span>
                                                         <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
-                                                            <option selected>
+                                                            <option selected value="<%= data.startup.quality %>">
                                                                 <%= data.startup.quality %>
                                                             </option>
-                                                            <option>option 2</option>
-                                                            <option>option 3</option>
-                                                            <option>option 4</option>
-                                                            <option>option 5</option>
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">4</option>
+                                                            <option value="5">5</option>
+                                                            <option value="6">6</option>
+                                                            <option value="7">7</option>
+                                                            <option value="8">8</option>
+                                                            <option value="9">9</option>
+                                                            <option value="10">10</option>
                                                         </select>
 
                                                     </span>
@@ -239,13 +253,47 @@
                                                 <div class="col-sm-12">
                                                     <b>Doğuş Groups - Horizon List: </b>
                                                 </div>
+                                                <div class="row" style="margin-left: 0px;">
+                                                    <div class="col-sm-5">
+                                                            <select class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="group">
+                                                                    <% for(var j=0; j<allGroups.length; j++) {%>
+                                                                            <option value="<%= allGroups[j].name %>"><%= allGroups[j].name %></option>
+                                                                            <% } %>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-sm-5">
+                                                            <select class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="horizon">
+                                                                            <option value="1">Horizon 1</option>
+                                                                            <option value="2">Horizon 2</option>
+                                                                            <option value="3">Horizon 3</option>
+                                                                          
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                            <button type="submit" onclick="addHorizonListItem()" style="margin-top: 10px;" class="btn btn-info btn-sm float-right">Save</button>
+                                                    </div>
+                                                </div>
+                                                <div class="horizon-list col-sm-12">
                                                 <% for(var i=0; i<data.groups.length; i++) {%>
-                                                    <div class="col-sm-12" style="margin-top:3px;">
+                                                    
+                                                    <div class="col-sm-12 horizon-list-item-<%= data.groups[i].groupId %>" style="margin-top:5px;">
                                                         <%= data.groups[i].groupName %> &#8594; Horizon
-                                                            <%= data.groups[i].horizon %>
+                                                            <%= data.groups[i].horizon %><a onclick="deleteHorizonListItem('<%= data.groups[i].groupId %>')">&nbsp;<i style="color: red;" class="fas fa-minus-circle"></i></a>
                                                     </div>
                                                     <% } %>
+                                                </div>
                                             </div>
+                                            <script>
+                                                function addHorizonListItem(){
+                                                    var className = String($('#group').val()).replace(" ","");
+                                                    console.log(className);
+                                                    $(".horizon-list").append("<div class='col-sm-12 horizon-list-item-"+className+"' style='margin-top:5px;'>"+$('#group').val()+"&#8594; Horizon" + $('#horizon').val()+"<a onclick='deleteHorizonListItem(`"+className+"`)'>&nbsp;<i style='color: red;' class='fas fa-minus-circle'></i></a></div>")
+                                                }
+                                                function deleteHorizonListItem(deletedItem){
+                                                    $(".horizon-list-item-"+deletedItem).remove()
+                                                }
+                                            </script>
+
                                         </div>
                                         <!-- /.card-body -->
                                     </div>
@@ -253,7 +301,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="fa fa-diamond" aria-hidden="true"></i>
-                                                Firmayı Keşfeden Kişi
+                                                Company Hunter
                                             </h3>
                                         </div>
                                         <div class="card-body firm-info">
@@ -332,88 +380,6 @@
                 }
             })
         })
-
-
-        function getNotes() {
-            $('.main-footer').hide();
-            $.get('/controller/getStartupLogs/<%= data.startup.id %>', function (res) {
-                $('#comment-box').html("");
-                console.log(res);
-                if (res.body != "") {
-                    var notes = JSON.parse(res.body);
-                    for (var i = 0; i < notes.length; i++) {
-                        $('#comment-box').append('<div class="card" style="padding: 10px;">' +
-                            '<div class="post clearfix">' +
-                            '<div class="user-block">' +
-                            '<img class="img-circle img-bordered-sm" src="' + notes[i].consumer.profileImageUrl + '" alt="User Image">' +
-                            '<span class="username">' +
-                            '<a href="#">' + notes[i].consumer.fullName + '</a>' +
-                            '</span>' +
-                            '<span class="description">' + formatDate(notes[i].startupLog.createdAt) + '</span>' +
-                            '</div>' +
-                            '<p>' + notes[i].startupLog.content + '</p>' +
-                            '</div>' +
-                            '</div>');
-                    }
-                }
-            });
-        }
-
-
-
-        function createLog() {
-            var body = {
-                "content": $("#noteInput").val()
-            };
-            $("#noteInput").val("");
-            $.ajax({
-                type: 'POST',
-                dataType: "json",
-                data: JSON.stringify(body),
-                contentType: 'application/json; charset=utf-8',
-                url: '/controller/createLog/<%= data.startup.id %>',
-                success: function (data) {
-
-                    if (data.errorCode == 200) {
-                        var res = data.body.object;
-                        $('#comment-box').prepend('<div class="card" style="padding: 10px;">' +
-                            '<div class="post clearfix">' +
-                            '<div class="user-block">' +
-                            '<img class="img-circle img-bordered-sm" src="' + res.consumer.profileImageUrl + '" alt="User Image">' +
-                            '<span class="username">' +
-                            '<a href="#">' + res.consumer.fullName + '</a>' +
-                            '</span>' +
-                            '<span class="description">' + formatDate(res.startupLog.createdAt) + '</span>' +
-                            '</div>' +
-                            '<p>' + res.startupLog.content + '</p>' +
-                            '</div>' +
-                            '</div>');
-                    } else {
-                        $(".message-box").toggle(750, function () {
-                            setTimeout(function () {
-                                $(".message-box").toggle(750);
-                            }, 2000);
-                        });
-
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-        }
-
-        function formatDate(date) {
-            var d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
-
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
-
-            return [day, month, year].join('-');
-        }
     </script>
 
 </html>
