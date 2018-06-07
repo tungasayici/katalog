@@ -1,15 +1,22 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./components/header'); -%>
 
     <body class="hold-transition login-page">
-        <div class="login-message-box">
-
+        <div class="message-box-success" style="display: none">
+            <div class="alert alert-success alert-dismissible" style="display:block; margin: 10px;">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                Login successful. You are redirecting to the home page!</div>
+        </div>
+        <div class="message-box-danger" style="display: none">
+            <div class="alert alert-danger alert-dismissible" style="display:block; margin: 10px;">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                Ops! Something went wrong. Please try to check the email and password.</div>
         </div>
         <div class="login-box">
             <div class="login-logo">
-                <a href="/login">ca<b>DO</b>log</a>
+                <a href="/login">ca
+                    <b>DO</b>log</a>
             </div>
             <!-- /.login-logo -->
             <div class="card">
@@ -71,24 +78,19 @@
                         contentType: 'application/json; charset=utf-8',
                         url: '/controller/auth',
                         success: function (data) {
-                            console.log(data);
-                            $(".login-message-box").toggle();
-                            $(".login-message-box").html(
-                                '<div class="alert alert-success alert-dismissible" style="display:block; margin: 10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Login successful. You are redirecting to the home page</div>'
-                            );
-                            $(".login-message-box").toggle(1500);
-
-                            setTimeout(function () {
-                                window.location.href = "/home"; //will redirect to your blog page (an ex: blog.html)
-                            }, 1500);
+                            $(".message-box-success").toggle(750, function () {
+                                setTimeout(function () {
+                                    $(".message-box-success").toggle(750);
+                                    window.location = "/home"
+                                }, 3000);
+                            });
                         },
                         error: function (data) {
-                            console.log(data);
-                            $(".login-message-box").toggle();
-                            $(".login-message-box").html(
-                                '<div class="alert alert-danger alert-dismissible" style="display:block; margin: 10px;"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Ops! Something went wrong. Please try to check the email and password.</div>'
-                            );
-                            $(".login-message-box").toggle(750);
+                            $(".message-box-danger").toggle(750, function () {
+                                setTimeout(function () {
+                                    $(".message-box-danger").toggle(750);
+                                }, 2500);
+                            });
                         }
                     });
                 }
