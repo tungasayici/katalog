@@ -19,6 +19,10 @@
                             <div class="container-fluid">
                                 <div class="row mb-2">
                                     <div class="col-sm-12 detail-header">
+
+                                        <span class="detail-header-edit">
+                                            <a href="../update/<%= data.startup.id %>"><i style="font-size: 20px;" class="fas fa-edit"></i></a>
+                                        </span>
                                         <span class="detail-header-status">
                                             <%if (data.status != null) { %>
                                                 <span class="dot"></span>

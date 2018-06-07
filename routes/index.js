@@ -49,6 +49,7 @@ router.get('/forgotpassword', function (req, res, next) {
 /* GET home page. */
 router.get('/home', function (req, res, next) {
   var AUTH = JSON.parse(localStorage.getItem('AUTH'));
+  
   helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
     // Set the headers
     var headers = {
@@ -130,8 +131,14 @@ router.get('/update/:id', function (req, res, next) {
 
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
+        var data = JSON.parse(body);
+        var values = [];
+        for(var i=0; i < data.tags.length; i++){
+          values.push(data.tags[i].name);
+        }
         res.render('update', {
-          data: JSON.parse(body),
+          data: data,
+          values: values.join(),
           title: 'Update',
           authProfile : AUTH.AUTHPROFILE,
         });
