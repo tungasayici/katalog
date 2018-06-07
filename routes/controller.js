@@ -7,7 +7,7 @@ var constants = require('../utils/constants');
 
 /* Note page */
 router.get('/getStartupLogs/:id', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
 
     var headers = {
       'Authorization': response
@@ -29,7 +29,7 @@ router.get('/getStartupLogs/:id', function (req, res, next) {
 
 /* Create Note */
 router.post('/createLog/:id', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -55,7 +55,7 @@ router.post('/createLog/:id', function (req, res, next) {
 
 /* Create Comment */
 router.post('/createComment/:id', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response,
       'Content-Type' : "application/json"
@@ -188,7 +188,7 @@ router.post('/forgotpassword', function (req, res, next) {
 
 /* Add Startup */
 router.post('/addStartup', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -211,7 +211,7 @@ router.post('/addStartup', function (req, res, next) {
 });
 
 router.get('/getTags', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -234,7 +234,7 @@ router.get('/getTags', function (req, res, next) {
 
 
 router.get('/getStatus', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -256,7 +256,7 @@ router.get('/getStatus', function (req, res, next) {
 });
 
 router.get('/sortAndFilter', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -279,7 +279,7 @@ router.get('/sortAndFilter', function (req, res, next) {
 
 router.get('/like', function (req, res, next) {
   console.log("like girdi");
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token

@@ -30,7 +30,7 @@ router.get('/signup', function (req, res, next) {
 
 /* GET lockscreen page. */
 router.get('/lockscreen', function (req, res, next) {
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     res.render('lockscreen', {
       title: 'Lockscreen',
       authProfile: req.session.AUTHPROFILE,
@@ -48,8 +48,8 @@ router.get('/forgotpassword', function (req, res, next) {
 /* GET home page. */
 router.get('/home', function (req, res, next) {
   
-  
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  console.log(req.session.AUTHEMAIL);
+  helper.tokenControl(req, function (response) {
     // Set the headers
     var headers = {
       'Authorization': response
@@ -80,7 +80,7 @@ router.get('/home', function (req, res, next) {
 /* GET add page. */
 router.get('/add', function (req, res, next) {
   
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     var options = {
       url: constants.URL + '/sector/all',
       method: 'GET',
@@ -133,7 +133,7 @@ router.get('/add', function (req, res, next) {
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
   
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -159,7 +159,7 @@ router.get('/detail/:id', function (req, res, next) {
 /* GET update page. */
 router.get('/update/:id', function (req, res, next) {
   
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -191,7 +191,7 @@ router.get('/update/:id', function (req, res, next) {
 /* GET profile page. */
 router.get('/profile', function (req, res, next) {
   
-  helper.tokenControl(req.session.AUTHEMAIL, req.session.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     res.render('profile', {
       title: 'Profile',
       authProfile: req.session.AUTHPROFILE,
