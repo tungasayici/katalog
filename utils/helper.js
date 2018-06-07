@@ -1,19 +1,23 @@
 var request = require('request');
+var localStorage = require('localStorage');
+
+var tokenData = null
 
 exports.tokenControl = function (username, password, callback) {
-    if (typeof token == 'undefined') {
+    console.log(tokenData);
+    if (tokenData == null) {
         getToken(username, password, function (res) {
             callback(res);
         });
     } else {
         var currentDate = new Date().getTime();
-        var tokenDate = token.date.getTime();
+        var tokenDate = tokenData.date.getTime();
         if ((currentDate - tokenDate) < 0) {
             getToken(username, password, function (res) {
                 callback(res);
             });
         } else {
-            callback(token.token_type + " " + token.access_token);
+            callback(tokenData.token_type + " " + tokenData.access_token);
         }
     }
 }
@@ -32,9 +36,10 @@ function getToken(username, password, callback) {
     
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            global.token = JSON.parse(body);
-            global.token.date = new Date();
-            callback(token.token_type + " " + token.access_token);
+            console.log(body);
+            tokenData = JSON.parse(body);
+            tokenData['date'] = new Date();
+            callback(tokenData.token_type + " " + tokenData.access_token);
         }
     })
 }
