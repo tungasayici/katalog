@@ -19,6 +19,11 @@
                             <div class="container-fluid">
                                 <div class="row mb-2">
                                     <div class="col-sm-12 detail-header">
+                                        <span class="detail-header-edit">
+                                            <a href="../detail/<%= data.startup.id %>">
+                                                <i style="font-size: 20px;" class="fas fa-save"></i>
+                                            </a>
+                                        </span>
                                         <span class="detail-header-status">
                                             <%if (data.status != null) { %>
                                                 <span class="dot"></span>
@@ -28,60 +33,64 @@
                                                         Unknown
                                                         <%}%>
                                         </span>
-                                        
+
                                         <style>
-                                            .update-input{
+                                            .update-input {
                                                 border: 1px solid #f4f6f9;
-                                                text-align:center; 
+                                                text-align: center;
                                                 border-bottom-color: #ced4da;
-                                                background-color: #f4f6f9; 
+                                                background-color: #f4f6f9;
                                                 margin-top: 10px;
                                             }
-                                            .update-input-bottom{
+
+                                            .update-input-bottom {
                                                 border: 1px solid #fff;
-                                                text-align:left; 
+                                                text-align: left;
                                                 border-bottom-color: #ced4da;
-                                                background-color: #fff; 
+                                                background-color: #fff;
                                                 margin-top: 10px;
                                             }
-                                            .bootstrap-tagsinput{
+
+                                            .bootstrap-tagsinput {
                                                 margin-top: 10px !important;
                                             }
                                         </style>
-<div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-                <input class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="<%= data.startup.title %>" value="<%= data.startup.title %>">
-        </div>
-        <div class="col-md-4"></div>
-</div>
-                                        
-                                        
-                                            <div class="row">
-                                                    <div class="col-md-4"></div>
-                                                    <div class="col-md-2 col-6 col-sm-6">
-                                                            <%if (data.startup.phoneNumber != null) { %>
-                                                            <input class="form-control form-control form-control-sm detail-header-sub-title update-input" type="text" placeholder="<%= data.startup.phoneNumber %>" value="<%= data.startup.phoneNumber %>"></i>
-                                                            <%}%>
-                                                        </div>
-                                                        <div class="col-md-2 col-6 col-sm-6">
-                                                                <select class="form-control form-control-sm detail-header-sub-title update-input">
-                                                                                  <option selected><%= data.country.nicename %></option>
-                                                                                  <option>option 2</option>
-                                                                                  <option>option 3</option>
-                                                                                  <option>option 4</option>
-                                                                                  <option>option 5</option>
-                                                                                </select>
-                                                            </div>
-                                                            <div class="col-md-4"></div>
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <input class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="<%= data.startup.title %>"
+                                                    value="<%= data.startup.title %>">
                                             </div>
-                                            <select multiple data-role="tagsinput" class="form-control-sm detail-header-sub-title update-input">
-                                                    <% for(var i=0; i<data.tags.length; i++) {%>
-                                                <option value="<%= data.tags[i].name %>"><%= data.tags[i].name %></option>
-                                                    <% } %>
-                                                  </select>  
+                                            <div class="col-md-4"></div>
+                                        </div>
 
-                                                </span>
+
+                                        <div class="row">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-2 col-6 col-sm-6">
+                                                <%if (data.startup.phoneNumber != null) { %>
+                                                    <input class="form-control form-control form-control-sm detail-header-sub-title update-input" type="text" placeholder="<%= data.startup.phoneNumber %>"
+                                                        value="<%= data.startup.phoneNumber %>">
+                                                    </i>
+                                                    <%}%>
+                                            </div>
+                                            <div class="col-md-2 col-6 col-sm-6">
+                                                <select class="form-control form-control-sm detail-header-sub-title update-input">
+                                                    <option selected>
+                                                        <%= data.country.nicename %>
+                                                    </option>
+                                                    <option>option 2</option>
+                                                    <option>option 3</option>
+                                                    <option>option 4</option>
+                                                    <option>option 5</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                        <!-- /.tags -->
+                                        <input name='tags' placeholder='write here' value="<%= values %>">
+
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -90,189 +99,198 @@
                         <!-- Main content -->
                         <section class="content">
                             <div class="card" style="box-shadow: 0 0 0px rgba(0,0,0,0);">
-                                
+
                                 <!-- /.card-header -->
-                                
-                                        <div class="tab-pane active show" id="details">
-                                            <div class="card card-default color-palette-box">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">
-                                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                                        Firma Yetkilisi
-                                                    </h3>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <b>Full Name: </b>
-                                                            <span>
-                                                                    <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder=" <%= data.startup.entrepreneurFullName %>" value="<%= data.startup.entrepreneurFullName %>">
 
-                                                               
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <b>Job Title: </b>
-                                                            <span>
-                                                                    <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder="<%= data.startup.entrepreneurJobTitle %>" value="<%= data.startup.entrepreneurJobTitle %>">
+                                <div class="tab-pane active show" id="details">
+                                    <div class="card card-default color-palette-box">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                Firma Yetkilisi
+                                            </h3>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <b>Full Name: </b>
+                                                    <span>
+                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder=" <%= data.startup.entrepreneurFullName %>"
+                                                            value="<%= data.startup.entrepreneurFullName %>">
 
-                                                                
-                                                            </span>
-                                                        </div>
-                                                    </div>
+
+                                                    </span>
                                                 </div>
-                                                <!-- /.card-body -->
+                                                <div class="col-sm-6">
+                                                    <b>Job Title: </b>
+                                                    <span>
+                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder="<%= data.startup.entrepreneurJobTitle %>"
+                                                            value="<%= data.startup.entrepreneurJobTitle %>">
+
+
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="card card-default color-palette-box">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">
-                                                        <i class="fa fa-building" aria-hidden="true"></i>
-                                                        Firma Bilgileri
-                                                    </h3>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <div class="card card-default color-palette-box">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fa fa-building" aria-hidden="true"></i>
+                                                Firma Bilgileri
+                                            </h3>
+                                        </div>
+                                        <div class="card-body firm-info">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <b>Description: </b>
+                                                    <span>
+                                                        <textarea rows="2" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                            placeholder=" <%= data.startup.description %>" value="<%= data.startup.description %>"></textarea>
+
+
+                                                    </span>
                                                 </div>
-                                                <div class="card-body firm-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <b>Description: </b>
-                                                            <span>
-                                                                    <textarea rows="2" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder=" <%= data.startup.description %>" value="<%= data.startup.description %>"></textarea>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <b>Sector: </b>
+                                                    <span>
+                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder=" <%= data.sector.name %>"
+                                                            value=" <%= data.sector.name %>">
 
-                                                               
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <b>Sector: </b>
-                                                            <span>
-                                                                    <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder=" <%= data.sector.name %>" value=" <%= data.sector.name %>">
 
-                                                               
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <b>Cooperations: </b>
-                                                            <span>
-                                                                    <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder="<%= data.startup.cooperation %>" value=" <%= data.startup.cooperation %>">
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <b>Cooperations: </b>
+                                                    <span>
+                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder="<%= data.startup.cooperation %>"
+                                                            value=" <%= data.startup.cooperation %>">
 
-                                                                
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <b>Doğuş Grubuna Uygunluk (0-10): </b>
-                                                            <span>
-                                                                    <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
-                                                                            <option selected> <%= data.startup.availabilityForDogus %></option>
-                                                                            <option>option 2</option>
-                                                                            <option>option 3</option>
-                                                                            <option>option 4</option>
-                                                                            <option>option 5</option>
-                                                                          </select>
-                                                               
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <b>Firma Kalitesi (0-10): </b>
-                                                            <span>
-                                                                    <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
-                                                                            <option selected> <%= data.startup.quality %></option>
-                                                                            <option>option 2</option>
-                                                                            <option>option 3</option>
-                                                                            <option>option 4</option>
-                                                                            <option>option 5</option>
-                                                                          </select>
-                                                                
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <b>Assets: </b>
-                                                            <div class="col-sm-12 mailbox-attachments">
-                                                                <% for(var i=0; i<data.assetList.length; i++) {%>
-                                                                    <div>
-                                                                        <%if (data.assetList[i].assetType == "pdf") { %>
-                                                                            <span class="mailbox-attachment-icon">
-                                                                                <i class="fa fa-file-pdf-o"></i>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <b>Doğuş Grubuna Uygunluk (0-10): </b>
+                                                    <span>
+                                                        <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
+                                                            <option selected>
+                                                                <%= data.startup.availabilityForDogus %>
+                                                            </option>
+                                                            <option>option 2</option>
+                                                            <option>option 3</option>
+                                                            <option>option 4</option>
+                                                            <option>option 5</option>
+                                                        </select>
+
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <b>Firma Kalitesi (0-10): </b>
+                                                    <span>
+                                                        <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
+                                                            <option selected>
+                                                                <%= data.startup.quality %>
+                                                            </option>
+                                                            <option>option 2</option>
+                                                            <option>option 3</option>
+                                                            <option>option 4</option>
+                                                            <option>option 5</option>
+                                                        </select>
+
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <b>Assets: </b>
+                                                    <div class="col-sm-12 mailbox-attachments">
+                                                        <% for(var i=0; i<data.assetList.length; i++) {%>
+                                                            <div>
+                                                                <%if (data.assetList[i].assetType == "pdf") { %>
+                                                                    <span class="mailbox-attachment-icon">
+                                                                        <i class="fa fa-file-pdf-o"></i>
+                                                                    </span>
+                                                                    <%} else if (data.assetList[i].assetType == "docx"){ %>
+                                                                        <span class="mailbox-attachment-icon">
+                                                                            <i class="fa fa-file-word-o"></i>
+                                                                        </span>
+                                                                        <%} else if (data.assetList[i].assetType == "png" || data.assetList[i].assetType == "jpg"){ %>
+                                                                            <span class="mailbox-attachment-icon has-img">
+                                                                                <img class="attachment-cover" src="<%= data.assetList[i].fileUrl %>" alt="Attachment">
                                                                             </span>
-                                                                            <%} else if (data.assetList[i].assetType == "docx"){ %>
-                                                                                <span class="mailbox-attachment-icon">
-                                                                                    <i class="fa fa-file-word-o"></i>
-                                                                                </span>
-                                                                                <%} else if (data.assetList[i].assetType == "png" || data.assetList[i].assetType == "jpg"){ %>
-                                                                                    <span class="mailbox-attachment-icon has-img">
-                                                                                        <img class="attachment-cover" src="<%= data.assetList[i].fileUrl %>" alt="Attachment">
-                                                                                    </span>
-                                                                                    <% } %>
-                                                                                        <div class="mailbox-attachment-info">
-                                                                                            <a href="<%= data.assetList[i].fileUrl %>" class="mailbox-attachment-name">
-                                                                                                <i class="fa fa-paperclip"></i>
-                                                                                                <%= data.assetList[i].fileUrl.split("/")[data.assetList[i].fileUrl.split("/").length-1] %>
-                                                                                            </a>
-                                                                                        </div>
-                                                                    </div>
-                                                                    <% } %>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-12">
-                                                            <b>Doğuş Groups - Horizon List: </b>
-                                                        </div>
-                                                        <% for(var i=0; i<data.groups.length; i++) {%>
-                                                            <div class="col-sm-12" style="margin-top:3px;">
-                                                                <%= data.groups[i].groupName %> &#8594; Horizon
-                                                                    <%= data.groups[i].horizon %>
+                                                                            <% } %>
+                                                                                <div class="mailbox-attachment-info">
+                                                                                    <a href="<%= data.assetList[i].fileUrl %>" class="mailbox-attachment-name">
+                                                                                        <i class="fa fa-paperclip"></i>
+                                                                                        <%= data.assetList[i].fileUrl.split("/")[data.assetList[i].fileUrl.split("/").length-1] %>
+                                                                                    </a>
+                                                                                </div>
                                                             </div>
                                                             <% } %>
                                                     </div>
                                                 </div>
-                                                <!-- /.card-body -->
                                             </div>
-                                            <div class="card card-default color-palette-box">
-                                                <div class="card-header">
-                                                    <h3 class="card-title">
-                                                        <i class="fa fa-diamond" aria-hidden="true"></i>
-                                                        Firmayı Keşfeden Kişi
-                                                    </h3>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <b>Doğuş Groups - Horizon List: </b>
                                                 </div>
-                                                <div class="card-body firm-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <b>Full Name: </b>
-                                                            <span>
-                                                                <%= data.consumer.fullName %>
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <b>Email: </b>
-                                                            <span>
-                                                                <%= data.consumer.email %>
-                                                            </span>
-                                                        </div>
+                                                <% for(var i=0; i<data.groups.length; i++) {%>
+                                                    <div class="col-sm-12" style="margin-top:3px;">
+                                                        <%= data.groups[i].groupName %> &#8594; Horizon
+                                                            <%= data.groups[i].horizon %>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <b>Company: </b>
-                                                            <span>
-                                                                <%= data.consumer.companyName %>
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <b>Job Title: </b>
-                                                            <span>
-                                                                <%= data.consumer.jobTitle %>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /.card-body -->
+                                                    <% } %>
                                             </div>
-                                            <!-- /.post -->
                                         </div>
-                                        <!-- /Detail Panel -->
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <div class="card card-default color-palette-box">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="fa fa-diamond" aria-hidden="true"></i>
+                                                Firmayı Keşfeden Kişi
+                                            </h3>
+                                        </div>
+                                        <div class="card-body firm-info">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <b>Full Name: </b>
+                                                    <span>
+                                                        <%= data.consumer.fullName %>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <b>Email: </b>
+                                                    <span>
+                                                        <%= data.consumer.email %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <b>Company: </b>
+                                                    <span>
+                                                        <%= data.consumer.companyName %>
+                                                    </span>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <b>Job Title: </b>
+                                                    <span>
+                                                        <%= data.consumer.jobTitle %>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.post -->
+                                </div>
+                                <!-- /Detail Panel -->
                             </div>
                         </section>
                         <!-- /.content -->
@@ -283,11 +301,39 @@
                             <%- include('./components/scripts'); -%>
         </div>
         <!-- ./wrapper -->
-
+        <link href="https://s3.eu-west-3.amazonaws.com/invendocdn/css/tagify.css" rel="stylesheet" />
+        <script src="https://s3.eu-west-3.amazonaws.com/invendocdn/js/tagify.js"></script>
     </body>
 
 
     <script>
+        $(function () {
+            $.get("/controller/getTags", function (res) {
+                var whitelist = [];
+                var tags = JSON.parse(res);
+                console.log(tags);
+                for (var i = 0; i < tags.length; i++) {
+                    whitelist.push(tags[i].tag.name);
+                }
+                var input1 = document.querySelector('input[name=tags]'),
+                    tagify1 = new Tagify(input1, {
+                        whitelist: whitelist,
+                    })
+
+                // listen to custom 'remove' tag event
+                tagify1.on('remove', onRemoveTag);
+
+                function onRemoveTag(e) {
+                    console.log(e, e.detail);
+                }
+
+                function onAddTag(e) {
+                    console.log(e, e.detail);
+                }
+            })
+        })
+
+
         function getNotes() {
             $('.main-footer').hide();
             $.get('/controller/getStartupLogs/<%= data.startup.id %>', function (res) {

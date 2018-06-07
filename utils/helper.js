@@ -1,25 +1,29 @@
 var request = require('request');
 
-exports.tokenControl = function (username, password, callback) {
-    if (typeof token == 'undefined') {
-        getToken(username, password, function (res) {
+exports.tokenControl = function (req, callback) {
+    var username = req.session.AUTHEMAIL;
+    var password = req.session.AUTHPASSWORD;
+    if (req.session.tokenData == null) {
+        getToken(req, function (res) {
             callback(res);
         });
     } else {
         var currentDate = new Date().getTime();
-        var tokenDate = token.date.getTime();
+         console.log(req.session.tokenDataDate);
+        var tokenDate = new Date(req.session.tokenDataDate).getTime();
         if ((currentDate - tokenDate) < 0) {
-            getToken(username, password, function (res) {
+            getToken(req, function (res) {
                 callback(res);
             });
         } else {
-            callback(token.token_type + " " + token.access_token);
+            callback(req.session.tokenData.token_type + " " + req.session.tokenData.access_token);
         }
     }
 }
 
-function getToken(username, password, callback) {
-
+function getToken(req, callback) {
+    var username = req.session.AUTHEMAIL;
+    var password = req.session.AUTHPASSWORD;
     var options = {
         url: 'https://fundoopay:XY7kmzoNzl100@katalog-backend.herokuapp.com/oauth/token',
         method: 'POST',
@@ -32,9 +36,10 @@ function getToken(username, password, callback) {
     
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            global.token = JSON.parse(body);
-            global.token.date = new Date();
-            callback(token.token_type + " " + token.access_token);
+            console.log(body);
+            req.session.tokenData = JSON.parse(body);
+            req.session.tokenDataDate = new Date();
+            callback(req.session.tokenData.token_type + " " + req.session.tokenData.access_token);
         }
     })
 }

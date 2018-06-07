@@ -19,6 +19,10 @@
                             <div class="container-fluid">
                                 <div class="row mb-2">
                                     <div class="col-sm-12 detail-header">
+
+                                        <span class="detail-header-edit">
+                                            <a href="../update/<%= data.startup.id %>"><i style="font-size: 20px;" class="fas fa-edit"></i></a>
+                                        </span>
                                         <span class="detail-header-status">
                                             <%if (data.status != null) { %>
                                                 <span class="dot"></span>
@@ -301,32 +305,27 @@
                 contentType: 'application/json; charset=utf-8',
                 url: '/controller/createLog/<%= data.startup.id %>',
                 success: function (data) {
-
-                    if (data.errorCode == 200) {
-                        var res = data.body.object;
+                    console.log(data);
                         $('#comment-box').prepend('<div class="card" style="padding: 10px;">' +
                             '<div class="post clearfix">' +
                             '<div class="user-block">' +
-                            '<img class="img-circle img-bordered-sm" src="' + res.consumer.profileImageUrl + '" alt="User Image">' +
+                            '<img class="img-circle img-bordered-sm" src="' + data.consumer.profileImageUrl + '" alt="User Image">' +
                             '<span class="username">' +
-                            '<a href="#">' + res.consumer.fullName + '</a>' +
+                            '<a href="#">' + data.consumer.fullName + '</a>' +
                             '</span>' +
-                            '<span class="description">' + formatDate(res.startupLog.createdAt) + '</span>' +
+                            '<span class="description">' + formatDate(data.startupLog.createdAt) + '</span>' +
                             '</div>' +
-                            '<p>' + res.startupLog.content + '</p>' +
+                            '<p>' + data.startupLog.content + '</p>' +
                             '</div>' +
                             '</div>');
-                    } else {
-                        $(".message-box").toggle(750, function () {
+                    
+                },
+                error: function (data) {
+                    $(".message-box").toggle(750, function () {
                             setTimeout(function () {
                                 $(".message-box").toggle(750);
                             }, 2000);
                         });
-
-                    }
-                },
-                error: function (data) {
-                    console.log(data);
                 }
             });
         }

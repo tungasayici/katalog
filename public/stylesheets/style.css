@@ -3,8 +3,15 @@
 }
 
 .detail-header-status{
+    position: absolute;
     display: block;
-    text-align: left !important;
+    left: 0;
+}
+
+.detail-header-edit{
+    position: absolute;
+    right: 0;
+    z-index: 1;
 }
 
 .detail-header-title{

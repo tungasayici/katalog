@@ -1,15 +1,13 @@
 var express = require('express');
-var localStorage = require('localStorage')
+var localStorage = require('localStorage');
 var router = express.Router();
 var request = require('request');
 var helper = require('../utils/helper');
 var constants = require('../utils/constants');
 
-var AUTH = {}
-
 /* Note page */
 router.get('/getStartupLogs/:id', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
 
     var headers = {
       'Authorization': response
@@ -31,7 +29,7 @@ router.get('/getStartupLogs/:id', function (req, res, next) {
 
 /* Create Note */
 router.post('/createLog/:id', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response
     }
@@ -47,9 +45,9 @@ router.post('/createLog/:id', function (req, res, next) {
     }
     request(options, function (error, result, body) {
       if (!error && result.statusCode == 200) {
-        res.send(result);
+        res.send(result.body.object);
       } else {
-        res.send({ errorCode: 401 });
+        res.send(error);
       }
     })
   });
@@ -57,7 +55,7 @@ router.post('/createLog/:id', function (req, res, next) {
 
 /* Create Comment */
 router.post('/createComment/:id', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (response) {
+  helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response,
       'Content-Type' : "application/json"
@@ -127,15 +125,9 @@ router.post('/auth', function (req, res, next) {
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log(body);
-      var AUTHDATA = {
-        "AUTHPROFILE" : body,
-        "AUTHEMAIL" : req.body.email,
-        "AUTHPASSWORD" : req.body.password
-      }
-      localStorage.setItem('AUTH', JSON.stringify(AUTHDATA));
-      
-      AUTH = JSON.parse(localStorage.getItem('AUTH'));
-      console.log(AUTH);
+      req.session.AUTHPROFILE = body;
+      req.session.AUTHEMAIL = req.body.email;
+      req.session.AUTHPASSWORD = req.body.password;
       res.send(body);
     } else {
       res.send(error);
@@ -154,7 +146,7 @@ router.post('/lockscreen', function (req, res, next) {
     headers: headers,
     json: true,
     body: {
-      'email': AUTH.AUTHEMAIL,
+      'email': req.session.AUTHEMAIL,
       'password': req.body.password
     }
   }
@@ -195,7 +187,7 @@ router.post('/forgotpassword', function (req, res, next) {
 
 /* Add Startup */
 router.post('/addStartup', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -218,7 +210,7 @@ router.post('/addStartup', function (req, res, next) {
 });
 
 router.get('/getTags', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -241,7 +233,7 @@ router.get('/getTags', function (req, res, next) {
 
 
 router.get('/getStatus', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -263,7 +255,7 @@ router.get('/getStatus', function (req, res, next) {
 });
 
 router.get('/sortAndFilter', function (req, res, next) {
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -286,7 +278,7 @@ router.get('/sortAndFilter', function (req, res, next) {
 
 router.get('/like', function (req, res, next) {
   console.log("like girdi");
-  helper.tokenControl(AUTH.AUTHEMAIL, AUTH.AUTHPASSWORD, function (token) {
+  helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
       'Authorization': token
@@ -297,7 +289,7 @@ router.get('/like', function (req, res, next) {
       headers: headers,
       json: true,
       body: {
-        "consumerId": AUTH.AUTHPROFILE.id,
+        "consumerId": req.session.AUTHPROFILE.id,
         "startupId": req.query.startupId
       }
     }
