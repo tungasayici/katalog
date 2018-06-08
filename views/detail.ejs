@@ -19,42 +19,45 @@
                             <div class="container-fluid">
                                 <div class="row mb-2">
                                     <div class="col-sm-12 detail-header">
-
-                                        <span class="detail-header-edit">
-                                            <a href="../update/<%= data.startup.id %>"><i style="font-size: 20px;" class="fas fa-edit"></i></a>
-                                        </span>
-                                        <span class="detail-header-status">
-                                            <%if (data.status != null) { %>
-                                                <span class="dot"></span>
-                                                <%= data.status.name  %>
-                                                    <%} else{%>
-                                                        <span class="dot" style="background-color: #ccc;"></span>
-                                                        Unknown
-                                                        <%}%>
-                                        </span>
-                                        <span class="detail-header-title">
-                                            <%= data.startup.title %>
-                                        </span>
-                                        <%if (data.startup.phoneNumber != null) { %>
-                                            <span class="detail-header-sub-title">
-                                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                                <%= data.startup.phoneNumber %>
+                                        <%if (data.consumer.id == authProfile.id) { %>
+                                            <span class="detail-header-edit">
+                                                <a href="../update/<%= data.startup.id %>">
+                                                    <i style="font-size: 20px;" class="fas fa-edit"></i>
+                                                </a>
                                             </span>
-                                            <span style="margin-left: 7px; margin-right: 7px;">&bull;</span>
                                             <%}%>
-                                                <span class="detail-header-sub-title">
-                                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                    <%= data.country.nicename %>
+                                                <span class="detail-header-status">
+                                                    <%if (data.status != null) { %>
+                                                        <span class="dot"></span>
+                                                        <%= data.status.name  %>
+                                                            <%} else{%>
+                                                                <span class="dot" style="background-color: #ccc;"></span>
+                                                                Unknown
+                                                                <%}%>
                                                 </span>
-                                                <span class="detail-header-tag">
-                                                    <% for(var i=0; i<data.tags.length; i++) {%>
-                                                        <a href="#">
-                                                            #
-                                                            <%= data.tags[i].name %>
-                                                        </a>
-                                                        <% } %>
+                                                <span class="detail-header-title">
+                                                    <%= data.startup.title %>
+                                                </span>
+                                                <%if (data.startup.phoneNumber != null) { %>
+                                                    <span class="detail-header-sub-title">
+                                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                                        <%= data.startup.phoneNumber %>
+                                                    </span>
+                                                    <span style="margin-left: 7px; margin-right: 7px;">&bull;</span>
+                                                    <%}%>
+                                                        <span class="detail-header-sub-title">
+                                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                            <%= data.country.nicename %>
+                                                        </span>
+                                                        <span class="detail-header-tag">
+                                                            <% for(var i=0; i<data.tags.length; i++) {%>
+                                                                <a href="#">
+                                                                    #
+                                                                    <%= data.tags[i].name %>
+                                                                </a>
+                                                                <% } %>
 
-                                                </span>
+                                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +85,7 @@
                                                 <div class="card-header">
                                                     <h3 class="card-title">
                                                         <i class="fa fa-user" aria-hidden="true"></i>
-                                                        Firma Yetkilisi
+                                                        Company Authority
                                                     </h3>
                                                 </div>
                                                 <div class="card-body">
@@ -107,7 +110,7 @@
                                                 <div class="card-header">
                                                     <h3 class="card-title">
                                                         <i class="fa fa-building" aria-hidden="true"></i>
-                                                        Firma Bilgileri
+                                                        Company Informations
                                                     </h3>
                                                 </div>
                                                 <div class="card-body firm-info">
@@ -306,26 +309,26 @@
                 url: '/controller/createLog/<%= data.startup.id %>',
                 success: function (data) {
                     console.log(data);
-                        $('#comment-box').prepend('<div class="card" style="padding: 10px;">' +
-                            '<div class="post clearfix">' +
-                            '<div class="user-block">' +
-                            '<img class="img-circle img-bordered-sm" src="' + data.consumer.profileImageUrl + '" alt="User Image">' +
-                            '<span class="username">' +
-                            '<a href="#">' + data.consumer.fullName + '</a>' +
-                            '</span>' +
-                            '<span class="description">' + formatDate(data.startupLog.createdAt) + '</span>' +
-                            '</div>' +
-                            '<p>' + data.startupLog.content + '</p>' +
-                            '</div>' +
-                            '</div>');
-                    
+                    $('#comment-box').prepend('<div class="card" style="padding: 10px;">' +
+                        '<div class="post clearfix">' +
+                        '<div class="user-block">' +
+                        '<img class="img-circle img-bordered-sm" src="' + data.consumer.profileImageUrl + '" alt="User Image">' +
+                        '<span class="username">' +
+                        '<a href="#">' + data.consumer.fullName + '</a>' +
+                        '</span>' +
+                        '<span class="description">' + formatDate(data.startupLog.createdAt) + '</span>' +
+                        '</div>' +
+                        '<p>' + data.startupLog.content + '</p>' +
+                        '</div>' +
+                        '</div>');
+
                 },
                 error: function (data) {
                     $(".message-box").toggle(750, function () {
-                            setTimeout(function () {
-                                $(".message-box").toggle(750);
-                            }, 2000);
-                        });
+                        setTimeout(function () {
+                            $(".message-box").toggle(750);
+                        }, 2000);
+                    });
                 }
             });
         }
