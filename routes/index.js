@@ -47,7 +47,7 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
-
+  
   console.log(req.session.AUTHEMAIL);
   helper.tokenControl(req, function (response) {
     // Set the headers
