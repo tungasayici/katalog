@@ -27,13 +27,16 @@
                                             </span>
                                             <%}%>
                                                 <span class="detail-header-status">
-                                                    <%if (data.status != null) { %>
+                                                    <%if (data.status.id == 1) { %>
                                                         <span class="dot"></span>
                                                         <%= data.status.name  %>
-                                                            <%} else{%>
-                                                                <span class="dot" style="background-color: #ccc;"></span>
-                                                                Unknown
-                                                                <%}%>
+                                                        <%} else if (data.status.id == 3) { %>
+                                                            <span class="dot" style="background-color: #dc3545"></span>
+                                                            <%= data.status.name  %>
+                                                                <%} else{%>
+                                                                    <span class="dot" style="background-color: #ccc;"></span>
+                                                                    Unknown
+                                                                    <%}%>
                                                 </span>
                                                 <span class="detail-header-title">
                                                     <%= data.startup.title %>
@@ -198,7 +201,7 @@
                                                 <div class="card-header">
                                                     <h3 class="card-title">
                                                         <i class="fa fa-diamond" aria-hidden="true"></i>
-                                                        Firmayı Keşfeden Kişi
+                                                        Company Hunter
                                                     </h3>
                                                 </div>
                                                 <div class="card-body firm-info">
