@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-        <script>
-                localStorage.setItem("authProfile", '<%- authProfile %>');
-                    
-                    </script>
+<script>
+    localStorage.setItem("authProfile", '<%- authProfile %>');
+
+</script>
 <%- include('./components/header'); -%>
 
     <body>
@@ -72,10 +72,11 @@
 
                                                                                             <!-- /.card-header -->
                                                                                             <div class="card-body" style="display: block;">
-
-                                                                                                <h4>
-                                                                                                    <%= data[i].startup.title %>
-                                                                                                </h4>
+                                                                                                <a href="detail/<%= data[i].startup.id %>" style="color:black">
+                                                                                                    <h4>
+                                                                                                        <%= data[i].startup.title %>
+                                                                                                    </h4>
+                                                                                                </a>
                                                                                                 <!-- post text -->
                                                                                                 <p>
                                                                                                     <%if (data[i].startup.description.length > 150) {%>
@@ -83,9 +84,6 @@
                                                                                                             <%} else{%>
                                                                                                                 <%= data[i].startup.description %>
                                                                                                                     <%}%>
-                                                                                                                        <a href="detail/<%= data[i].startup.id %>"> see
-                                                                                                                            more
-                                                                                                                        </a>
                                                                                                 </p>
 
 
@@ -240,11 +238,11 @@
 
                                                         $("#content").append('<div class="col-md-4">' +
                                                             status +
-                                                            '<div class="card-body" style="display: block;"><h4>' +
+                                                            '<div class="card-body" style="display: block;"><a href="detail/'+ data[i].startup.id + '" style="color:black"><h4>' +
                                                             data[i].startup.title +
-                                                            '</h4><p>' +
+                                                            '</h4></a><p>' +
                                                             description +
-                                                            '<a href="detail/' + data[i].startup.id + '"> see more</a></p>' +
+                                                            '</p>' +
                                                             '<button type="button" class="btn btn-default btn-sm" onclick="$(\'.toggle-comment-' + data[i].startup.id + '\').toggle(500);">' +
                                                             '<i class="fa fa-comments"></i> Comments (' + data[i].commentReviews.length + ')</button>' +
                                                             like + '</div>' +
