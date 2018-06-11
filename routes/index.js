@@ -5,6 +5,15 @@ var router = express.Router();
 var helper = require('../utils/helper');
 var constants = require('../utils/constants');
 
+function sessionCheck(req, res, next) {
+  if (!req.session.AUTHPROFILE) {
+    res.redirect('../login');
+    res.end();
+  } else {
+    next
+  }
+}
+
 /* GET login page. */
 router.get('/', function (req, res, next) {
 
@@ -30,6 +39,7 @@ router.get('/signup', function (req, res, next) {
 
 /* GET lockscreen page. */
 router.get('/lockscreen', function (req, res, next) {
+  sessionCheck(req, res, next);
   helper.tokenControl(req, function (response) {
     res.render('lockscreen', {
       title: 'Lockscreen',
@@ -47,7 +57,7 @@ router.get('/forgotpassword', function (req, res, next) {
 
 /* GET home page. */
 router.get('/home', function (req, res, next) {
-
+  sessionCheck(req, res, next);
   helper.tokenControl(req, function (response) {
 
     // Set the headers
@@ -71,7 +81,7 @@ router.get('/home', function (req, res, next) {
           authProfile: req.session.AUTHPROFILE,
           title: 'Home'
         });
-      }else{
+      } else {
         res.send(error);
       }
     })
@@ -80,6 +90,7 @@ router.get('/home', function (req, res, next) {
 
 /* GET add page. */
 router.get('/add', function (req, res, next) {
+  sessionCheck(req, res, next);
   helper.tokenControl(req, function (response) {
     var options = {
       url: constants.URL + '/sector/all',
@@ -90,10 +101,10 @@ router.get('/add', function (req, res, next) {
     }
     request(options, function (error, result, body) {
       if (!error && result.statusCode == 200) {
-        helper.getAllSectors(req,function(allSectors){
-          helper.getAllGroups(req,function(allGroups){
-            helper.getAllStatus(req,function(allStatus){
-              helper.getAllCountries(req,function(allCountries){
+        helper.getAllSectors(req, function (allSectors) {
+          helper.getAllGroups(req, function (allGroups) {
+            helper.getAllStatus(req, function (allStatus) {
+              helper.getAllCountries(req, function (allCountries) {
                 res.render('add', {
                   title: 'Add',
                   authProfile: req.session.AUTHPROFILE,
@@ -117,7 +128,7 @@ router.get('/add', function (req, res, next) {
 
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
-
+  sessionCheck(req, res, next);
   helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response
@@ -143,6 +154,7 @@ router.get('/detail/:id', function (req, res, next) {
 
 /* GET update page. */
 router.get('/update/:id', function (req, res, next) {
+  sessionCheck(req, res, next);
   helper.tokenControl(req, function (response) {
     var options = {
       url: constants.URL + '/startup/' + req.params.id,
@@ -158,11 +170,11 @@ router.get('/update/:id', function (req, res, next) {
         for (var i = 0; i < data.tags.length; i++) {
           values.push(data.tags[i].name);
         }
-        
-        helper.getAllSectors(req,function(allSectors){
-          helper.getAllGroups(req,function(allGroups){
-            helper.getAllStatus(req,function(allStatus){
-              helper.getAllCountries(req,function(allCountries){
+
+        helper.getAllSectors(req, function (allSectors) {
+          helper.getAllGroups(req, function (allGroups) {
+            helper.getAllStatus(req, function (allStatus) {
+              helper.getAllCountries(req, function (allCountries) {
                 res.render('update', {
                   data: data,
                   values: values.join(),
@@ -177,7 +189,7 @@ router.get('/update/:id', function (req, res, next) {
             })
           })
         })
-      }else{
+      } else {
         res.send(error);
       }
     })
@@ -186,7 +198,7 @@ router.get('/update/:id', function (req, res, next) {
 
 /* GET profile page. */
 router.get('/profile', function (req, res, next) {
-
+  sessionCheck(req, res, next);
   helper.tokenControl(req, function (response) {
     res.render('profile', {
       title: 'Profile',

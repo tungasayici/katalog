@@ -58,7 +58,7 @@ router.post('/createComment/:id', function (req, res, next) {
   helper.tokenControl(req, function (response) {
     var headers = {
       'Authorization': response,
-      'Content-Type' : "application/json"
+      'Content-Type': "application/json"
     }
 
     var options = {
@@ -110,7 +110,7 @@ router.post('/signup', function (req, res, next) {
 
 /* GET login page. */
 router.post('/auth', function (req, res, next) {
-  
+
   var headers = {
     'Content-Type': 'application/json'
   }
@@ -240,7 +240,7 @@ router.get('/getTags', function (req, res, next) {
       method: 'GET',
       headers: headers
     }
-    
+
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);
@@ -263,7 +263,7 @@ router.get('/getStatus', function (req, res, next) {
       method: 'GET',
       headers: headers
     }
-    
+
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);
@@ -285,7 +285,7 @@ router.get('/sortAndFilter', function (req, res, next) {
       method: 'GET',
       headers: headers
     }
-    
+
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);
@@ -320,6 +320,12 @@ router.get('/like', function (req, res, next) {
       }
     })
   });
+});
+
+router.get('/logout', function (req, res, next) {
+  req.session.destroy();
+  res.redirect('../login');
+  res.end();
 });
 
 module.exports = router;
