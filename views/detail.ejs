@@ -26,6 +26,21 @@
                                                 </a>
                                             </span>
                                             <%}%>
+                                            <span class="detail-header-edit" style="right:30px">
+                                                    <a href="whatsapp://send?text=text-to-share" data-action="share/whatsapp/share">
+                                                        <i style="font-size: 20px;" class="fas fa-share-square"></i>
+                                                    </a>
+                                                </span>
+                                                <span class="detail-header-edit" style="right:60px">
+                                                        <a href="mailto:someone@example.com?Subject=Hello%20again&body=merhabaaaa" target="_top">
+                                                            <i style="font-size: 20px;" class="fas fa-envelope"></i>
+                                                        </a>
+                                                    </span>
+                                                    <span class="detail-header-edit" style="right:90px">
+                                                            <a href="tel:555-555-5555" target="_top">
+                                                                <i style="font-size: 20px;" class="fas fa-phone"></i>
+                                                            </a>
+                                                        </span>
                                                 <span class="detail-header-status">
                                                     <%if (data.status == null) { %>
                                                         <span class="dot" style="background-color: #ccc;"></span>
@@ -36,7 +51,11 @@
                                                                 <%} else if (data.status.id == 3) { %>
                                                                     <span class="dot" style="background-color: #dc3545"></span>
                                                                     <%= data.status.name  %>
-                                                                        <%}%>
+                                                                        <%} else{%>
+
+                                                                            <span class="dot" style="background-color: green;"></span>
+                                                                            <%= data.status.name  %>
+                                                                            <%}%>
                                                 </span>
                                                 <span class="detail-header-title">
                                                     <%= data.startup.title %>

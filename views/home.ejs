@@ -71,12 +71,37 @@
 
 
                                                                                             <!-- /.card-header -->
-                                                                                            <div class="card-body" style="display: block;">
-                                                                                                <a href="detail/<%= data[i].startup.id %>" style="color:black">
-                                                                                                    <h4>
-                                                                                                        <%= data[i].startup.title %>
-                                                                                                    </h4>
-                                                                                                </a>
+                                                                                            <div class="card-body card-widget widget-user-2" style="display: block;">
+                                                                                                    <div class="widget-user-header bg-info">
+                                                                                                            <div class="widget-user-image">
+                                                                                                              <img class="img-circle elevation-2" src="https://avatars1.githubusercontent.com/u/38559069?s=280&amp;v=4" alt="User Avatar">
+                                                                                                              <span class="badge" style="position: absolute;left: 75px;">🇹🇷</span>
+                                                                                                            </div>
+                                                                                                            <!-- /.widget-user-image -->
+                                                                                                            <h4 class="widget-user-username">
+                                                                                                                    <a href="detail/<%= data[i].startup.id %>" style="color:black">
+                                                                                                                        
+                                                                                                                            <%= data[i].startup.title %>
+                                                                                                                    </a>
+                                                                                                            </h4>
+                                                                                                            <div class="startup-tags" style="margin-left:75px;">
+
+                                                                                                            <% for(var j=0; j<data[i].tags.length; j++) {%>
+                                                                                                                    <span class="badge badge-danger">
+                                                                                                                    <a href="#">
+                                                                                                                        #
+                                                                                                                        <%= data[i].tags[j].name %>
+                                                                                                                    </a>
+                                                                                                                    
+                                                                                                                </span>
+                                                                                                                <% } %>
+                                                                                                            </div>
+                                                                                                          </div>
+                                                                                                
+                                                                                                
+                                                                                                <div class="detail-header-tag">
+                                                                                                    
+                                                                                                </div>
                                                                                                 <!-- post text -->
                                                                                                 <p>
                                                                                                     <%if (data[i].startup.description.length > 150) {%>

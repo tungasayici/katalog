@@ -69,7 +69,8 @@
                 function login() {
                     var loginData = {
                         "email": $("#email").val(),
-                        "password": $("#password").val()
+                        "password": $("#password").val(),
+                        "username" : $("#email").val()
                     }
                     $.ajax({
                         type: 'POST',

@@ -42,33 +42,92 @@
                                         <!-- text input -->
                                         <div class="form-group">
                                             <label>Name</label>
+                                            <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                                  </div>
                                             <input type="text" id="name" class="form-control" placeholder="Enter Name ...">
                                         </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                                <label>E-Mail Address</label>
+                              
+                                                <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-at"></i></span>
+                                                  </div>
+                                                  <input type="text" class="form-control" placeholder="Enter E-Mail Address...">
+                                                </div>
+                                                
+                                                <!-- /.input group -->
+                                              </div>
+
+                                        <div class="form-group">
+                                                <label>Phone Number</label>
+                              
+                                                <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                                  </div>
+                                                  <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="">
+                                                </div>
+                                                
+                                                <!-- /.input group -->
+                                              </div>
+
+                                               <!-- text input -->
+                                        <div class="form-group">
+                                                <label>Other Contact Info</label>
+                                                <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-globe"></i></span>
+                                                      </div>
+                                                <input type="text" id="name" class="form-control" placeholder="Enter Link...">
+                                            </div>
+                                            </div>
+
+                                              <!-- textarea -->
+                                        <div class="form-group">
+                                                <label>Description</label>
+                                                <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-align-left"></i></span>
+                                                      </div>
+                                                <textarea id="description" class="form-control" rows="4" placeholder="Enter Description..."></textarea>
+                                            </div>
+                                            </div>
 
                                         <!-- select -->
                                         <div class="form-group">
                                             <label>Select Sector</label>
+                                            <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-briefcase"></i></span>
+                                                  </div>
                                             <select class="form-control" id="sector">
                                                     <% for(var j=0; j<allSectors.length; j++) {%>
                                                 <option value="<%= allSectors[j].id %>"><%= allSectors[j].name %></option>
                                                 <% } %>
                                             </select>
                                         </div>
-
-                                        <!-- textarea -->
-                                        <div class="form-group">
-                                            <label>Textarea</label>
-                                            <textarea id="description" class="form-control" rows="4" placeholder="Enter Description..."></textarea>
                                         </div>
+
+                                        
 
                                         <!-- select -->
                                         <div class="form-group">
                                             <label>Select Location</label>
+                                            <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
+                                                          </div>
                                             <select class="form-control" id="location">
                                                     <% for(var j=0; j<allCountries.length; j++) {%>
-                                                            <option value="<%= allCountries[j].id %>"><%= allCountries[j].name %></option>
+                                                            <option value="<%= allCountries[j].id %>"><%= allCountries[j].nicename %></option>
                                                             <% } %>
                                             </select>
+                                            </div>
                                         </div>
 
                                         <!-- checkbox -->
@@ -86,6 +145,19 @@
                                                 <% } %>
                                             </div>
                                         </div>
+
+
+                                        <div class="form-group">
+                                                <label>Interview Date</label>
+                              
+                                                <div class="input-group">
+                                                  <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                                  </div>
+                                                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                                </div>
+                                                <!-- /.input group -->
+                                              </div>
 
                                     </form>
                                 </div>

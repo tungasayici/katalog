@@ -76,6 +76,8 @@ router.get('/home', function (req, res, next) {
     var headers = {
       'Authorization': response
     }
+
+    
     // Configure the request
     var options = {
       url: constants.URL + '/startup/all',
@@ -88,6 +90,7 @@ router.get('/home', function (req, res, next) {
     // Start the request
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
+        console.log(JSON.parse(body));
         res.render('home', {
           data: JSON.parse(body),
           authProfile: req.session.AUTHPROFILE,
