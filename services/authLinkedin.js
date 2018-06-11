@@ -10,7 +10,7 @@ passport.use(new LinkedInStrategy({
     },
     function (token, tokenSecret, profile, done) {
         console.log(profile);
-        return done(profile);
+        return done(null,profile);
     }
 ));
 

@@ -45,7 +45,7 @@ passportLinkedin.authenticate('linkedin'));
 router.get('/auth/linkedin/callback', 
 passportLinkedin.authenticate('linkedin', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log(res.body)
+    console.log(res)
     res.redirect('/home');
   });
 
