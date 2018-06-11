@@ -20,7 +20,7 @@
                                 <div class="row mb-2">
                                     <div class="col-sm-12 detail-header">
                                         <%if (data.consumer.id == authProfile.id) { %>
-                                            <span class="detail-header-edit">
+                                            <span class="detail-header-edit" style="right:90px">
                                                 <a href="../update/<%= data.startup.id %>">
                                                     <i style="font-size: 20px;" class="fas fa-edit"></i>
                                                 </a>
@@ -31,16 +31,17 @@
                                                         <i style="font-size: 20px;" class="fas fa-share-square"></i>
                                                     </a>
                                                 </span>
-                                                <span class="detail-header-edit" style="right:60px">
-                                                        <a href="mailto:someone@example.com?Subject=Hello%20again&body=merhabaaaa" target="_top">
-                                                            <i style="font-size: 20px;" class="fas fa-envelope"></i>
-                                                        </a>
-                                                    </span>
-                                                    <span class="detail-header-edit" style="right:90px">
+                                                
+                                                    <span class="detail-header-edit">
                                                             <a href="tel:555-555-5555" target="_top">
                                                                 <i style="font-size: 20px;" class="fas fa-phone"></i>
                                                             </a>
                                                         </span>
+                                                        <span class="detail-header-edit" style="right:60px">
+                                                                <a href="mailto:someone@example.com?Subject=Hello%20again&body=merhabaaaa" target="_top">
+                                                                    <i style="font-size: 20px;" class="fas fa-envelope"></i>
+                                                                </a>
+                                                            </span>
                                                 <span class="detail-header-status">
                                                     <%if (data.status == null) { %>
                                                         <span class="dot" style="background-color: #ccc;"></span>
