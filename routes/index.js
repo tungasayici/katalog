@@ -4,6 +4,7 @@ var localStorage = require('localStorage')
 var router = express.Router();
 var helper = require('../utils/helper');
 var constants = require('../utils/constants');
+var passportLinkedin = require('../services/authLinkedin');
 
 function sessionCheck(req, res, next) {
   if (!req.session.AUTHPROFILE) {
@@ -36,6 +37,17 @@ router.get('/signup', function (req, res, next) {
     title: 'Signup'
   });
 });
+
+/* AUTH Linkedin. */
+router.get('/auth/linkedin',
+passportLinkedin.authenticate('linkedin'));
+
+router.get('/auth/linkedin/callback', 
+passportLinkedin.authenticate('linkedin', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log(res.body)
+    res.redirect('/home');
+  });
 
 /* GET lockscreen page. */
 router.get('/lockscreen', function (req, res, next) {

@@ -7,6 +7,7 @@ var session = require("express-session")
 
 var indexRouter = require('./routes/index');
 var controllerRouter = require('./routes/controller');
+var passportLinkedin = require('./services/authLinkedin');
 
 var app = express();
 
