@@ -124,7 +124,6 @@ router.post('/auth', function (req, res, next) {
 
   request(options, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      console.log(body);
       req.session.AUTHPROFILE = body;
       req.session.AUTHEMAIL = req.body.email;
       req.session.AUTHPASSWORD = req.body.password;
@@ -204,6 +203,32 @@ router.post('/addStartup', function (req, res, next) {
   });
 });
 
+/* PUT Update */
+router.post('/update/:id', function (req, res, next) {
+  helper.tokenControl(req, function (response) {
+    var headers = {
+      'Authorization': response,
+      'Content-Type' : "application/json"
+    }
+
+    var options = {
+      url: constants.URL + '/startup/' + req.params.id,
+      method: 'PUT',
+      headers: headers,
+      json: true,
+      body: req.body
+    }
+    request(options, function (error, result, body) {
+      if (!error && result.statusCode == 200) {
+        console.log("update yapıldı!!!!")
+        res.send(body);
+      }else{
+        res.send(error);
+      }
+    })
+  });
+});
+
 router.get('/getTags', function (req, res, next) {
   helper.tokenControl(req, function (token) {
     var headers = {
@@ -272,7 +297,6 @@ router.get('/sortAndFilter', function (req, res, next) {
 });
 
 router.get('/like', function (req, res, next) {
-  console.log("like girdi");
   helper.tokenControl(req, function (token) {
     var headers = {
       'Content-Type': 'application/json',
@@ -288,7 +312,6 @@ router.get('/like', function (req, res, next) {
         "startupId": req.query.startupId
       }
     }
-    console.log(options);
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         res.send(body);

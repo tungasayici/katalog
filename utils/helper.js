@@ -1,4 +1,5 @@
 var request = require('request');
+var constants = require('../utils/constants');
 
 exports.tokenControl = function (req, callback) {
     var username = req.session.AUTHEMAIL;
@@ -9,7 +10,7 @@ exports.tokenControl = function (req, callback) {
         });
     } else {
         var currentDate = new Date().getTime();
-         console.log(req.session.tokenDataDate);
+        console.log(req.session.tokenDataDate);
         var tokenDate = new Date(req.session.tokenDataDate).getTime();
         if ((currentDate - tokenDate) < 0) {
             getToken(req, function (res) {
@@ -33,7 +34,7 @@ function getToken(req, callback) {
             'pass': password
         }
     }
-    
+
     request(options, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log(body);
@@ -44,7 +45,7 @@ function getToken(req, callback) {
     })
 }
 
-exports.formatDate = function(date) {
+exports.formatDate = function (date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -54,4 +55,72 @@ exports.formatDate = function(date) {
     if (day.length < 2) day = '0' + day;
 
     return [day, month, year].join('-');
+}
+
+exports.getAllGroups = function (req, callback) {
+    this.tokenControl(req, function (token) {
+        var options = {
+            url: constants.URL + '/groups/all',
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        }
+        request(options, function (error, result, body) {
+            if (!error && result.statusCode == 200) {
+                callback(body);
+            }
+        })
+    })
+}
+
+exports.getAllSectors = function (req, callback) {
+    this.tokenControl(req, function (token) {
+        var options = {
+            url: constants.URL + '/sector/all',
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        }
+        request(options, function (error, result, body) {
+            if (!error && result.statusCode == 200) {
+                callback(body);
+            }
+        })
+    })
+}
+
+exports.getAllStatus = function (req, callback) {
+    this.tokenControl(req, function (token) {
+        var options = {
+            url: constants.URL + '/status/all',
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        }
+        request(options, function (error, result, body) {
+            if (!error && result.statusCode == 200) {
+                callback(body);
+            }
+        })
+    })
+}
+
+exports.getAllCountries = function (req, callback) {
+    this.tokenControl(req, function (token) {
+        var options = {
+            url: constants.URL + '/country/all',
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        }
+        request(options, function (error, result, body) {
+            if (!error && result.statusCode == 200) {
+                callback(body);
+            }
+        })
+    })
 }

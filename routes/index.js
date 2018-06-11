@@ -48,8 +48,8 @@ router.get('/forgotpassword', function (req, res, next) {
 /* GET home page. */
 router.get('/home', function (req, res, next) {
 
-  console.log(req.session.AUTHEMAIL);
   helper.tokenControl(req, function (response) {
+
     // Set the headers
     var headers = {
       'Authorization': response
@@ -63,7 +63,6 @@ router.get('/home', function (req, res, next) {
 
       }
     }
-    console.log(response);
     // Start the request
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -72,6 +71,8 @@ router.get('/home', function (req, res, next) {
           authProfile: req.session.AUTHPROFILE,
           title: 'Home'
         });
+      }else{
+        res.send(error);
       }
     })
   });
@@ -79,7 +80,6 @@ router.get('/home', function (req, res, next) {
 
 /* GET add page. */
 router.get('/add', function (req, res, next) {
-
   helper.tokenControl(req, function (response) {
     var options = {
       url: constants.URL + '/sector/all',
@@ -90,38 +90,21 @@ router.get('/add', function (req, res, next) {
     }
     request(options, function (error, result, body) {
       if (!error && result.statusCode == 200) {
-        var optionss = {
-          url: constants.URL + '/groups/all',
-          method: 'GET',
-          headers: {
-            'Authorization': response
-          }
-        }
-        request(optionss, function (errorr, resultt, bodyy) {
-          if (!errorr && resultt.statusCode == 200) {
-            var optionsss = {
-              url: constants.URL + '/country/all',
-              method: 'GET',
-              headers: {
-                'Authorization': response
-              }
-            }
-            request(optionsss, function (errorrr, resulttt, bodyyy) {
-              if (!errorrr && resulttt.statusCode == 200) {
+        helper.getAllSectors(req,function(allSectors){
+          helper.getAllGroups(req,function(allGroups){
+            helper.getAllStatus(req,function(allStatus){
+              helper.getAllCountries(req,function(allCountries){
                 res.render('add', {
                   title: 'Add',
                   authProfile: req.session.AUTHPROFILE,
-                  allSectors: JSON.parse(body),
-                  allGroups: JSON.parse(bodyy),
-                  allCountries: JSON.parse(bodyyy)
-                });
-              } else {
-                res.send(errorrr);
-              }
+                  allSectors: JSON.parse(allSectors),
+                  allGroups: JSON.parse(allGroups),
+                  allCountries: JSON.parse(allCountries),
+                  allStatus: JSON.parse(allStatus)
+                })
+              })
             })
-          } else {
-            res.send(errorr);
-          }
+          })
         })
       } else {
         res.send(error);
@@ -129,6 +112,8 @@ router.get('/add', function (req, res, next) {
     })
   });
 });
+
+
 
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
@@ -158,75 +143,46 @@ router.get('/detail/:id', function (req, res, next) {
 
 /* GET update page. */
 router.get('/update/:id', function (req, res, next) {
-
   helper.tokenControl(req, function (response) {
     var options = {
-      url: constants.URL + '/sector/all',
+      url: constants.URL + '/startup/' + req.params.id,
       method: 'GET',
       headers: {
         'Authorization': response
       }
     }
-    request(options, function (error, result, body) {
-      if (!error && result.statusCode == 200) {
-        var optionss = {
-          url: constants.URL + '/groups/all',
-          method: 'GET',
-          headers: {
-            'Authorization': response
-          }
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        var data = JSON.parse(body);
+        var values = [];
+        for (var i = 0; i < data.tags.length; i++) {
+          values.push(data.tags[i].name);
         }
-        request(optionss, function (errorr, resultt, bodyy) {
-          if (!errorr && resultt.statusCode == 200) {
-            var optionsss = {
-              url: constants.URL + '/country/all',
-              method: 'GET',
-              headers: {
-                'Authorization': response
-              }
-            }
-            request(optionsss, function (errorrr, resulttt, bodyyy) {
-              if (!errorrr && resulttt.statusCode == 200) {
-                var optionssss = {
-                  url: constants.URL + '/startup/' + req.params.id,
-                  method: 'GET',
-                  headers: {
-                    'Authorization': response
-                  }
-                }
-
-                request(optionssss, function (errorrrr, responseeee, bodyyyy) {
-                  if (!errorrrr && responseeee.statusCode == 200) {
-                    var data = JSON.parse(bodyyyy);
-                    var values = [];
-                    for (var i = 0; i < data.tags.length; i++) {
-                      values.push(data.tags[i].name);
-                    }
-                    res.render('update', {
-                      data: data,
-                      values: values.join(),
-                      title: 'Update',
-                      authProfile: req.session.AUTHPROFILE,
-                      allSectors: JSON.parse(body),
-                      allGroups: JSON.parse(bodyy),
-                      allCountries: JSON.parse(bodyyy)
-                    });
-                  }
+        
+        helper.getAllSectors(req,function(allSectors){
+          helper.getAllGroups(req,function(allGroups){
+            helper.getAllStatus(req,function(allStatus){
+              helper.getAllCountries(req,function(allCountries){
+                res.render('update', {
+                  data: data,
+                  values: values.join(),
+                  title: 'Update',
+                  authProfile: req.session.AUTHPROFILE,
+                  allSectors: JSON.parse(allSectors),
+                  allGroups: JSON.parse(allGroups),
+                  allCountries: JSON.parse(allCountries),
+                  allStatus: JSON.parse(allStatus)
                 })
-              } else {
-                res.send(errorrr);
-              }
+              })
             })
-          } else {
-            res.send(errorr);
-          }
+          })
         })
-      } else {
+      }else{
         res.send(error);
       }
     })
-  });
-});
+  })
+})
 
 /* GET profile page. */
 router.get('/profile', function (req, res, next) {

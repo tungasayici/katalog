@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./components/header'); -%>
-<style>
+    <style>
         .update-input {
             border: 1px solid #f4f6f9;
             text-align: center;
@@ -30,37 +30,52 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                                 You can not access here!</div>
                         </div>
+                        <div class="message-box-success" style="display: none">
+                            <div class="alert alert-success alert-dismissible" style="display:block; margin: 10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                Startup succesfully updated!</div>
+                        </div>
+                        <div class="message-box-danger" style="display: none">
+                            <div class="alert alert-danger alert-dismissible" style="display:block; margin: 10px;">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                Startup could not be updated! You can not access here!</div>
+                        </div>
                         <!-- Content Header (Page header) -->
                         <section class="content-header">
                             <div class="container-fluid">
                                 <div class="row mb-2">
                                     <div class="col-sm-12 detail-header">
                                         <span class="detail-header-edit">
-                                            <a href="../detail/<%= data.startup.id %>">
+                                            <a onclick="updateStartup()">
                                                 <i style="font-size: 20px;" class="fas fa-save"></i>
                                             </a>
                                         </span>
                                         <span class="detail-header-status">
                                             <%if (data.status != null) { %>
-                                                
+
                                                 <select style="z-index: 999" class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="status">
-                                                        <option value="1"><%= data.status.name  %></option>
-                                                        <option value="2">Görüşme aşamasında</option>
-                                                        <option value="3">Bilinmeyen</option>
-                                                      
-                                        </select>
-                                                    <%} else{%>
-                                                        
-                                                        <span class="dot" style="background-color: #ccc;"></span>
-                                                        Unknown
-                                                        <%}%>
+                                                    <option value="<%= data.status.id  %>">
+                                                        <%= data.status.name  %>
+                                                    </option>
+                                                    <% for(var j=0; j<allStatus.length; j++) {%>
+                                                        <option value="<%= allStatus[j].id %>">
+                                                            <%= allStatus[j].name %>
+                                                        </option>
+                                                        <% } %>
+
+                                                </select>
+                                                <%} else{%>
+
+                                                    <span class="dot" style="background-color: #ccc;"></span>
+                                                    Unknown
+                                                    <%}%>
                                         </span>
 
-                                        
+
                                         <div class="row">
                                             <div class="col-md-3"></div>
                                             <div class="col-md-6">
-                                                <input class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="<%= data.startup.title %>"
+                                                <input id="startupName" class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="<%= data.startup.title %>"
                                                     value="<%= data.startup.title %>">
                                             </div>
                                             <div class="col-md-3"></div>
@@ -71,25 +86,27 @@
                                             <div class="col-md-3"></div>
                                             <div class="col-md-3 col-6 col-sm-6">
                                                 <%if (data.startup.phoneNumber != null) { %>
-                                                    <input class="form-control form-control form-control-sm detail-header-sub-title update-input" type="text" placeholder="<%= data.startup.phoneNumber %>"
-                                                        value="<%= data.startup.phoneNumber %>">
+                                                    <input id="phoneNumber" class="form-control form-control form-control-sm detail-header-sub-title update-input" type="text"
+                                                        placeholder="<%= data.startup.phoneNumber %>" value="<%= data.startup.phoneNumber %>">
                                                     </i>
                                                     <%}%>
                                             </div>
                                             <div class="col-md-3 col-6 col-sm-6">
-                                                <select class="form-control form-control-sm detail-header-sub-title update-input">
+                                                <select id="countryName" class="form-control form-control-sm detail-header-sub-title update-input">
                                                     <option selected value="<%= data.country.id %>">
                                                         <%= data.country.nicename %>
                                                     </option>
                                                     <% for(var j=0; j<allCountries.length; j++) {%>
-                                                            <option value="<%= allCountries[j].id %>"><%= allCountries[j].name %></option>
-                                                    <% } %>
+                                                        <option value="<%= allCountries[j].id %>">
+                                                            <%= allCountries[j].nicename %>
+                                                        </option>
+                                                        <% } %>
                                                 </select>
                                             </div>
                                             <div class="col-md-3"></div>
                                         </div>
                                         <!-- /.tags -->
-                                        <input name='tags' placeholder='write here' value="<%= values %>">
+                                        <input name='tags' placeholder='write here' value="<%= values %>" id="tagInput">
 
                                         </span>
                                     </div>
@@ -114,8 +131,8 @@
                                                 <div class="col-sm-6">
                                                     <b>Full Name: </b>
                                                     <span>
-                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder=" <%= data.startup.entrepreneurFullName %>"
-                                                            value="<%= data.startup.entrepreneurFullName %>">
+                                                        <input id="fullName" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                            placeholder=" <%= data.startup.entrepreneurFullName %>" value="<%= data.startup.entrepreneurFullName %>">
 
 
                                                     </span>
@@ -123,8 +140,8 @@
                                                 <div class="col-sm-6">
                                                     <b>Job Title: </b>
                                                     <span>
-                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder="<%= data.startup.entrepreneurJobTitle %>"
-                                                            value="<%= data.startup.entrepreneurJobTitle %>">
+                                                        <input id="jobTitle" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                            placeholder="<%= data.startup.entrepreneurJobTitle %>" value="<%= data.startup.entrepreneurJobTitle %>">
 
 
                                                     </span>
@@ -145,8 +162,10 @@
                                                 <div class="col-sm-12">
                                                     <b>Description: </b>
                                                     <span>
-                                                        <textarea rows="2" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                            placeholder=" <%= data.startup.description %>"><%= data.startup.description %></textarea>
+                                                        <textarea id="description" rows="2" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom"
+                                                            type="text" placeholder=" <%= data.startup.description %>">
+                                                            <%= data.startup.description %>
+                                                        </textarea>
 
 
                                                     </span>
@@ -156,20 +175,24 @@
                                                 <div class="col-sm-6">
                                                     <b>Sector: </b>
                                                     <span>
-                                                            <select class="form-controlform-control form-control form-control-sm detail-header-sub-title update-input-bottom" id="sector">
-                                                                <option selected value="<%= data.sector.id %>"><%= data.sector.name %></option>
-                                                                    <% for(var j=0; j<allSectors.length; j++) {%>
-                                                                <option value="<%= allSectors[j].id %>"><%= allSectors[j].name %></option>
+                                                        <select class="form-controlform-control form-control form-control-sm detail-header-sub-title update-input-bottom" id="sector">
+                                                            <option selected value="<%= data.sector.id %>">
+                                                                <%= data.sector.name %>
+                                                            </option>
+                                                            <% for(var j=0; j<allSectors.length; j++) {%>
+                                                                <option value="<%= allSectors[j].id %>">
+                                                                    <%= allSectors[j].name %>
+                                                                </option>
                                                                 <% } %>
-                                                            </select>
+                                                        </select>
 
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <b>Cooperations: </b>
                                                     <span>
-                                                        <input class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text" placeholder="<%= data.startup.cooperation %>"
-                                                            value=" <%= data.startup.cooperation %>">
+                                                        <input id="cooperation" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                            placeholder="<%= data.startup.cooperation %>" value=" <%= data.startup.cooperation %>">
 
 
                                                     </span>
@@ -179,7 +202,7 @@
                                                 <div class="col-sm-6">
                                                     <b>Compliance to Doğuş Group (0-10): </b>
                                                     <span>
-                                                        <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
+                                                        <select id="availabilityForDogus" class="form-control form-control-sm detail-header-sub-title update-input-bottom">
                                                             <option selected value="<%= data.startup.availabilityForDogus %>">
                                                                 <%= data.startup.availabilityForDogus %>
                                                             </option>
@@ -200,7 +223,7 @@
                                                 <div class="col-sm-6">
                                                     <b>Company Quality (0-10): </b>
                                                     <span>
-                                                        <select class="form-control form-control-sm detail-header-sub-title update-input-bottom">
+                                                        <select id="quality" class="form-control form-control-sm detail-header-sub-title update-input-bottom">
                                                             <option selected value="<%= data.startup.quality %>">
                                                                 <%= data.startup.quality %>
                                                             </option>
@@ -255,44 +278,40 @@
                                                 </div>
                                                 <div class="row" style="margin-left: 0px;">
                                                     <div class="col-sm-5">
-                                                            <select class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="group">
-                                                                    <% for(var j=0; j<allGroups.length; j++) {%>
-                                                                            <option value="<%= allGroups[j].name %>"><%= allGroups[j].name %></option>
-                                                                            <% } %>
-                                                            </select>
+                                                        <select class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="group">
+                                                            <% for(var j=0; j<allGroups.length; j++) {%>
+                                                                <option value="<%= allGroups[j].id %>">
+                                                                    <%= allGroups[j].name %>
+                                                                </option>
+                                                                <% } %>
+                                                        </select>
                                                     </div>
                                                     <div class="col-sm-5">
-                                                            <select class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="horizon">
-                                                                            <option value="1">Horizon 1</option>
-                                                                            <option value="2">Horizon 2</option>
-                                                                            <option value="3">Horizon 3</option>
-                                                                          
-                                                            </select>
+                                                        <select class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="horizon">
+                                                            <option value="1">Horizon 1</option>
+                                                            <option value="2">Horizon 2</option>
+                                                            <option value="3">Horizon 3</option>
+
+                                                        </select>
                                                     </div>
                                                     <div class="col-sm-2">
-                                                            <button type="submit" onclick="addHorizonListItem()" style="margin-top: 10px;" class="btn btn-info btn-sm float-right">Save</button>
+                                                        <button type="submit" onclick="addHorizonListItem()" style="margin-top: 10px;" class="btn btn-info btn-sm float-right">Save</button>
                                                     </div>
                                                 </div>
                                                 <div class="horizon-list col-sm-12">
-                                                <% for(var i=0; i<data.groups.length; i++) {%>
-                                                    
-                                                    <div class="col-sm-12 horizon-list-item-<%= data.groups[i].groupId %>" style="margin-top:5px;">
-                                                        <%= data.groups[i].groupName %> &#8594; Horizon
-                                                            <%= data.groups[i].horizon %><a onclick="deleteHorizonListItem('<%= data.groups[i].groupId %>')">&nbsp;<i style="color: red;" class="fas fa-minus-circle"></i></a>
-                                                    </div>
-                                                    <% } %>
+                                                    <% for(var i=0; i<data.groups.length; i++) {%>
+
+                                                        <div class="col-sm-12 horizon-list-item-<%= data.groups[i].groupId %>-<%= data.groups[i].horizon %>" style="margin-top:5px;">
+                                                            <%= data.groups[i].groupName %> &#8594; Horizon
+                                                                <%= data.groups[i].horizon %>
+                                                                    <a onclick="deleteHorizonListItem('<%= data.groups[i].groupId %>-<%= data.groups[i].horizon %>')">&nbsp;
+                                                                        <i style="color: red;" class="fas fa-minus-circle"></i>
+                                                                    </a>
+                                                        </div>
+                                                        <% } %>
                                                 </div>
                                             </div>
-                                            <script>
-                                                function addHorizonListItem(){
-                                                    var className = String($('#group').val()).replace(" ","");
-                                                    console.log(className);
-                                                    $(".horizon-list").append("<div class='col-sm-12 horizon-list-item-"+className+"' style='margin-top:5px;'>"+$('#group').val()+"&#8594; Horizon" + $('#horizon').val()+"<a onclick='deleteHorizonListItem(`"+className+"`)'>&nbsp;<i style='color: red;' class='fas fa-minus-circle'></i></a></div>")
-                                                }
-                                                function deleteHorizonListItem(deletedItem){
-                                                    $(".horizon-list-item-"+deletedItem).remove()
-                                                }
-                                            </script>
+
 
                                         </div>
                                         <!-- /.card-body -->
@@ -355,6 +374,113 @@
 
 
     <script>
+        function updateStartup() {
+            console.lo
+            var startupData = {
+                "startup": {
+                    "title": $("#startupName").val(),
+                    "description": $("#description").text(),
+                    "consumerId": parseInt('<%= data.startup.id %>'),
+                    "sectorId": parseInt($("#sector").val()),
+                    "availabilityForDogus": parseInt($("#availabilityForDogus").val()),
+                    "quality": parseInt($("#quality").val()),
+                    "cooperation": $("#cooperation").val(),
+                    "phoneNumber": $("#phoneNumber").val(),
+                    "entrepreneurFullName": $("#fullName").val(),
+                    "entrepreneurJobTitle": $("#jobTitle").val(),
+                    "countryId": parseInt($("#countryName").val()),
+                    "statusId": parseInt($("#status").val()),
+                },
+                "assets": [],
+                "tags": getTag(),
+                "groups": horizonList
+            }
+            console.log(startupData);
+            $.ajax({
+                type: 'POST',
+                dataType: "json",
+                data: JSON.stringify(startupData),
+                contentType: 'application/json; charset=utf-8',
+                url: '/controller/update/<%= data.startup.id %>',
+                success: function (data) {
+
+                    console.log(data);
+                    $(".message-box-success").toggle(750, function () {
+                        setTimeout(function () {
+                            $(".message-box-success").toggle(750);
+                        }, 3000);
+                    });
+                },
+                error: function (data) {
+                    $(".message-box-danger").toggle(750, function () {
+                        setTimeout(function () {
+                            $(".message-box-danger").toggle(750);
+                        }, 2500);
+                    });
+                }
+            });
+        }
+
+        function getTag() {
+            var allTag = [];
+            var tags = String($("#tagInput").val()).split(',');
+            for (i = 0; i < tags.length; i++) {
+                allTag.push({
+                    "name": tags[i]
+                });
+            }
+            return allTag;
+        }
+console.log(horizonList);
+        var horizonList = [];
+        var userHorizonList = JSON.parse('<%- JSON.stringify(data.groups) %>');
+        for (i = 0; i < userHorizonList.length; i++) {
+            horizonList.push({
+                "groupId": userHorizonList[i].groupId,
+                "horizon": userHorizonList[i].horizon
+            })
+        }
+        console.log(horizonList);
+        function addHorizonListItem() {
+            var horizonID = $('#horizon').val();
+            var groupID = $('#group').val();
+            var groupName = $("#group option:selected").text();
+            var isThere = false
+            for (i = 0; i < horizonList.length; i++) {
+                if (horizonList[i].groupId == parseInt(groupID) && horizonList[i].horizon == parseInt(horizonID)) {
+                    isThere = true
+                }
+            }
+            if(!isThere){
+
+                    $(".horizon-list").append(
+                        "<div class='col-sm-12 horizon-list-item-" + groupID + "-" + horizonID +
+                        "' style='margin-top:5px;'>" + groupName +
+                        "&#8594; Horizon" + horizonID +
+                        "<a onclick='deleteHorizonListItem(`" + groupID + "-" + horizonID +
+                        "`)'>&nbsp;<i style='color: red;' class='fas fa-minus-circle'></i></a></div>"
+                    )
+                    horizonList.push({
+                        "groupId": parseInt(groupID),
+                        "horizon": parseInt(horizonID)
+                    })
+            }
+            console.log(horizonList);
+        }
+
+        function deleteHorizonListItem(deletedItemID) {
+            $(".horizon-list-item-" + deletedItemID).remove();
+            var grouphorizonids = String(deletedItemID).split("-")
+            console.log(grouphorizonids)
+            for(i=0;i<horizonList.length;i++){
+                if(horizonList[i].groupId == grouphorizonids[0] && horizonList[i].horizon == grouphorizonids[1]){
+                    console.log("buldum")
+                    horizonList = horizonList.slice(0, i).concat(horizonList.slice(i+1, horizonList.length))
+                }
+            }
+            console.log(horizonList);
+        }
+
         $(function () {
             $.get("/controller/getTags", function (res) {
                 var whitelist = [];
@@ -378,7 +504,10 @@
                 function onAddTag(e) {
                     console.log(e, e.detail);
                 }
+
+
             })
+
         })
     </script>
 
