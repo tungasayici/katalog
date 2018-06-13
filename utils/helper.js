@@ -124,3 +124,21 @@ exports.getAllCountries = function (req, callback) {
         })
     })
 }
+
+exports.getAllAssets = function(req, startupID, callback) {
+    this.tokenControl(req, function (token) {
+
+        var optionss = {
+            url: constants.URL + '/assets/all/' + startupID,
+            method: 'GET',
+            headers: {
+                'Authorization': token
+            }
+        }
+        request(optionss, function (error, response, assets) {
+            if (!error && response.statusCode == 200) {
+                callback(assets)
+            }
+        })
+    })
+}

@@ -90,7 +90,6 @@ router.get('/home', function (req, res, next) {
     // Start the request
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        console.log(JSON.parse(body));
         res.render('home', {
           data: JSON.parse(body),
           authProfile: req.session.AUTHPROFILE,
@@ -139,8 +138,6 @@ router.get('/add', function (req, res, next) {
   });
 });
 
-
-
 /* GET detail page. */
 router.get('/detail/:id', function (req, res, next) {
   sessionCheck(req, res, next);
@@ -157,11 +154,16 @@ router.get('/detail/:id', function (req, res, next) {
 
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        res.render('detail', {
-          data: JSON.parse(body),
-          title: 'Detail',
-          authProfile: req.session.AUTHPROFILE,
-        });
+        helper.getAllAssets(req, req.params.id, function(assets){
+          res.render('detail', {
+            data: JSON.parse(body),
+            assets: JSON.parse(assets),
+            title: 'Detail',
+            authProfile: req.session.AUTHPROFILE,
+          });
+        })
+      }else{
+        res.send(error);
       }
     })
   })
@@ -190,17 +192,20 @@ router.get('/update/:id', function (req, res, next) {
           helper.getAllGroups(req, function (allGroups) {
             helper.getAllStatus(req, function (allStatus) {
               helper.getAllCountries(req, function (allCountries) {
+                helper.getAllAssets(req, req.params.id, function(assets){
                 res.render('update', {
                   data: data,
                   values: values.join(),
                   title: 'Update',
                   authProfile: req.session.AUTHPROFILE,
+                  assets: JSON.parse(assets),
                   allSectors: JSON.parse(allSectors),
                   allGroups: JSON.parse(allGroups),
                   allCountries: JSON.parse(allCountries),
                   allStatus: JSON.parse(allStatus)
                 })
               })
+            })
             })
           })
         })

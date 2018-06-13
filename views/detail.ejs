@@ -26,22 +26,23 @@
                                                 </a>
                                             </span>
                                             <%}%>
-                                            <span class="detail-header-edit">
+                                                <span class="detail-header-edit">
                                                     <a href="whatsapp://send?text=https://katalog-frontend.herokuapp.com/detail/<%= data.startup.id %>" data-action="share/whatsapp/share">
                                                         <i style="font-size: 20px;" class="fa fa-whatsapp"></i>
                                                     </a>
                                                 </span>
-                                                
-                                                    <span class="detail-header-edit"  style="right:30px">
-                                                            <a href="tel:535-056-0103" target="_top">
-                                                                <i style="font-size: 20px;" class="fas fa-phone"></i>
-                                                            </a>
-                                                        </span>
-                                                        <span class="detail-header-edit" style="right:60px">
-                                                                <a href="mailto:someone@example.com?Subject= <%= data.startup.title %>&body=https://katalog-frontend.herokuapp.com/detail/<%= data.startup.id %>" target="_top">
-                                                                    <i style="font-size: 20px;" class="fas fa-envelope"></i>
-                                                                </a>
-                                                            </span>
+
+                                                <span class="detail-header-edit" style="right:30px">
+                                                    <a href="tel:<%= data.startup.phoneNumber  %>" target="_top">
+                                                        <i style="font-size: 20px;" class="fas fa-phone"></i>
+                                                    </a>
+                                                </span>
+                                                <span class="detail-header-edit" style="right:60px">
+                                                    <a href="mailto:<%= data.startup.email  %>?Subject= <%= data.startup.title %>&body=https://katalog-frontend.herokuapp.com/detail/<%= data.startup.id %>"
+                                                        target="_top">
+                                                        <i style="font-size: 20px;" class="fas fa-envelope"></i>
+                                                    </a>
+                                                </span>
                                                 <span class="detail-header-status">
                                                     <%if (data.status == null) { %>
                                                         <span class="dot" style="background-color: #ccc;"></span>
@@ -56,11 +57,21 @@
 
                                                                             <span class="dot" style="background-color: green;"></span>
                                                                             <%= data.status.name  %>
-                                                                            <%}%>
+                                                                                <%}%>
                                                 </span>
                                                 <span class="detail-header-title">
                                                     <%= data.startup.title %>
                                                 </span>
+                                                <span class="detail-header-sub-title">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+
+                                                    <%= new Date(data.startup.meetingDate).toDateString() %> &nbsp;
+                                                </span>
+                                                <span class="detail-header-sub-title">
+                                                        <i class="fa fa-globe" aria-hidden="true"></i>
+    
+                                                        <%= data.startup.webPage %> &nbsp;
+                                                    </span>
                                                 <%if (data.startup.phoneNumber != null) { %>
                                                     <span class="detail-header-sub-title">
                                                         <i class="fa fa-phone" aria-hidden="true"></i>
@@ -111,23 +122,37 @@
                                                         Company Authority
                                                     </h3>
                                                 </div>
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <b>Full Name: </b>
-                                                            <span>
-                                                                <%= data.startup.entrepreneurFullName %>
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <b>Job Title: </b>
-                                                            <span>
-                                                                <%= data.startup.entrepreneurJobTitle %>
-                                                            </span>
+                                                <% for(var j=0; j<data.entrepreneurs.length; j++) {%>
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                <b>Full Name: </b>
+                                                                <span>
+                                                                    <%= data.entrepreneurs[j].fullName %>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <b>Job Title: </b>
+                                                                <span>
+                                                                    <%= data.entrepreneurs[j].jobTitle %>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <b>Phone Number: </b>
+                                                                <span>
+                                                                    <%= data.entrepreneurs[j].phoneNumber %>
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <b>E-Mail: </b>
+                                                                <span>
+                                                                    <%= data.entrepreneurs[j].email %>
+                                                                </span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- /.card-body -->
+                                                    <% } %>
+                                                        <!-- /.card-body -->
                                             </div>
                                             <div class="card card-default color-palette-box">
                                                 <div class="card-header">
@@ -153,21 +178,33 @@
                                                             </span>
                                                         </div>
                                                         <div class="col-sm-6">
+                                                            <b>Other Products: </b>
+                                                            <span>
+                                                                <%= data.startup.products %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
                                                             <b>Cooperations: </b>
                                                             <span>
-                                                                <%= data.startup.cooperation %>
+                                                                <%= data.startup.cooperationCompanies %>
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Competings: </b>
+                                                            <span>
+                                                                <%= data.startup.competingCompanies %>
                                                             </span>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <b>Doğuş Grubuna Uygunluk (0-10): </b>
+                                                            <b>Compliance to Doğuş Group (0-10): </b>
                                                             <span>
                                                                 <%= data.startup.availabilityForDogus %>
                                                             </span>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <b>Firma Kalitesi (0-10): </b>
+                                                            <b>Company Quality (0-10): </b>
                                                             <span>
                                                                 <%= data.startup.quality %>
                                                             </span>
@@ -175,27 +212,27 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <b>Assets: </b>
+                                                            <b>Documents: </b>
                                                             <div class="col-sm-12 mailbox-attachments">
-                                                                <% for(var i=0; i<data.assetList.length; i++) {%>
+                                                                <% for(var i=0; i<data.documentList.length; i++) {%>
                                                                     <div>
-                                                                        <%if (data.assetList[i].assetType == "pdf") { %>
+                                                                        <%if (data.documentList[i].assetType == "pdf") { %>
                                                                             <span class="mailbox-attachment-icon">
                                                                                 <i class="fa fa-file-pdf-o"></i>
                                                                             </span>
-                                                                            <%} else if (data.assetList[i].assetType == "docx"){ %>
+                                                                            <%} else if (data.documentList[i].assetType == "docx"){ %>
                                                                                 <span class="mailbox-attachment-icon">
                                                                                     <i class="fa fa-file-word-o"></i>
                                                                                 </span>
-                                                                                <%} else if (data.assetList[i].assetType == "png" || data.assetList[i].assetType == "jpg"){ %>
+                                                                                <%} else if (data.documentList[i].assetType == "png" || data.documentList[i].assetType == "jpg"){ %>
                                                                                     <span class="mailbox-attachment-icon has-img">
-                                                                                        <img class="attachment-cover" src="<%= data.assetList[i].fileUrl %>" alt="Attachment">
+                                                                                        <img class="attachment-cover" src="<%= data.documentList[i].fileUrl %>" alt="Attachment">
                                                                                     </span>
                                                                                     <% } %>
                                                                                         <div class="mailbox-attachment-info">
-                                                                                            <a href="<%= data.assetList[i].fileUrl %>" class="mailbox-attachment-name">
+                                                                                            <a href="<%= data.documentList[i].fileUrl %>" class="mailbox-attachment-name">
                                                                                                 <i class="fa fa-paperclip"></i>
-                                                                                                <%= data.assetList[i].fileUrl.split("/")[data.assetList[i].fileUrl.split("/").length-1] %>
+                                                                                                <%= data.documentList[i].fileUrl.split("/")[data.documentList[i].fileUrl.split("/").length-1] %>
                                                                                             </a>
                                                                                         </div>
                                                                     </div>
@@ -214,9 +251,183 @@
                                                             </div>
                                                             <% } %>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <b>Capital and Partners </b>
+                                                        </div>
+                                                        <% for(var i=0; i<data.capitalAndPartners.length; i++) {%>
+                                                            <div class="col-sm-12" style="margin-top:3px;">
+                                                                <%= data.capitalAndPartners[i].companyName %> &#8594; %
+                                                                    <%= data.capitalAndPartners[i].share %>
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
                                                 </div>
                                                 <!-- /.card-body -->
                                             </div>
+
+
+
+
+                                            <div class="card card-default color-palette-box">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">
+                                                        <i class="fa fa-tag" aria-hidden="true"></i>
+                                                        Assets
+                                                    </h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <% for(var i=0; i<assets.length; i++) {%>
+                                                        <div class="card card-info color-palette-box">
+                                                                <div class="card-header">
+                                                                        <h6 style="margin-bottom: 0px;">
+                                                                            <i class="fa fa-clock" aria-hidden="true"></i>
+                                                                            Asset for <%= assets[i].groupId %>
+                                                                        </h6>
+                                                                    </div>
+                                                    <div class="card-body table-responsive p-0">
+                                                        <table class="table table-striped">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th style="width: 30%">Evaluation Criteria</th>
+                                                                    <th style="width: 10%">Perfection</th>
+                                                                    <th style="width: 10%">
+                                                                        <%= assets[i].groupId %>
+                                                                    </th>
+                                                                    <th style="width: 50%">Notes</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Products and services</td>
+                                                                    <td>
+                                                                        <span class="badge bg-danger">
+                                                                            <%= assets[i].productsAndServicesPerfection %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="badge bg-success">
+                                                                            <%= assets[i].productsAndServicesRelevance %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= assets[i].productsAndServicesNote %>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Team Members</td>
+                                                                    <td>
+                                                                        <span class="badge bg-danger">
+                                                                            <%= assets[i].teamMembersPerfection %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="badge bg-success">
+                                                                            <%= assets[i].teamMembersRelevance %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= assets[i].teamMembersNote %>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Data</td>
+                                                                    <td>
+                                                                        <span class="badge bg-danger">
+                                                                            <%= assets[i].dataPerfection %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="badge bg-success">
+                                                                            <%= assets[i].dataRelevance %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= assets[i].dataNote %>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Channels</td>
+                                                                    <td>
+                                                                        <span class="badge bg-danger">
+                                                                            <%= assets[i].channelsPerfection %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="badge bg-success">
+                                                                            <%= assets[i].channelsRelevance %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= assets[i].channelsNote %>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Customer Base</td>
+                                                                    <td>
+                                                                        <span class="badge bg-danger">
+                                                                            <%= assets[i].customerBasePerfection %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="badge bg-success">
+                                                                            <%= assets[i].customerBaseRelevance %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= assets[i].customerBaseNote %>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Intellectual Property Rights</td>
+                                                                    <td>
+                                                                        <span class="badge bg-danger">
+                                                                            <%= assets[i].intellectualPropertyRightsPerfection %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span class="badge bg-success">
+                                                                            <%= assets[i].intellectualPropertyRightsRelevance %>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= assets[i].intellectualPropertyRightsNote %>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>General Evaluation</td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td>
+                                                                    </td>
+                                                                    <td>
+                                                                            <%if (assets[i].generalEvaluation == 1 ) { %>
+                                                                                <div class="row">
+                                                                                <div class="col-6" style="border: solid 1px red;">Innovation</div>
+                                                                                <div class="col-6" style="border: solid 1px lightgray;">Process Improvement</div>
+                                                                                </div>
+                                                                                <%} else{%>
+                                                                                    <div class="row">
+                                                                                    <div class="col-6" style="border: solid 1px red;">Process Improvement</div>
+                                                                                        <div class="col-6" style="border: solid 1px lightgray;">Innovation</div>
+                                                                                    </div>
+                                                                                    <%}%>
+                                                                        
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                    <% } %>
+                                                        <!-- /.card-body -->
+                                            </div>
+
+
+
+
+
+
+
+
                                             <div class="card card-default color-palette-box">
                                                 <div class="card-header">
                                                     <h3 class="card-title">
@@ -305,11 +516,13 @@
                         $('#comment-box').append('<div class="card" style="padding: 10px;">' +
                             '<div class="post clearfix">' +
                             '<div class="user-block">' +
-                            '<img class="img-circle img-bordered-sm" src="' + notes[i].consumer.profileImageUrl + '" alt="User Image">' +
+                            '<img class="img-circle img-bordered-sm" src="' + notes[i].consumer.profileImageUrl +
+                            '" alt="User Image">' +
                             '<span class="username">' +
                             '<a href="#">' + notes[i].consumer.fullName + '</a>' +
                             '</span>' +
-                            '<span class="description">' + formatDate(notes[i].startupLog.createdAt) + '</span>' +
+                            '<span class="description">' + formatDate(notes[i].startupLog.createdAt) +
+                            '</span>' +
                             '</div>' +
                             '<p>' + notes[i].startupLog.content + '</p>' +
                             '</div>' +
@@ -318,6 +531,8 @@
                 }
             });
         }
+
+
 
         function createLog() {
             var body = {
@@ -335,11 +550,13 @@
                     $('#comment-box').prepend('<div class="card" style="padding: 10px;">' +
                         '<div class="post clearfix">' +
                         '<div class="user-block">' +
-                        '<img class="img-circle img-bordered-sm" src="' + data.consumer.profileImageUrl + '" alt="User Image">' +
+                        '<img class="img-circle img-bordered-sm" src="' + data.consumer.profileImageUrl +
+                        '" alt="User Image">' +
                         '<span class="username">' +
                         '<a href="#">' + data.consumer.fullName + '</a>' +
                         '</span>' +
-                        '<span class="description">' + formatDate(data.startupLog.createdAt) + '</span>' +
+                        '<span class="description">' + formatDate(data.startupLog.createdAt) +
+                        '</span>' +
                         '</div>' +
                         '<p>' + data.startupLog.content + '</p>' +
                         '</div>' +

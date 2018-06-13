@@ -81,15 +81,20 @@
                                             <div class="col-md-3"></div>
                                         </div>
 
-
                                         <div class="row">
-                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3">
+                                                    <input type="text" id="meeting-date" placeholder="<%= new Date(data.startup.meetingDate).toDateString() %>" value="<%= new Date(data.startup.meetingDate).toDateString() %>" class="form-control form-control-sm detail-header-sub-title update-input" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+
+                                            </div>
                                             <div class="col-md-3 col-6 col-sm-6">
-                                                <%if (data.startup.phoneNumber != null) { %>
-                                                    <input id="phoneNumber" class="form-control form-control form-control-sm detail-header-sub-title update-input" type="text"
+                                                <%if (data.startup.phoneNumber == null) { %>
+                                                    <input id="phoneNumber" class="form-control form-control-sm detail-header-sub-title update-input" type="text"
+                                                        placeholder="Phone Number">
+                                                    <%} else{ %>
+                                                        <input id="phoneNumber" class="form-control form-control-sm detail-header-sub-title update-input" type="text"
                                                         placeholder="<%= data.startup.phoneNumber %>" value="<%= data.startup.phoneNumber %>">
-                                                    </i>
-                                                    <%}%>
+                                                    
+                                                        <% } %>
                                             </div>
                                             <div class="col-md-3 col-6 col-sm-6">
                                                 <select id="countryName" class="form-control form-control-sm detail-header-sub-title update-input">
@@ -103,7 +108,10 @@
                                                         <% } %>
                                                 </select>
                                             </div>
-                                            <div class="col-md-3"></div>
+                                            <div class="col-md-3">
+                                                    <input type="text" id="webPage" placeholder="<%= data.startup.webPage %>" value="<%= data.startup.webPage %>" class="form-control form-control-sm detail-header-sub-title update-input" >
+
+                                            </div>
                                         </div>
                                         <!-- /.tags -->
                                         <input name='tags' placeholder='write here' value="<%= values %>" id="tagInput">
@@ -126,29 +134,47 @@
                                                 Company Authority
                                             </h3>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <b>Full Name: </b>
-                                                    <span>
-                                                        <input id="fullName" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                            placeholder=" <%= data.startup.entrepreneurFullName %>" value="<%= data.startup.entrepreneurFullName %>">
-
-
-                                                    </span>
+                                        <div class="entrepreneurs">
+                                        <% for(var j=0; j<data.entrepreneurs.length; j++) {%>
+                                                <div class="card-body ">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <b>Full Name: </b>
+                                                            <span>
+                                                                    <input id="authority-fullName<" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                    placeholder="<%= data.entrepreneurs[j].fullName %>" value="<%= data.entrepreneurs[j].fullName %>">
+        
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Job Title: </b>
+                                                            <span>
+                                                                    <input id="authority-jobTitle" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                    placeholder="<%= data.entrepreneurs[j].jobTitle %>" value="<%= data.entrepreneurs[j].jobTitle %>">
+        
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>Phone Number: </b>
+                                                            <span>
+                                                                    <input id="authority-phoneNumber" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                    placeholder="<%= data.entrepreneurs[j].phoneNumber %>" value="<%= data.entrepreneurs[j].phoneNumber %>">
+        
+                                                            </span>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <b>E-Mail: </b>
+                                                            <span>
+                                                                    <input id="authority-email" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                    placeholder=" <%= data.entrepreneurs[j].email %>" value=" <%= data.entrepreneurs[j].email %>">
+        
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <b>Job Title: </b>
-                                                    <span>
-                                                        <input id="jobTitle" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                            placeholder="<%= data.startup.entrepreneurJobTitle %>" value="<%= data.startup.entrepreneurJobTitle %>">
-
-
-                                                    </span>
-                                                </div>
+                                                <% } %>
                                             </div>
-                                        </div>
-                                        <!-- /.card-body -->
+                                                    <!-- /.card-body -->
                                     </div>
                                     <div class="card card-default color-palette-box">
                                         <div class="card-header">
@@ -163,9 +189,7 @@
                                                     <b>Description: </b>
                                                     <span>
                                                         <textarea id="description" rows="2" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom"
-                                                            type="text" placeholder=" <%= data.startup.description %>">
-                                                            <%= data.startup.description %>
-                                                        </textarea>
+                                                            type="text" placeholder=" <%= data.startup.description %>"><%= data.startup.description %></textarea>
 
 
                                                     </span>
@@ -189,6 +213,16 @@
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
+                                                        <b>Other Products: </b>
+                                                        <span>
+                                                            <input id="other-products" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                placeholder="<%= data.startup.products %>" value="<%= data.startup.products %>">
+    
+    
+                                                        </span>
+                                                    </div>
+
+                                                <div class="col-sm-6">
                                                     <b>Cooperations: </b>
                                                     <span>
                                                         <input id="cooperation" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
@@ -197,6 +231,16 @@
 
                                                     </span>
                                                 </div>
+
+                                                <div class="col-sm-6">
+                                                        <b>Competings: </b>
+                                                        <span>
+                                                            <input id="competing-companies" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                placeholder="<%= data.startup.competingCompanies %>" value="<%= data.startup.competingCompanies %>">
+    
+    
+                                                        </span>
+                                                    </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-6">
@@ -244,27 +288,27 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-sm-12">
-                                                    <b>Assets: </b>
+                                                    <b>Documents: </b>
                                                     <div class="col-sm-12 mailbox-attachments">
-                                                        <% for(var i=0; i<data.assetList.length; i++) {%>
+                                                        <% for(var i=0; i<data.documentList.length; i++) {%>
                                                             <div>
-                                                                <%if (data.assetList[i].assetType == "pdf") { %>
+                                                                <%if (data.documentList[i].assetType == "pdf") { %>
                                                                     <span class="mailbox-attachment-icon">
                                                                         <i class="fa fa-file-pdf-o"></i>
                                                                     </span>
-                                                                    <%} else if (data.assetList[i].assetType == "docx"){ %>
+                                                                    <%} else if (data.documentList[i].assetType == "docx"){ %>
                                                                         <span class="mailbox-attachment-icon">
                                                                             <i class="fa fa-file-word-o"></i>
                                                                         </span>
-                                                                        <%} else if (data.assetList[i].assetType == "png" || data.assetList[i].assetType == "jpg"){ %>
+                                                                        <%} else if (data.documentList[i].assetType == "png" || data.documentList[i].assetType == "jpg"){ %>
                                                                             <span class="mailbox-attachment-icon has-img">
-                                                                                <img class="attachment-cover" src="<%= data.assetList[i].fileUrl %>" alt="Attachment">
+                                                                                <img class="attachment-cover" src="<%= data.documentList[i].fileUrl %>" alt="Attachment">
                                                                             </span>
                                                                             <% } %>
                                                                                 <div class="mailbox-attachment-info">
-                                                                                    <a href="<%= data.assetList[i].fileUrl %>" class="mailbox-attachment-name">
+                                                                                    <a href="<%= data.documentList[i].fileUrl %>" class="mailbox-attachment-name">
                                                                                         <i class="fa fa-paperclip"></i>
-                                                                                        <%= data.assetList[i].fileUrl.split("/")[data.assetList[i].fileUrl.split("/").length-1] %>
+                                                                                        <%= data.documentList[i].fileUrl.split("/")[data.documentList[i].fileUrl.split("/").length-1] %>
                                                                                     </a>
                                                                                 </div>
                                                             </div>
@@ -312,10 +356,348 @@
                                                 </div>
                                             </div>
 
+                                            <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <b>Capital and Partners </b>
+                                                    </div>
+                                                    <div class="row" style="margin-left: 0px;">
+                                                        <div class="col-sm-5">
+                                                                <input id="capCompanyName" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                placeholder="Company Name">
+    
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                                <input id="capShare" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                                                                placeholder="Share Value">
+    
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button type="submit" onclick="addCapitalPartnersList()" style="margin-top: 10px;" class="btn btn-info btn-sm float-right">Save</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="capitalpartners-list col-sm-12">
+                                                        <% for(var i=0; i<data.capitalAndPartners.length; i++) {%>
+    
+                                                            <div class="col-sm-12 capitalpartners-item-<%= data.capitalAndPartners.id %>" style="margin-top:5px;">
+                                                                    <%= data.capitalAndPartners[i].companyName %> &#8594; %
+                                                                    <%= data.capitalAndPartners[i].share %>
+                                                                        <a onclick="deleteHorizonListItem('<%= data.capitalAndPartners.id %>')">&nbsp;
+                                                                            <i style="color: red;" class="fas fa-minus-circle"></i>
+                                                                        </a>
+                                                            </div>
+                                                            <% } %>
+                                                    </div>
+                                                </div>
 
                                         </div>
                                         <!-- /.card-body -->
                                     </div>
+
+                                    <div class="card card-default color-palette-box">
+                                            <div class="card-header">
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                            <h3 class="card-title">
+                                                                    <i class="fa fa-tag" aria-hidden="true"></i>
+                                                                    Assets
+                                                                </h3>
+                                                    </div>
+                                                    <div class="col-6 new-asset">
+                                                                    <a style="float:right" onclick="newAsset()">
+                                                                        <i class="fa fa-plus-circle" style="font-size: 25px"></i>
+                                                                      </a>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                                            </div>
+                                            <!-- /.card-header -->
+
+                                            <div id="assets">
+                                            <% for(var i=0; i<assets.length; i++) {%>
+                                                    <div class="card card-danger color-palette-box">
+                                                    <div class="card-header">
+                                                            <h6 style="margin-bottom: 0px;">
+                                                                <i class="fa fa-clock" aria-hidden="true"></i>
+                                                                Asset for <%= assets[i].groupId %>
+                                                            </h6>
+                                                        </div>
+                                                <div class="card-body table-responsive p-0">
+                                                    <table class="table table-striped">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th style="width: 30%">Evaluation Criteria</th>
+                                                                <th style="width: 10%">Perfection</th>
+                                                                <th style="width: 10%">
+                                                                    
+                                                                    <select class="form-control form-control-sm update-input" style="color: black;font-weight: 600;" id="group">
+                                                                            <option selected value="<%= assets[i].groupId %>">
+                                                                                    <%= assets[i].groupId %>
+                                                                            </option>
+                                                                        <% for(var j=0; j<allGroups.length; j++) {%>
+                                                                                <option value="<%= allGroups[j].id %>">
+                                                                                    <%= allGroups[j].name %>
+                                                                                </option>
+                                                                                <% } %>
+                                                                        </select>
+                                                                </th>
+                                                                <th style="width: 50%">Notes</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Products and services</td>
+                                                                <td>
+                                                                   
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].productsAndServicesPerfection %>">
+                                                                                        <%= assets[i].productsAndServicesPerfection %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                    
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm ">
+                                                                                <option selected value="<%= assets[i].productsAndServicesRelevance %>">
+                                                                                        <%= assets[i].productsAndServicesRelevance %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                    
+                                                                    <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                                            type="text" placeholder="<%= assets[i].productsAndServicesNote %>"><%= assets[i].productsAndServicesNote %></textarea>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Team Members</td>
+                                                                <td>
+                                                                    
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value=" <%= assets[i].teamMembersPerfection %>">
+                                                                                        <%= assets[i].teamMembersPerfection %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                   
+                                                                </td>
+                                                                <td>
+                                                                    
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].teamMembersRelevance %>">
+                                                                                        <%= assets[i].teamMembersRelevance %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                    
+                                                                </td>
+                                                                <td>
+
+                                                                        <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                                                        type="text" placeholder="<%= assets[i].teamMembersNote %>"><%= assets[i].teamMembersNote %></textarea>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Data</td>
+                                                                <td>
+                                                                    
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].dataPerfection %>">
+                                                                                        <%= assets[i].dataPerfection %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                   
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].dataRelevance %>">
+                                                                                        <%= assets[i].dataRelevance %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                        <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                                                        type="text" placeholder="<%= assets[i].dataNote %>"><%= assets[i].dataNote %></textarea>
+                                                                   
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Channels</td>
+                                                                <td>
+                                                                    
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].channelsPerfection %>">
+                                                                                        <%= assets[i].channelsPerfection%>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                   
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].channelsRelevance %>">
+                                                                                        <%= assets[i].channelsRelevance %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                   
+                                                                </td>
+                                                                <td>
+                                                                    
+                                                                    <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                                                        type="text" placeholder="<%= assets[i].channelsNote %>"><%= assets[i].channelsNote %></textarea>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Customer Base</td>
+                                                                <td>
+                                                                   
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].customerBasePerfection %>">
+                                                                                        <%= assets[i].customerBasePerfection %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                   
+                                                                </td>
+                                                                <td>
+                                                                   
+                                                                       
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].customerBaseRelevance %>">
+                                                                                        <%= assets[i].customerBaseRelevance %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                   
+                                                                </td>
+                                                                <td>
+                                                                        <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                                                        type="text" placeholder="<%= assets[i].customerBaseNote %>"><%= assets[i].customerBaseNote %></textarea>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Intellectual Property Rights</td>
+                                                                <td>
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].intellectualPropertyRightsPerfection %>">
+                                                                                        <%= assets[i].intellectualPropertyRightsPerfection %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                </td>
+                                                                <td>
+                                                                        
+                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                                <option selected value="<%= assets[i].intellectualPropertyRightsRelevance %>">
+                                                                                        <%= assets[i].intellectualPropertyRightsRelevance %>
+                                                                                </option>
+                                                                                <option value="1">1</option>
+                                                                                <option value="2">2</option>
+                                                                                <option value="3">3</option>
+                                                                                <option value="4">4</option>
+                                                                                <option value="5">5</option>
+                                                                            </select>
+                                                                </td>
+                                                                <td>
+                                                                        <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                                                        type="text" placeholder="<%= assets[i].intellectualPropertyRightsNote %>"><%= assets[i].intellectualPropertyRightsNote %></textarea>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>General Evaluation</td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                                <td>
+                                                                        <%if (assets[i].generalEvaluation == 1 ) { %>
+                                                                            <div class="row">
+                                                                                
+                                                                            <div class="col-6" style="border: solid 1px red;">Innovation</div>
+                                                                            <div class="col-6" style="border: solid 1px lightgray;">Process Improvement</div>
+                                                                            </div>
+                                                                            <%} else{%>
+                                                                                <div class="row">
+                                                                                <div class="col-6" style="border: solid 1px red;">Process Improvement</div>
+                                                                                    <div class="col-6" style="border: solid 1px lightgray;">Innovation</div>
+                                                                                </div>
+                                                                                <%}%>
+                                                                    
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                                <% } %>
+                                                    <!-- /.card-body -->
+                                                </div>
+                                        </div>
+
+
                                     <div class="card card-default color-palette-box">
                                         <div class="card-header">
                                             <h3 class="card-title">
@@ -509,6 +891,267 @@ console.log(horizonList);
             })
 
         })
+
+        function newAsset(){
+            var template = $('#hidden-template').html();
+    $('#assets').prepend(template);
+    $('.new-asset').hide();
+        }
+
+function addAsset(){
+    $('.new-asset').show();
+    $('#addNewAsset').hide();
+}
+
     </script>
+
+<script id="hidden-template" type="text/x-custom-template">
+    <div class="card card-danger color-palette-box">
+            <div class="card-header">
+                    <h6 style="margin-bottom: 0px;">
+                        <i class="fa fa-clock" aria-hidden="true"></i>
+                        New Asset
+                    </h6>
+                </div>
+        <div class="card-body table-responsive p-0">
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th style="width: 30%">Evaluation Criteria</th>
+                        <th style="width: 10%">Perfection</th>
+                        <th style="width: 10%">
+                            
+                            <select class="form-control form-control-sm update-input" style="color: black;font-weight: 600;" id="group">
+                                    
+                                <% for(var j=0; j<allGroups.length; j++) {%>
+                                        <option value="<%= allGroups[j].id %>">
+                                            <%= allGroups[j].name %>
+                                        </option>
+                                        <% } %>
+                                </select>
+                        </th>
+                        <th style="width: 50%">Notes</th>
+                    </tr>
+                    <tr>
+                        <td>Products and services</td>
+                        <td>
+                           
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                            
+                        </td>
+                        <td>
+                            
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm ">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                            
+                        </td>
+                        <td>
+                                <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                type="text" placeholder="Enter Note"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Team Members</td>
+                        <td>
+                            
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                           
+                        </td>
+                        <td>
+                            
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                            
+                        </td>
+                        <td>
+                                <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                type="text" placeholder="Enter Note"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Data</td>
+                        <td>
+                            
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                            
+                        </td>
+                        <td>
+                           
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                            
+                        </td>
+                        <td>
+                                <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                type="text" placeholder="Enter Note"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Channels</td>
+                        <td>
+                            
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                            
+                        </td>
+                        <td>
+                           
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                           
+                        </td>
+                        <td>
+                                <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                type="text" placeholder="Enter Note"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Customer Base</td>
+                        <td>
+                           
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                           
+                        </td>
+                        <td>
+                           
+                               
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                           
+                        </td>
+                        <td>
+                                <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                type="text" placeholder="Enter Note"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Intellectual Property Rights</td>
+                        <td>
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                        </td>
+                        <td>
+                                
+                                <select id="availabilityForDogus" class="form-control form-control-sm">
+                                        
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                        </td>
+                        <td>
+                                <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
+                                type="text" placeholder="Enter Note"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>General Evaluation</td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                                
+                                    <div class="row">
+                                        
+                                    <div class="col-6" style="border: solid 1px red;">Innovation</div>
+                                    <div class="col-6" style="border: solid 1px lightgray;">Process Improvement</div>
+                                    </div>
+                                    
+                            
+                        </td>
+                    </tr>
+                    <tr id="addNewAsset">
+                            <td></td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        <td><button onclick="addAsset()" style="float:right" class="btn btn-danger">Ekle</button></td></tr>
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+</script>
 
 </html>

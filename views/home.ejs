@@ -72,9 +72,22 @@
 
                                                                                             <!-- /.card-header -->
                                                                                             <div class="card-body card-widget widget-user-2" style="display: block;">
-                                                                                                    <div class="widget-user-header bg-info">
+                                                                                                    <%if (data[i].status != null) { %>
+                                                                                                        <% if(data[i].status.id == 1){ %>
+                                                                                                            <div class="widget-user-header bg-success">
+                                                                                                                <% } else if(data[i].status.id == 2){ %>
+                                                                                                                    <div class="widget-user-header bg-warning">
+                                                                                                                        <% } else if(data[i].status.id == 3){ %>
+                                                                                                                            <div class="widget-user-header bg-danger">
+                                                                                                                                <% }else{ %>
+                                                                                                                                    <div class="widget-user-header bg-info">
+                                                                                                                                        <% } %>
+                                                                                                                                            <%} else{%>
+                                                                                                                                                <div class="widget-user-header bg-info" style="background-color:gray !important">
+                                                                                                                                                    <%}%>
+                                                                                                   
                                                                                                             <div class="widget-user-image">
-                                                                                                              <img class="img-circle elevation-2" src="https://avatars1.githubusercontent.com/u/38559069?s=280&amp;v=4" alt="User Avatar">
+                                                                                                              <img class="img-circle elevation-2" src="<%= data[i].startup.logoImageUrl %>" alt="User Avatar">
                                                                                                               <span class="badge" style="position: absolute;left: 75px;">🇹🇷</span>
                                                                                                             </div>
                                                                                                             <!-- /.widget-user-image -->
@@ -87,7 +100,7 @@
                                                                                                             <div class="startup-tags" style="margin-left:75px;">
 
                                                                                                             <% for(var j=0; j<data[i].tags.length; j++) {%>
-                                                                                                                    <span class="badge badge-danger">
+                                                                                                                    <span class="badge badge-danger" style="background-color:#343a40">
                                                                                                                     <a href="#">
                                                                                                                         #
                                                                                                                         <%= data[i].tags[j].name %>
@@ -114,8 +127,7 @@
 
                                                                                                 <!-- Social sharing buttons -->
                                                                                                 <button type="button" class="btn btn-default btn-sm" onclick="$('.toggle-comment-<%= data[i].startup.id %>').toggle(500);">
-                                                                                                    <i class="fa fa-comments"></i> Comments (
-                                                                                                    <%= data[i].commentReviews.length %>)</button>
+                                                                                                    <i class="fa fa-comments"></i>  Comments (<%= data[i].commentReviews.length %>)</button>
                                                                                                 <button type="button" id="likeButton<%= data[i].startup.id %>" onclick="like(<%= data[i].startup.id %>)" class="btn btn-default btn-sm">
                                                                                                     <% if(!data[i].liked){ %>
                                                                                                         <i class="fa fa-heart" style="color: gray"></i> Like (
@@ -302,7 +314,6 @@
                                                 contentType: 'application/json; charset=utf-8',
                                                 url: '/controller/createComment/' + commentID,
                                                 success: function (data) {
-
                                                     $('.card-comment' + commentID).append(
                                                         '<div class="card-comment">' +
                                                         '<img class="img-circle img-sm" src="<%= authProfile.profileUrl %>" alt="User Image">' +
