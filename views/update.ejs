@@ -66,9 +66,19 @@
                                                 </select>
                                                 <%} else{%>
 
-                                                    <span class="dot" style="background-color: #ccc;"></span>
-                                                    Unknown
+                                                    
                                                     <%}%>
+                                                    <select style="z-index: 999" class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="status">
+                                                    <option value=0>
+                                                        Unknown
+                                                    </option>
+                                                    <% for(var j=0; j<allStatus.length; j++) {%>
+                                                        <option value="<%= allStatus[j].id %>">
+                                                            <%= allStatus[j].name %>
+                                                        </option>
+                                                        <% } %>
+
+                                                </select>
                                         </span>
 
 
@@ -83,7 +93,7 @@
 
                                         <div class="row">
                                             <div class="col-md-3">
-                                                    <input type="text" id="meeting-date" placeholder="<%= new Date(data.startup.meetingDate).toDateString() %>" value="<%= new Date(data.startup.meetingDate).toDateString() %>" class="form-control form-control-sm detail-header-sub-title update-input" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                                    <input type="text" id="meeting-date" placeholder="<%= new Date(data.startup.meetingDate).toDateString() %>" value="<%= new Date(data.startup.meetingDate).toDateString() %>" class="form-control form-control-sm detail-header-sub-title update-input" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" disabled >
 
                                             </div>
                                             <div class="col-md-3 col-6 col-sm-6">
@@ -129,10 +139,20 @@
                                 <div class="tab-pane active show" id="details" style="background-color: #f4f6fa;">
                                     <div class="card card-default color-palette-box">
                                         <div class="card-header">
-                                            <h3 class="card-title">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
-                                                Company Authority
-                                            </h3>
+                                                <div class="row">
+                                                        <div class="col-6">
+                                                                <h3 class="card-title">
+                                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                                        Company Authority
+                                                                    </h3>
+                                                        </div>
+                                                        <div class="col-6 new-entrepreneurs">
+                                                                        <a style="float:right" onclick="newEntrepreneurs()">
+                                                                            <i class="fa fa-plus-circle" style="font-size: 25px"></i>
+                                                                          </a>
+                                                        </div>
+                                                    </div>
+                                            
                                         </div>
                                         <div class="entrepreneurs">
                                         <% for(var j=0; j<data.entrepreneurs.length; j++) {%>
@@ -346,8 +366,7 @@
                                                     <% for(var i=0; i<data.groups.length; i++) {%>
 
                                                         <div class="col-sm-12 horizon-list-item-<%= data.groups[i].groupId %>-<%= data.groups[i].horizon %>" style="margin-top:5px;">
-                                                            <%= data.groups[i].groupName %> &#8594; Horizon
-                                                                <%= data.groups[i].horizon %>
+                                                            <%= data.groups[i].groupName %> &#8594; Horizon <%= data.groups[i].horizon %>
                                                                     <a onclick="deleteHorizonListItem('<%= data.groups[i].groupId %>-<%= data.groups[i].horizon %>')">&nbsp;
                                                                         <i style="color: red;" class="fas fa-minus-circle"></i>
                                                                     </a>
@@ -372,16 +391,16 @@
     
                                                         </div>
                                                         <div class="col-sm-2">
-                                                            <button type="submit" onclick="addCapitalPartnersList()" style="margin-top: 10px;" class="btn btn-info btn-sm float-right">Save</button>
+                                                            <button type="submit" onclick="addCapitalandPartners()" style="margin-top: 10px;" class="btn btn-info btn-sm float-right">Save</button>
                                                         </div>
                                                     </div>
                                                     <div class="capitalpartners-list col-sm-12">
                                                         <% for(var i=0; i<data.capitalAndPartners.length; i++) {%>
     
-                                                            <div class="col-sm-12 capitalpartners-item-<%= data.capitalAndPartners.id %>" style="margin-top:5px;">
+                                                            <div class="col-sm-12 capitalpartners-item-<%= data.capitalAndPartners.companyName %>" style="margin-top:5px;">
                                                                     <%= data.capitalAndPartners[i].companyName %> &#8594; %
                                                                     <%= data.capitalAndPartners[i].share %>
-                                                                        <a onclick="deleteHorizonListItem('<%= data.capitalAndPartners.id %>')">&nbsp;
+                                                                        <a onclick="deleteCapitalandPartners('<%= data.capitalAndPartners.companyName %>')">&nbsp;
                                                                             <i style="color: red;" class="fas fa-minus-circle"></i>
                                                                         </a>
                                                             </div>
@@ -427,8 +446,8 @@
                                                         <tbody>
                                                             <tr>
                                                                 <th style="width: 30%">Evaluation Criteria</th>
-                                                                <th style="width: 10%">Perfection</th>
-                                                                <th style="width: 10%">
+                                                                <th style="width: 15%">Perfection</th>
+                                                                <th style="width: 15%">
                                                                     
                                                                     <select class="form-control form-control-sm update-input" style="color: black;font-weight: 600;" id="group">
                                                                             <option selected value="<%= assets[i].groupId %>">
@@ -441,7 +460,7 @@
                                                                                 <% } %>
                                                                         </select>
                                                                 </th>
-                                                                <th style="width: 50%">Notes</th>
+                                                                <th style="width: 40%">Notes</th>
                                                             </tr>
                                                             <tr>
                                                                 <td>Products and services</td>
@@ -838,7 +857,7 @@ console.log(horizonList);
                     $(".horizon-list").append(
                         "<div class='col-sm-12 horizon-list-item-" + groupID + "-" + horizonID +
                         "' style='margin-top:5px;'>" + groupName +
-                        "&#8594; Horizon" + horizonID +
+                        "&#8594; Horizon " + horizonID +
                         "<a onclick='deleteHorizonListItem(`" + groupID + "-" + horizonID +
                         "`)'>&nbsp;<i style='color: red;' class='fas fa-minus-circle'></i></a></div>"
                     )
@@ -861,6 +880,45 @@ console.log(horizonList);
                 }
             }
             console.log(horizonList);
+        }
+
+        var capitalAndPartnersList = [];
+        function addCapitalandPartners(){
+            var companyName = $("#capCompanyName").val();
+            var shareValue = $("#capShare").val();
+
+            var isThere = false
+            for (i = 0; i < capitalAndPartnersList.length; i++) {
+                if (capitalAndPartnersList[i].companyName == companyName) {
+                    isThere = true
+                }
+            }
+            if(!isThere){
+
+                    $(".capitalpartners-list").append(
+                        "<div class='col-sm-12 capitalpartners-item-" + companyName +
+                        "' style='margin-top:5px;'>" + companyName +
+                        "&#8594; Horizon " + shareValue +
+                        "<a onclick='deleteCapitalandPartners(`" + companyName +
+                        "`)'>&nbsp;<i style='color: red;' class='fas fa-minus-circle'></i></a></div>"
+                    )
+                    capitalAndPartnersList.push({"companyName": companyName, "share": shareValue})
+                   
+            }
+            console.log(capitalAndPartnersList);
+        }
+
+        function deleteCapitalandPartners(deletedItemID){
+            $(".capitalpartners-item-" + deletedItemID).remove();
+            var capitalpartnersids = String(deletedItemID).split("-")
+            console.log(capitalpartnersids)
+            for(i=0;i<capitalAndPartnersList.length;i++){
+                if(capitalAndPartnersList[i].companyName == capitalpartnersids[0] && capitalAndPartnersList[i].shareValue == capitalpartnersids[1]){
+                    console.log("buldum")
+                    capitalAndPartnersList = capitalAndPartnersList.slice(0, i).concat(capitalAndPartnersList.slice(i+1, capitalAndPartnersList.length))
+                }
+            }
+            console.log(capitalAndPartnersList);
         }
 
         $(function () {
@@ -893,8 +951,8 @@ console.log(horizonList);
         })
 
         function newAsset(){
-            var template = $('#hidden-template').html();
-    $('#assets').prepend(template);
+            var templateAsset = $('#asset-template').html();
+    $('#assets').prepend(templateAsset);
     $('.new-asset').hide();
         }
 
@@ -903,9 +961,67 @@ function addAsset(){
     $('#addNewAsset').hide();
 }
 
+function newEntrepreneurs(){
+    var templateEntrepreneurs = $('#entrepreneurs-template').html();
+    $('.entrepreneurs').prepend(templateEntrepreneurs);
+    $('.new-entrepreneurs').hide();
+        }
+
+function addEntrepreneurs(){
+    $('.new-entrepreneurs').show();
+    $('#addNewEntrepreneurs').hide();
+}
+
+function assetGeneralEvaluationSwitch(){
+
+}
+
     </script>
 
-<script id="hidden-template" type="text/x-custom-template">
+<script id="entrepreneurs-template" type="text/x-custom-template">
+    <div class="card-body ">
+            <div class="row">
+                <div class="col-sm-6">
+                    <b>Full Name: </b>
+                    <span>
+                            <input id="authority-fullName<" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                            placeholder="" value="">
+
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <b>Job Title: </b>
+                    <span>
+                            <input id="authority-jobTitle" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                            placeholder="" value="">
+
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <b>Phone Number: </b>
+                    <span>
+                            <input id="authority-phoneNumber" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                            placeholder="" value="">
+
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <b>E-Mail: </b>
+                    <span>
+                            <input id="authority-email" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                            placeholder="" value="">
+
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+                       <button style="float:right" id="addNewEntrepreneurs" onclick="addEntrepreneurs()" style="float:right" class="btn btn-danger">Ekle</button>
+           
+        </div>
+</script>
+
+<script id="asset-template" type="text/x-custom-template">
     <div class="card card-danger color-palette-box">
             <div class="card-header">
                     <h6 style="margin-bottom: 0px;">
@@ -918,8 +1034,8 @@ function addAsset(){
                 <tbody>
                     <tr>
                         <th style="width: 30%">Evaluation Criteria</th>
-                        <th style="width: 10%">Perfection</th>
-                        <th style="width: 10%">
+                        <th style="width: 15%">Perfection</th>
+                        <th style="width: 15%">
                             
                             <select class="form-control form-control-sm update-input" style="color: black;font-weight: 600;" id="group">
                                     
@@ -930,7 +1046,7 @@ function addAsset(){
                                         <% } %>
                                 </select>
                         </th>
-                        <th style="width: 50%">Notes</th>
+                        <th style="width: 40%">Notes</th>
                     </tr>
                     <tr>
                         <td>Products and services</td>
