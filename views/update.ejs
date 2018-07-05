@@ -1,23 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('./components/header'); -%>
-    <style>
-        .update-input {
-            border: 1px solid #f4f6f9;
-            text-align: center;
-            border-bottom-color: #ced4da;
-            background-color: #f4f6f9;
-        }
-
-        .update-input-bottom {
-            border: 1px solid #fff;
-            text-align: left;
-            border-bottom-color: #ced4da;
-            background-color: #fff;
-            margin-top: 10px;
-        }
-    </style>
-
     <body>
         <!-- Site wrapper -->
         <div class="wrapper">
@@ -65,23 +48,19 @@
 
                                                 </select>
                                                 <%} else{%>
-
+                                                    <select style="z-index: 999" class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="status">
+                                                        <option value=0>
+                                                            Unknown
+                                                        </option>
+                                                        <% for(var j=0; j<allStatus.length; j++) {%>
+                                                            <option value="<%= allStatus[j].id %>">
+                                                                <%= allStatus[j].name %>
+                                                            </option>
+                                                            <% } %>
                                                     
                                                     <%}%>
-                                                    <select style="z-index: 999" class="form-control form-control-sm detail-header-sub-title update-input-bottom" id="status">
-                                                    <option value=0>
-                                                        Unknown
-                                                    </option>
-                                                    <% for(var j=0; j<allStatus.length; j++) {%>
-                                                        <option value="<%= allStatus[j].id %>">
-                                                            <%= allStatus[j].name %>
-                                                        </option>
-                                                        <% } %>
-
                                                 </select>
                                         </span>
-
-
                                         <div class="row">
                                             <div class="col-md-3"></div>
                                             <div class="col-md-6">
@@ -152,7 +131,6 @@
                                                                           </a>
                                                         </div>
                                                     </div>
-                                            
                                         </div>
                                         <div class="entrepreneurs">
                                         <% for(var j=0; j<data.entrepreneurs.length; j++) {%>
@@ -246,19 +224,14 @@
                                                     <b>Cooperations: </b>
                                                     <span>
                                                         <input id="cooperation" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                            placeholder="<%= data.startup.cooperation %>" value=" <%= data.startup.cooperation %>">
-
-
+                                                            placeholder="<%= data.startup.cooperationCompanies %>" value="<%= data.startup.cooperationCompanies %>">
                                                     </span>
                                                 </div>
-
                                                 <div class="col-sm-6">
                                                         <b>Competings: </b>
                                                         <span>
                                                             <input id="competing-companies" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
                                                                 placeholder="<%= data.startup.competingCompanies %>" value="<%= data.startup.competingCompanies %>">
-    
-    
                                                         </span>
                                                     </div>
                                             </div>
@@ -281,7 +254,6 @@
                                                             <option value="9">9</option>
                                                             <option value="10">10</option>
                                                         </select>
-
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
@@ -302,7 +274,6 @@
                                                             <option value="9">9</option>
                                                             <option value="10">10</option>
                                                         </select>
-
                                                     </span>
                                                 </div>
                                             </div>
@@ -355,7 +326,6 @@
                                                             <option value="1">Horizon 1</option>
                                                             <option value="2">Horizon 2</option>
                                                             <option value="3">Horizon 3</option>
-
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-2">
@@ -374,7 +344,6 @@
                                                         <% } %>
                                                 </div>
                                             </div>
-
                                             <div class="row">
                                                     <div class="col-sm-12">
                                                         <b>Capital and Partners </b>
@@ -407,11 +376,9 @@
                                                             <% } %>
                                                     </div>
                                                 </div>
-
                                         </div>
                                         <!-- /.card-body -->
                                     </div>
-
                                     <div class="card card-default color-palette-box">
                                             <div class="card-header">
                                                 <div class="row">
@@ -427,11 +394,8 @@
                                                                       </a>
                                                     </div>
                                                 </div>
-                                                
-                                                
                                             </div>
                                             <!-- /.card-header -->
-
                                             <div id="assets">
                                             <% for(var i=0; i<assets.length; i++) {%>
                                                     <div class="card card-danger color-palette-box">
@@ -465,7 +429,6 @@
                                                             <tr>
                                                                 <td>Products and services</td>
                                                                 <td>
-                                                                   
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].productsAndServicesPerfection %>">
                                                                                         <%= assets[i].productsAndServicesPerfection %>
@@ -476,11 +439,8 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                    
                                                                 </td>
                                                                 <td>
-                                                                    
-                                                                        
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm ">
                                                                                 <option selected value="<%= assets[i].productsAndServicesRelevance %>">
                                                                                         <%= assets[i].productsAndServicesRelevance %>
@@ -491,10 +451,8 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                    
                                                                 </td>
                                                                 <td>
-                                                                    
                                                                     <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
                                                             type="text" placeholder="<%= assets[i].productsAndServicesNote %>"><%= assets[i].productsAndServicesNote %></textarea>
                                                                 </td>
@@ -502,7 +460,6 @@
                                                             <tr>
                                                                 <td>Team Members</td>
                                                                 <td>
-                                                                    
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value=" <%= assets[i].teamMembersPerfection %>">
                                                                                         <%= assets[i].teamMembersPerfection %>
@@ -513,11 +470,8 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                   
                                                                 </td>
                                                                 <td>
-                                                                    
-                                                                        
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].teamMembersRelevance %>">
                                                                                         <%= assets[i].teamMembersRelevance %>
@@ -528,10 +482,8 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                    
                                                                 </td>
                                                                 <td>
-
                                                                         <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
                                                                         type="text" placeholder="<%= assets[i].teamMembersNote %>"><%= assets[i].teamMembersNote %></textarea>
                                                                     
@@ -540,8 +492,6 @@
                                                             <tr>
                                                                 <td>Data</td>
                                                                 <td>
-                                                                    
-                                                                        
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].dataPerfection %>">
                                                                                         <%= assets[i].dataPerfection %>
@@ -552,11 +502,8 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                    
                                                                 </td>
                                                                 <td>
-                                                                   
-                                                                        
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].dataRelevance %>">
                                                                                         <%= assets[i].dataRelevance %>
@@ -567,20 +514,16 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                    
                                                                 </td>
                                                                 <td>
                                                                         <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
                                                                         type="text" placeholder="<%= assets[i].dataNote %>"><%= assets[i].dataNote %></textarea>
-                                                                   
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Channels</td>
                                                                 <td>
-                                                                    
-                                                                        
-                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                     <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].channelsPerfection %>">
                                                                                         <%= assets[i].channelsPerfection%>
                                                                                 </option>
@@ -590,12 +533,9 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                    
-                                                                </td>
+                                                                     </td>
                                                                 <td>
-                                                                   
-                                                                        
-                                                                        <select id="availabilityForDogus" class="form-control form-control-sm">
+                                                                    <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].channelsRelevance %>">
                                                                                         <%= assets[i].channelsRelevance %>
                                                                                 </option>
@@ -605,10 +545,8 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                   
                                                                 </td>
                                                                 <td>
-                                                                    
                                                                     <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
                                                                         type="text" placeholder="<%= assets[i].channelsNote %>"><%= assets[i].channelsNote %></textarea>
                                                                 </td>
@@ -616,8 +554,6 @@
                                                             <tr>
                                                                 <td>Customer Base</td>
                                                                 <td>
-                                                                   
-                                                                        
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].customerBasePerfection %>">
                                                                                         <%= assets[i].customerBasePerfection %>
@@ -631,8 +567,6 @@
                                                                    
                                                                 </td>
                                                                 <td>
-                                                                   
-                                                                       
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].customerBaseRelevance %>">
                                                                                         <%= assets[i].customerBaseRelevance %>
@@ -643,12 +577,10 @@
                                                                                 <option value="4">4</option>
                                                                                 <option value="5">5</option>
                                                                             </select>
-                                                                   
                                                                 </td>
                                                                 <td>
                                                                         <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
-                                                                        type="text" placeholder="<%= assets[i].customerBaseNote %>"><%= assets[i].customerBaseNote %></textarea>
-                                                                    
+                                                                        type="text" placeholder="<%= assets[i].customerBaseNote %>"><%= assets[i].customerBaseNote %></textarea>  
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -666,7 +598,6 @@
                                                                             </select>
                                                                 </td>
                                                                 <td>
-                                                                        
                                                                         <select id="availabilityForDogus" class="form-control form-control-sm">
                                                                                 <option selected value="<%= assets[i].intellectualPropertyRightsRelevance %>">
                                                                                         <%= assets[i].intellectualPropertyRightsRelevance %>
@@ -715,8 +646,6 @@
                                                     <!-- /.card-body -->
                                                 </div>
                                         </div>
-
-
                                     <div class="card card-default color-palette-box">
                                         <div class="card-header">
                                             <h3 class="card-title">
@@ -780,24 +709,28 @@
             var startupData = {
                 "startup": {
                     "title": $("#startupName").val(),
+                    "consumerId": parseInt('<%= authProfile.id %>'),
                     "description": $("#description").text(),
-                    "consumerId": parseInt('<%= data.startup.id %>'),
-                    "sectorId": parseInt($("#sector").val()),
-                    "availabilityForDogus": parseInt($("#availabilityForDogus").val()),
-                    "quality": parseInt($("#quality").val()),
-                    "cooperation": $("#cooperation").val(),
+                    "logoImageUrl": "",
+                    "webPage": $("#webPage").val(),
+                    "cooperationCompanies": $("#cooperation").val(),
+                    "competingCompanies": $("#competing-companies").val(),
                     "phoneNumber": $("#phoneNumber").val(),
-                    "entrepreneurFullName": $("#fullName").val(),
-                    "entrepreneurJobTitle": $("#jobTitle").val(),
+                    "email": "",
+                    "products": $("#other-products").val(),
+                    "meetingDate": "2018-06-11",//$("#meeting-date").val(),
+                    "sectorId": parseInt($("#sector").val()),
                     "countryId": parseInt($("#countryName").val()),
-                    "statusId": parseInt($("#status").val()),
+                    "statusId": parseInt($("#status").val())
                 },
-                "assets": [],
+                "documents": [],
                 "tags": getTag(),
-                "groups": horizonList
+                "groups": horizonList,
+                "entrepreneurs": entrepreneursList,
+                "capitalAndPartners" :capitalAndPartnersList
             }
             console.log(startupData);
-            $.ajax({
+           $.ajax({
                 type: 'POST',
                 dataType: "json",
                 data: JSON.stringify(startupData),
@@ -813,6 +746,7 @@
                     });
                 },
                 error: function (data) {
+                    console.log(data)
                     $(".message-box-danger").toggle(750, function () {
                         setTimeout(function () {
                             $(".message-box-danger").toggle(750);
@@ -883,6 +817,14 @@ console.log(horizonList);
         }
 
         var capitalAndPartnersList = [];
+        var userCapitalAndPartnersList = JSON.parse('<%- JSON.stringify(data.capitalAndPartners) %>');
+        for (i = 0; i < userCapitalAndPartnersList.length; i++) {
+            capitalAndPartnersList.push({
+                "companyName": userCapitalAndPartnersList[i].companyName,
+                "share": userCapitalAndPartnersList[i].share
+            })
+        }
+        
         function addCapitalandPartners(){
             var companyName = $("#capCompanyName").val();
             var shareValue = $("#capShare").val();
@@ -907,7 +849,6 @@ console.log(horizonList);
             }
             console.log(capitalAndPartnersList);
         }
-
         function deleteCapitalandPartners(deletedItemID){
             $(".capitalpartners-item-" + deletedItemID).remove();
             var capitalpartnersids = String(deletedItemID).split("-")
@@ -961,6 +902,18 @@ function addAsset(){
     $('#addNewAsset').hide();
 }
 
+var entrepreneursList = [];
+        var userEntrepreneurList = JSON.parse('<%- JSON.stringify(data.entrepreneurs) %>');
+        for (i = 0; i < userEntrepreneurList.length; i++) {
+            entrepreneursList.push({
+                "fullName": userEntrepreneurList[i].fullName,
+                "jobTitle": userEntrepreneurList[i].jobTitle,
+                "phoneNumber": userEntrepreneurList[i].phoneNumber,
+                "email": userEntrepreneurList[i].email
+
+            })
+        }
+        console.log(entrepreneursList)
 function newEntrepreneurs(){
     var templateEntrepreneurs = $('#entrepreneurs-template').html();
     $('.entrepreneurs').prepend(templateEntrepreneurs);
@@ -970,6 +923,22 @@ function newEntrepreneurs(){
 function addEntrepreneurs(){
     $('.new-entrepreneurs').show();
     $('#addNewEntrepreneurs').hide();
+
+    $("#authority-fullName").each(function(i, fullName){
+        $("#authority-jobTitle").each(function(i, jobTitle){
+            $("#authority-phoneNumber").each(function(i, phoneNumber){
+                $("#authority-email").each(function(i, email){
+                    entrepreneursList.push({
+                        "fullName": $(fullName).val(),
+                        "jobTitle": $(jobTitle).val(),
+                        "phoneNumber": $(phoneNumber).val(),
+                        "email": $(email).val()
+                    })
+                });
+            });
+        });
+    });
+    console.log(entrepreneursList)
 }
 
 function assetGeneralEvaluationSwitch(){
@@ -984,7 +953,7 @@ function assetGeneralEvaluationSwitch(){
                 <div class="col-sm-6">
                     <b>Full Name: </b>
                     <span>
-                            <input id="authority-fullName<" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
+                            <input id="authority-fullName" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
                             placeholder="" value="">
 
                     </span>

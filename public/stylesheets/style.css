@@ -68,3 +68,18 @@
     width: 100vw;
     height: 100vh;
 }
+
+.update-input {
+    border: 1px solid #f4f6f9;
+    text-align: center;
+    border-bottom-color: #ced4da;
+    background-color: #f4f6f9;
+}
+
+.update-input-bottom {
+    border: 1px solid #fff;
+    text-align: left;
+    border-bottom-color: #ced4da;
+    background-color: #fff;
+    margin-top: 10px;
+}
