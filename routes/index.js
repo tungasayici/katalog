@@ -17,7 +17,7 @@ function sessionCheck(req, res, next) {
 
 /* GET login page. */
 router.get('/', function (req, res, next) {
-
+  req.session.destroy();
   res.render('login', {
     title: 'Login'
   });
