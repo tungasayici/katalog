@@ -942,9 +942,18 @@ function addEntrepreneurs(){
 }
 
 function assetGeneralEvaluationSwitch(){
-
 }
 
+function innovationCheck(){
+        $("#innovationCheck").css("border","solid 1px red")
+        $("#processImprovementCheck").css("border","solid 1px lightgray")
+}
+
+function processImprovementCheck(){
+    console.log("ddd")
+        $("#processImprovementCheck").css("border","solid 1px red")
+        $("#innovationCheck").css("border","solid 1px lightgray")
+}
     </script>
 
 <script id="entrepreneurs-template" type="text/x-custom-template">
@@ -1218,8 +1227,8 @@ function assetGeneralEvaluationSwitch(){
                                 
                                     <div class="row">
                                         
-                                    <div class="col-6" style="border: solid 1px red;">Innovation</div>
-                                    <div class="col-6" style="border: solid 1px lightgray;">Process Improvement</div>
+                                    <div id="innovationCheck" onclick="innovationCheck()" class="btn col-6" style="border: solid 1px red;">Innovation</div>
+                                    <div id="processImprovementCheck" onclick="processImprovementCheck()" class="btn col-6" style="border: solid 1px lightgray;">Process Improvement</div>
                                     </div>
                                     
                             
