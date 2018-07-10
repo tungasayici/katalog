@@ -64,7 +64,7 @@
                                         <div class="row">
                                             <div class="col-md-3"></div>
                                             <div class="col-md-6">
-                                                <input id="startupName" class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="<%= data.startup.title %>"
+                                                <input id="startupName" class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="Startup Title"
                                                     value="<%= data.startup.title %>">
                                             </div>
                                             <div class="col-md-3"></div>
@@ -72,7 +72,7 @@
 
                                         <div class="row">
                                             <div class="col-md-3">
-                                                    <input type="text" id="meeting-date" placeholder="<%= new Date(data.startup.meetingDate).toDateString() %>" value="<%= new Date(data.startup.meetingDate).toDateString() %>" class="form-control form-control-sm detail-header-sub-title update-input" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" disabled >
+                                                    <input type="text" id="meeting-date" placeholder="Meeting Date" value="<%= new Date(data.startup.meetingDate).toDateString() %>" class="form-control form-control-sm detail-header-sub-title update-input" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" disabled >
 
                                             </div>
                                             <div class="col-md-3 col-6 col-sm-6">
@@ -81,7 +81,7 @@
                                                         placeholder="Phone Number">
                                                     <%} else{ %>
                                                         <input id="phoneNumber" class="form-control form-control-sm detail-header-sub-title update-input" type="text"
-                                                        placeholder="<%= data.startup.phoneNumber %>" value="<%= data.startup.phoneNumber %>">
+                                                        placeholder="Phone Number" value="<%= data.startup.phoneNumber %>">
                                                     
                                                         <% } %>
                                             </div>
@@ -98,12 +98,12 @@
                                                 </select>
                                             </div>
                                             <div class="col-md-3">
-                                                    <input type="text" id="webPage" placeholder="<%= data.startup.webPage %>" value="<%= data.startup.webPage %>" class="form-control form-control-sm detail-header-sub-title update-input" >
+                                                    <input type="text" id="webPage" placeholder="Startup Webpage" value="<%= data.startup.webPage %>" class="form-control form-control-sm detail-header-sub-title update-input" >
 
                                             </div>
                                         </div>
                                         <!-- /.tags -->
-                                        <input name='tags' placeholder='write here' value="<%= values %>" id="tagInput">
+                                        <input name='tags' placeholder='add tags...' value="<%= values %>" id="tagInput">
 
                                         </span>
                                     </div>
@@ -140,7 +140,7 @@
                                                             <b>Full Name: </b>
                                                             <span>
                                                                     <input id="authority-fullName<" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                                    placeholder="<%= data.entrepreneurs[j].fullName %>" value="<%= data.entrepreneurs[j].fullName %>">
+                                                                    placeholder="Full Name" value="<%= data.entrepreneurs[j].fullName %>">
         
                                                             </span>
                                                         </div>
@@ -148,7 +148,7 @@
                                                             <b>Job Title: </b>
                                                             <span>
                                                                     <input id="authority-jobTitle" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                                    placeholder="<%= data.entrepreneurs[j].jobTitle %>" value="<%= data.entrepreneurs[j].jobTitle %>">
+                                                                    placeholder="Job Title" value="<%= data.entrepreneurs[j].jobTitle %>">
         
                                                             </span>
                                                         </div>
@@ -156,7 +156,7 @@
                                                             <b>Phone Number: </b>
                                                             <span>
                                                                     <input id="authority-phoneNumber" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                                    placeholder="<%= data.entrepreneurs[j].phoneNumber %>" value="<%= data.entrepreneurs[j].phoneNumber %>">
+                                                                    placeholder="Phone Number" value="<%= data.entrepreneurs[j].phoneNumber %>">
         
                                                             </span>
                                                         </div>
@@ -164,7 +164,7 @@
                                                             <b>E-Mail: </b>
                                                             <span>
                                                                     <input id="authority-email" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                                    placeholder=" <%= data.entrepreneurs[j].email %>" value=" <%= data.entrepreneurs[j].email %>">
+                                                                    placeholder="E-Mail" value=" <%= data.entrepreneurs[j].email %>">
         
                                                             </span>
                                                         </div>
@@ -187,7 +187,7 @@
                                                     <b>Description: </b>
                                                     <span>
                                                         <textarea id="description" rows="2" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom"
-                                                            type="text" placeholder=" <%= data.startup.description %>"><%= data.startup.description %></textarea>
+                                                            type="text" placeholder="Description"><%= data.startup.description %></textarea>
 
 
                                                     </span>
@@ -214,7 +214,7 @@
                                                         <b>Other Products: </b>
                                                         <span>
                                                             <input id="other-products" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                                placeholder="<%= data.startup.products %>" value="<%= data.startup.products %>">
+                                                                placeholder="Products" value="<%= data.startup.products %>">
     
     
                                                         </span>
@@ -224,14 +224,14 @@
                                                     <b>Cooperations: </b>
                                                     <span>
                                                         <input id="cooperation" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                            placeholder="<%= data.startup.cooperationCompanies %>" value="<%= data.startup.cooperationCompanies %>">
+                                                            placeholder="Cooperation Companies" value="<%= data.startup.cooperationCompanies %>">
                                                     </span>
                                                 </div>
                                                 <div class="col-sm-6">
                                                         <b>Competings: </b>
                                                         <span>
                                                             <input id="competing-companies" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                                placeholder="<%= data.startup.competingCompanies %>" value="<%= data.startup.competingCompanies %>">
+                                                                placeholder="Competing Companies" value="<%= data.startup.competingCompanies %>">
                                                         </span>
                                                     </div>
                                             </div>
@@ -454,7 +454,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
-                                                            type="text" placeholder="<%= assets[i].productsAndServicesNote %>"><%= assets[i].productsAndServicesNote %></textarea>
+                                                            type="text" placeholder="Product and Service Notes"><%= assets[i].productsAndServicesNote %></textarea>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -485,7 +485,7 @@
                                                                 </td>
                                                                 <td>
                                                                         <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
-                                                                        type="text" placeholder="<%= assets[i].teamMembersNote %>"><%= assets[i].teamMembersNote %></textarea>
+                                                                        type="text" placeholder="Team Members Note"><%= assets[i].teamMembersNote %></textarea>
                                                                     
                                                                 </td>
                                                             </tr>
@@ -517,7 +517,7 @@
                                                                 </td>
                                                                 <td>
                                                                         <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
-                                                                        type="text" placeholder="<%= assets[i].dataNote %>"><%= assets[i].dataNote %></textarea>
+                                                                        type="text" placeholder="Data Note"><%= assets[i].dataNote %></textarea>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -548,7 +548,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
-                                                                        type="text" placeholder="<%= assets[i].channelsNote %>"><%= assets[i].channelsNote %></textarea>
+                                                                        type="text" placeholder="Channels Note"><%= assets[i].channelsNote %></textarea>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -580,7 +580,7 @@
                                                                 </td>
                                                                 <td>
                                                                         <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
-                                                                        type="text" placeholder="<%= assets[i].customerBaseNote %>"><%= assets[i].customerBaseNote %></textarea>  
+                                                                        type="text" placeholder="Customer Base Note"><%= assets[i].customerBaseNote %></textarea>  
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -611,7 +611,7 @@
                                                                 </td>
                                                                 <td>
                                                                         <textarea id="description" rows="1" class="form-control form-control form-control-sm"" "
-                                                                        type="text" placeholder="<%= assets[i].intellectualPropertyRightsNote %>"><%= assets[i].intellectualPropertyRightsNote %></textarea>
+                                                                        type="text" placeholder="Intellectual Property Rights Note"><%= assets[i].intellectualPropertyRightsNote %></textarea>
                                                                     
                                                                 </td>
                                                             </tr>
@@ -954,7 +954,7 @@ function assetGeneralEvaluationSwitch(){
                     <b>Full Name: </b>
                     <span>
                             <input id="authority-fullName" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                            placeholder="" value="">
+                            placeholder="Full Name" value="">
 
                     </span>
                 </div>
@@ -962,7 +962,7 @@ function assetGeneralEvaluationSwitch(){
                     <b>Job Title: </b>
                     <span>
                             <input id="authority-jobTitle" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                            placeholder="" value="">
+                            placeholder="Job Title" value="">
 
                     </span>
                 </div>
@@ -970,7 +970,7 @@ function assetGeneralEvaluationSwitch(){
                     <b>Phone Number: </b>
                     <span>
                             <input id="authority-phoneNumber" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                            placeholder="" value="">
+                            placeholder="Phone Number" value="">
 
                     </span>
                 </div>
@@ -978,7 +978,7 @@ function assetGeneralEvaluationSwitch(){
                     <b>E-Mail: </b>
                     <span>
                             <input id="authority-email" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                            placeholder="" value="">
+                            placeholder="E-Mail" value="">
 
                     </span>
                 </div>

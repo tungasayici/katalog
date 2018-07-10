@@ -40,15 +40,16 @@
     $.get('/controller/getTags', function (res) {
       var data = JSON.parse(res);
       for (var i = 0; i < data.length; i++) {
-        $("#tags").append('<li class="nav-item">' +
+        if(data[i].count != 0){
+          $("#tags").append('<li class="nav-item">' +
           '<a href="#" class="nav-link">' +
           '<i class="nav-icon fa fa-tag"></i>' +
           '<p>' +
           data[i].tag.name +
           '<span class="badge badge-info right">' + data[i].count + '</span>' +
           '</p></a></li>');
+        }
       }
-
     })
   })
 </script>
