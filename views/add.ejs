@@ -63,10 +63,8 @@
                                                 </div>
                                                 <input id="email" type="text" class="form-control" placeholder="Enter E-Mail Address...">
                                             </div>
-
                                             <!-- /.input group -->
                                         </div>
-
                                         <div class="form-group">
                                             <label>Phone Number</label>
 
@@ -129,8 +127,6 @@
                                             </div>
                                         </div>
 
-
-
                                         <!-- select -->
                                         <div class="form-group">
                                             <label>Select Location</label>
@@ -168,21 +164,45 @@
                                             </div>
                                         </div>
 
+                                        <!-- select -->
+                                        <div class="form-group">
+                                            <label>Select Data Channel</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="fa fa-map-marker"></i>
+                                                    </span>
+                                                </div>
+                                                <select class="form-control" id="location">
+                                                    <% for(var j=0; j<allCountries.length; j++) {%>
+                                                        <option value="<%= allCountries[j].id %>">
+                                                            <%= allCountries[j].nicename %>
+                                                        </option>
+                                                        <% } %>
+                                                </select>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <label>Interview Date</label>
 
                                             <div class="input-group">
-                                                <div class="input-group-prepend">
+                                                <div class="input-group-prepend" style="width: 100%">
                                                     <span class="input-group-text">
-                                                        <i class="fa fa-calendar"></i>
+                                                        <i class="fa fa-map-marker"></i>
                                                     </span>
+
+                                                    <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
+                                                        <span class="input-group-addon">
+                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                        </span>
+                                                        <input class="form-control age-input" id="birthdaypicker" type="text" value="">
+
+                                                    </div>
                                                 </div>
-                                                <input type="text" id="meeting-date" class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
-                                            </div>
+                                                 </div>
                                             <!-- /.input group -->
                                         </div>
-
                                     </form>
                                 </div>
                                 <!-- /.card-body -->
@@ -191,8 +211,6 @@
                                     <button type="submit" class="btn btn-default" onclick="document.getElementById('addForm').reset();">Clear</button>
                                 </div>
                             </div>
-
-
                         </section>
                         <!-- /.content -->
                     </div>
@@ -202,11 +220,31 @@
         </div>
         <!-- ./wrapper -->
         <%- include('./components/scripts'); -%>
+            <script type="text/javascript">
+                var birthday = ""
+                $(function () {
+                    $("#datepicker").datepicker({
+                        autoclose: true,
+                        todayHighlight: true,
+                        format: 'yyyy-mm-dd',
+                        language: 'tr',
+                        keyboardNavigation: true
+                    }).datepicker('update', new Date());
+                });
+                $('#datepicker').on('changeDate', function () {
+                    birthday = $('#my_hidden_input').val(
+                        $('#datepicker').datepicker('getFormattedDate')
+                    );
+                    birthday = $('#birthdaypicker').val()
+                    console.log(birthday);
+                });
+
+            </script>
             <script>
                 function addStartup() {
                     var selectedGroups = [];
                     $('#checkboxes input:checked').each(function () {
-                        selectedGroups.push({"groupId" : parseInt($(this).attr('value'))});
+                        selectedGroups.push({ "groupId": parseInt($(this).attr('value')) });
                     });
 
                     var startupData = {
@@ -217,7 +255,7 @@
                             "countryId": parseInt($("#location").val()),
                             "logoImageUrl": "http://iphex-india.com/dev/assets/images/nologo.png",
                             "webPage": $("#website").val(),
-                            "meetingDate": $("#meeting-date").val(),
+                            "meetingDate": $('#birthdaypicker').val(),
                             "phoneNumber": $("#phone-number").val(),
                             "email": $("#email").val(),
 
@@ -225,7 +263,7 @@
                         "documents": [],
                         "tags": [],
                         "groups": selectedGroups,
-                        "entrepreneurs":[],
+                        "entrepreneurs": [],
                         "capitalAndPartners": []
                     }
                     $.ajax({
