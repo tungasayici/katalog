@@ -64,7 +64,7 @@
                                         <div class="row">
                                             <div class="col-md-3"></div>
                                             <div class="col-md-6">
-                                                <input id="startupName" class="form-control form-control-lg detail-header-title update-input" type="text" placeholder="Startup Title"
+                                                <input id="startupName" class="form-control form-control-lg detail-header-title update-input"  style="margin-bottom: 10px" type="text" placeholder="Startup Title"
                                                     value="<%= data.startup.title %>">
                                             </div>
                                             <div class="col-md-3"></div>
@@ -356,7 +356,7 @@
                                                         </div>
                                                         <div class="col-sm-5">
                                                                 <input id="capShare" class="form-control form-control form-control-sm detail-header-sub-title update-input-bottom" type="text"
-                                                                placeholder="Share Value">
+                                                                placeholder="Share Value %">
     
                                                         </div>
                                                         <div class="col-sm-2">
@@ -840,7 +840,7 @@ console.log(horizonList);
                     $(".capitalpartners-list").append(
                         "<div class='col-sm-12 capitalpartners-item-" + companyName +
                         "' style='margin-top:5px;'>" + companyName +
-                        "&#8594; Horizon " + shareValue +
+                        "&#8594; %" + shareValue +
                         "<a onclick='deleteCapitalandPartners(`" + companyName +
                         "`)'>&nbsp;<i style='color: red;' class='fas fa-minus-circle'></i></a></div>"
                     )
