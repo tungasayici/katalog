@@ -10,15 +10,13 @@ var controllerRouter = require('./routes/controller');
 var passportLinkedin = require('./services/authLinkedin');
 
 var app = express();
-app.use(cookieParser());
+
 app.use(session({
   secret: "dfhjoasweskjksi",
   resave: false,
   saveUninitialized: true,
 }));
 
-app.use('/', indexRouter);
-app.use('/controller', controllerRouter);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -26,7 +24,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
