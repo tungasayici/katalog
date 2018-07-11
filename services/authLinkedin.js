@@ -6,7 +6,7 @@ passport.use(new LinkedInStrategy({
         consumerKey: "779f6tmwjyjwr7",
         consumerSecret: "tWoFY3QhPIHRSs2f",
         callbackURL: "http://katalog-frontend.herokuapp.com/auth/linkedin/callback",
-        profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline', 'positions']
+        profileFields: ['id', 'first-name', 'last-name', 'email-address', 'headline', 'positions', 'picture-url']
     },
     function (token, tokenSecret, profile, done) {
         console.log(profile);
